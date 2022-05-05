@@ -6,14 +6,12 @@ import {
   View,
   TextInput,
   Dimensions,
-  TouchableOpacity,
 } from 'react-native'
-import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg'
 import SvgTop from './components/auth/login/SvgTop'
 
 const { width, height } = Dimensions.get('window')
 
-export default function App() {
+export default function App(){
   return (
     <View style={styles.mainContainer}>
       <View style={styles.containerSVG}>
