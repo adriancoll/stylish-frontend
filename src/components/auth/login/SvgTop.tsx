@@ -1,7 +1,12 @@
+import { RootState } from "@store"
 import React from "react"
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
+import { useSelector } from "react-redux"
+import { UserState } from "store/features/user/userSlice"
 
 export default function SvgTop() {
+
+
   return (
     <Svg
       width={500}

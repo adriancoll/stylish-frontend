@@ -2,11 +2,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '@store'
 import { User } from 'interfaces/user.interface'
 
-interface UserState {
+export interface UserState {
   user: User
 }
 
-const initialState = { user: {} } as UserState
+const initialState = { user: {
+  name          : 'asdasd',
+  phoneNumber   : 'string',
+  email         : 'asd@asd.asd',
+  image         : 'string',
+  role          : 'BUSINESS_ROLE',
+  status        : true,
+  google        : true,
+  uid           : 'asdasd'
+} } as UserState
 
 const usertSlice = createSlice({
   name: 'user',
