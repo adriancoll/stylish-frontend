@@ -3,5 +3,3 @@ export type ServiceType = {
   name     : string;
   duration : number;
 };
-
-
