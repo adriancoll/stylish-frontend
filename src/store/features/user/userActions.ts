@@ -1,6 +1,6 @@
 import { store } from '@store'
 import { API_AUTH } from 'api/auth'
-import { setUser } from './userSlice'
+import { loginUser } from './userSlice'
 
 export const login = async (email: string, password: string) => {
   try {
@@ -11,9 +11,7 @@ export const login = async (email: string, password: string) => {
       throw new Error(data.message)
     }
 
-    let user = data.results.user
-
-    store.dispatch(setUser(user))
+    store.dispatch(loginUser(data.results))
   } catch (error) {
     console.error(error)
   }

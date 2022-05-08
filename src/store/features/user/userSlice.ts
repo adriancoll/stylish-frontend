@@ -1,31 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '@store'
-import { User } from 'interfaces/user.interface'
+import { LoginResponse, User } from 'interfaces/user.interface'
 
 export interface UserState {
   user: User
+  token: string
 }
 
-const initialState = { user: {
-  name          : 'asdasd',
-  phoneNumber   : 'string',
-  email         : 'asd@asd.asd',
-  image         : 'string',
-  role          : 'BUSINESS_ROLE',
-  status        : true,
-  google        : true,
-  uid           : 'asdasd'
-} } as UserState
+//** @var {User} Just a mock for testing */
+const initialState = { user: {}, token: '' } as UserState
 
 const usertSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload
+    loginUser: (state, action: PayloadAction<LoginResponse>) => {
+      state.user = action.payload.user
+      state.token = action.payload.token
     },
   },
 })
 
-export const { setUser } = usertSlice.actions
+export const { loginUser } = usertSlice.actions
 export default usertSlice.reducer

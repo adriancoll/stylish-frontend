@@ -26,6 +26,6 @@ export interface Business {
 export interface LoginResponse {
   appointments? : Appointment[]
   business?     : Business
-  user         : User
+  user          : User
   token         : string
 }
