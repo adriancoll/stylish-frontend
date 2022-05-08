@@ -1,21 +1,32 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { store } from './src/store'
 import { Provider } from 'react-redux'
 import HomeScreen from './src/screens/HomeScreen'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { API_URL } from './src/utils/constants'
+import axios from 'axios'
+import { setupInterceptorsTo } from './src/utils/axiosConfig'
 
-const Stack = createNativeStackNavigator()
+axios.defaults.baseURL = API_URL
+
+setupInterceptorsTo(axios)
+
+const Tab = createMaterialBottomTabNavigator()
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='Home' component={HomeScreen} />
-        </Stack.Navigator>
+        <Tab.Navigator>
+          <Tab.Screen
+            options={{
+              tabBarLabel: 'Home',
+            }}
+            name='Home'
+            component={HomeScreen}
+          />
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   )
 }
-

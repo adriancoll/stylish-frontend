@@ -11,7 +11,8 @@
       "@features": ["./store/features"],
       "@screens": ["./screens"],
       "@api": ["./api"],
-      "@helpers": ["./helpers"]
+      "@helpers": ["./helpers"],
+      "@utils": ["./utils"]
     }
   }
 }

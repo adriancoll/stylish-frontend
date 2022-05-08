@@ -11,10 +11,10 @@ type BackendValidationError = {
   location: string;
 };
 
-interface BaseRequest<T> {
+interface BaseResponse<T> {
   error: boolean;
   code: number;
-  message?: string;
-  results?: T;
-  errors?: BackendValidationError[];
+  message: string;
+  results: T;
+  errors: BackendValidationError[];
 }
