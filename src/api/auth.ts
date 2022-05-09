@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { LoginResponse } from 'interfaces/user.interface'
 
-const login = async (email: string, password: string) => {
+const loginAttempt = async (email: string, password: string) => {
   const res = await axios.post<BaseResponse<LoginResponse>>('/api/login', {
     email,
     password,
@@ -9,6 +9,4 @@ const login = async (email: string, password: string) => {
   return res.data
 }
 
-export const API_AUTH = {
-  login,
-}
+export { loginAttempt }

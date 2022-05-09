@@ -3,18 +3,24 @@
  * REQUEST STRUCTURE, IN SUCCESS / ERRORS AND VALIDATION REQUESTS
  */
 
-type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE";
+type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 
 type BackendValidationError = {
-  msg: string;
-  param: string;
-  location: string;
-};
+ msg      : string
+ param    : string
+ location : string
+}
 
 interface BaseResponse<T> {
-  error: boolean;
-  code: number;
-  message: string;
-  results: T;
-  errors: BackendValidationError[];
+ error    : boolean
+ code     : number
+ message  : string
+ results  : T
+ errors   : BackendValidationError[]
+}
+
+type RootStackParamList = {
+ Welcome  : undefined
+ Login    : undefined
+ Register : undefined
 }

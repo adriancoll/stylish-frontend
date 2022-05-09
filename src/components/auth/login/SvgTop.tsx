@@ -1,18 +1,9 @@
-import { RootState } from "@store"
-import React from "react"
-import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
-import { useSelector } from "react-redux"
-import { UserState } from "store/features/user/userSlice"
+import React from 'react'
+import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg'
 
 export default function SvgTop() {
-
-
   return (
-    <Svg
-      width={500}
-      height={324}
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'>
+    <Svg width={500} height={324} fill='none'>
       <Path
         d='M297.871 315.826c73.405 13.896 165.338-13.964 202.129-29.63V230H1.326v63.5c69.15-42.913 204.789 4.957 296.545 22.326z'
         fill='url(#prefix__paint0_linear_103:6)'
