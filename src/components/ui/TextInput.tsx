@@ -3,7 +3,7 @@ import { Control, Controller } from 'react-hook-form'
 import { StyleSheet, TextInput, TextInputProps, View, Text } from 'react-native'
 
 type Props = {
-  control: Control
+  control: Control<any>
   name: string
 }
 

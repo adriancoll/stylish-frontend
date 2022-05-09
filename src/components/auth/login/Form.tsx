@@ -6,6 +6,7 @@ import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 
 import { useForm } from 'react-hook-form'
 import { StyledInput } from '../../ui/TextInput'
+import { login } from '../../../store/features/user/userActions'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -16,19 +17,24 @@ const schema = Yup.object().shape({
     .required('Debe ingresar una contraseña'),
 })
 
+interface FormData {
+  email: string
+  password: string
+}
+
 export const LoginForm: FC = () => {
   const {
     control,
     watch,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm({
+  } = useForm<FormData>({
     mode: 'onSubmit',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data: any) => {
-    console.log(data)
+  const onSubmit = ({ email, password }: FormData) => {
+    login(email, password)
   }
 
   return (
@@ -39,11 +45,7 @@ export const LoginForm: FC = () => {
         name='email'
         placeholder='john@stylish.com'
       />
-      <StyledInput
-        control={control}
-        name='password'
-        secureTextEntry
-      />
+      <StyledInput control={control} name='password' secureTextEntry />
       <CustomButton
         type={ButtonTypes.PRIMARY}
         bgColor='#3B71F3'

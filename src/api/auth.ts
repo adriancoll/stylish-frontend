@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { LoginResponse } from 'interfaces/user.interface'
+import { LoginResponse } from '../interfaces/user.interface'
 
 const loginAttempt = async (email: string, password: string) => {
   const res = await axios.post<BaseResponse<LoginResponse>>('/api/login', {
