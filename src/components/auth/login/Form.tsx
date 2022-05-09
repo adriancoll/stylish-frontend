@@ -25,9 +25,8 @@ interface FormData {
 export const LoginForm: FC = () => {
   const {
     control,
-    watch,
     handleSubmit,
-    formState: { errors, isValid, isDirty },
+    formState: { isValid },
   } = useForm<FormData>({
     mode: 'onSubmit',
     resolver: yupResolver(schema)
@@ -50,6 +49,7 @@ export const LoginForm: FC = () => {
         type={ButtonTypes.PRIMARY}
         bgColor='#3B71F3'
         fgColor='#000'
+        disabled={!isValid}
         onPress={handleSubmit(onSubmit)}
         title='Iniciar sesión'
       />
