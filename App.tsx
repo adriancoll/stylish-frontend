@@ -1,77 +1,32 @@
-import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Dimensions,
-} from 'react-native'
-import SvgTop from './components/auth/login/SvgTop'
+import { NavigationContainer } from '@react-navigation/native'
+import { store } from './src/store'
+import { Provider } from 'react-redux'
+import HomeScreen from './src/screens/HomeScreen'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { API_URL } from './src/utils/constants'
+import axios from 'axios'
+import { setupInterceptorsTo } from './src/utils/axiosConfig'
 
-const { width, height } = Dimensions.get('window')
+axios.defaults.baseURL = API_URL
 
-export default function App(){
+setupInterceptorsTo(axios)
+
+const Tab = createMaterialBottomTabNavigator()
+
+export default function App() {
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.containerSVG}>
-        <SvgTop />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.titulo}>Hola</Text>
-        <Text style={styles.subTitle}>Inicia sesión con tu cuenta</Text>
-        <TextInput placeholder='jhon@stylish.com' style={styles.textInput} />
-        <TextInput
-          placeholder='contraseña'
-          style={styles.textInput}
-          secureTextEntry={true}
-        />
-        <Text style={styles.forgotPassword}>He olvidado mi contraseña</Text>
-        <Text style={styles.forgotPassword}>¿No tienes una cuenta?</Text>
-        <StatusBar style='auto' />
-      </View>
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            options={{
+              tabBarLabel: 'Home',
+            }}
+            name='Home'
+            component={HomeScreen}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    backgroundColor: '#f1f1f1',
-    flex: 1,
-  },
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 30
-  },
-  containerSVG: {
-    width: width,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  titulo: {
-    fontSize: 80,
-    color: '#34434D',
-    fontWeight: 'bold',
-  },
-  subTitle: {
-    fontSize: 20,
-    color: 'gray',
-  },
-  textInput: {
-    padding: 10,
-    paddingStart: 30,
-    width: '100%',
-    height: 50,
-    marginTop: 20,
-    borderRadius: 30,
-    backgroundColor: '#fff',
-  },
-  forgotPassword: {
-    fontSize: 14,
-    alignSelf: 'flex-end',
-    color: 'gray',
-    marginTop: 20,
-  },
-  button: {},
-})
