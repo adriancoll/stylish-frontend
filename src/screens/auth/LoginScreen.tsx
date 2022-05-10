@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Plane } from 'react-native-animated-spinkit'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LoginForm } from '../../components/auth/login/Form'
 
@@ -13,7 +14,6 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView>
-      {/*  aqui va una img */}
       <LoginForm />
     </SafeAreaView>
   )

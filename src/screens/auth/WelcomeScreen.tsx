@@ -4,15 +4,22 @@ import { StyleSheet, Text, View } from 'react-native'
 import CustomButton, { ButtonTypes } from '../../components/ui/CustomButton'
 import { useTokenValidation } from '../../hooks/useTokenValidation'
 import theme from '../../theme/theme'
+import { Plane } from 'react-native-animated-spinkit'
+import { FullScreenLoader } from '../../components/ui/FullScreenSpinner'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
-
 export default function WelcomeScreen() {
-  const { error, isLoading, token, isValid } = useTokenValidation()
+  const { isLoading } = useTokenValidation()
   const navigator = useNavigation<authScreenProp>()
 
   const goToRegister = () => navigator.navigate('Register')
   const goToLogin = () => navigator.navigate('Login')
+
+  if (isLoading) {
+    return (
+      <FullScreenLoader />
+    )
+  }
 
   return (
     <View style={styles.container}>

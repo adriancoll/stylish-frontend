@@ -16,8 +16,6 @@ import autoMergeLevel1 from 'reduxjs-toolkit-persist/lib/stateReconciler/autoMer
 import userReducer from './features/user/userSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import persistStore from 'redux-persist/es/persistStore'
-import thunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
 
 const persistConfig = {
   key: 'root',

@@ -9,7 +9,7 @@ type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 export const useTokenValidation = () => {
   const [token, setToken] = useState(null)
   const [isValid, setIsValid] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const navigator = useNavigation<authScreenProp>()
 
@@ -33,10 +33,10 @@ export const useTokenValidation = () => {
           setIsValid(false)
           return
         }
-
+        
+        navigator.navigate('Profile')
         setToken(token)
         setIsValid(true)
-        navigator.navigate('Profile')
       } catch (error) {
         setError(error as any)
       }
@@ -44,7 +44,9 @@ export const useTokenValidation = () => {
       setIsLoading(false)
     }
 
-    fetchToken()
+    setTimeout(() => {
+      fetchToken()
+    }, 1000)
   }, [])
 
   return { token, isValid, isLoading, error }

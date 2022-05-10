@@ -13,7 +13,7 @@ const onRequest = async (config: AxiosRequestConfig) => {
   if (token) {
     config.headers['x-token'] = token
   }
-  console.info(`[request] [${JSON.stringify(config)}]`)
+  console.info(`[request] [${config.headers['x-token']}]`)
   return config
 }
 
@@ -36,7 +36,7 @@ const onResponseError = (
     ? error.response?.data.message
     : error.message
 
-  console.error(`[response error] [${message}]`)
+  console.error(`[response error] [${typeof message}]`)
 
   return Promise.reject(message)
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
@@ -9,6 +9,7 @@ import { StyledInput } from '../../ui/TextInput'
 import { login } from '../../../store/features/user/userActions'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
+import { Ionicons } from '@expo/vector-icons'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -45,7 +46,7 @@ export const LoginForm: FC = () => {
         navigator.navigate('Profile')
       })
       .catch((err) => {
-        console.log(err)
+        Alert.alert('Error', JSON.stringify(err))
       })
   }
 

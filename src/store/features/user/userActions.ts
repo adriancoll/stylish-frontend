@@ -18,7 +18,6 @@ export const login = (email: string, password: string) => {
       resolve(data.results.user)
     } catch (error) {
       reject(error)
-      console.error(error)
     }
   })
 }
