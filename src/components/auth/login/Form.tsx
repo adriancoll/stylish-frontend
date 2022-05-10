@@ -7,6 +7,8 @@ import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { useForm } from 'react-hook-form'
 import { StyledInput } from '../../ui/TextInput'
 import { login } from '../../../store/features/user/userActions'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -22,18 +24,29 @@ interface FormData {
   password: string
 }
 
+type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
+
 export const LoginForm: FC = () => {
+  const navigator = useNavigation<authScreenProp>()
+
   const {
     control,
     handleSubmit,
     formState: { isValid },
   } = useForm<FormData>({
     mode: 'onSubmit',
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   })
 
   const onSubmit = ({ email, password }: FormData) => {
     login(email, password)
+      .then(() => {
+        console.log('Login exitoso')
+        navigator.navigate('Profile')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (

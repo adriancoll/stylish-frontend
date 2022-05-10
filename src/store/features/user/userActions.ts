@@ -3,18 +3,22 @@ import { loginAttempt } from '../../../api/auth'
 import { storeData } from '../../../utils/asyncStorage'
 import { loginUser } from './userSlice'
 
-export const login = async (email: string, password: string) => {
-  try {
-    const data = await loginAttempt(email, password)
+export const login = (email: string, password: string) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await loginAttempt(email, password)
 
-    if (data.error) {
-      console.error(data.message, data.errors)
-      throw new Error(data.message)
+      if (data.error) {
+        reject(data.error)
+        throw new Error(data.message)
+      }
+
+      storeData('token', data.results.token)
+      store.dispatch(loginUser(data.results))
+      resolve(data.results.user)
+    } catch (error) {
+      reject(error)
+      console.error(error)
     }
-
-    storeData('token', data.results.token);
-    store.dispatch(loginUser(data.results))
-  } catch (error) {
-    console.error(error)
-  }
+  })
 }

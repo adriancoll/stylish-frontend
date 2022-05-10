@@ -10,7 +10,6 @@ export default function LoginScreen() {
   const navigator = useNavigation<authScreenProp>()
 
   const goToRegister = () => navigator.navigate('Register')
-  const goToLogin = () => navigator.navigate('Login')
 
   return (
     <SafeAreaView>
