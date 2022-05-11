@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Plane } from 'react-native-animated-spinkit'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LoginForm } from '../../components/auth/login/Form'
+import theme from '../../theme/theme'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
 
@@ -13,12 +14,13 @@ export default function LoginScreen() {
   const goToRegister = () => navigator.navigate('Register')
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <Text>Hola!</Text>
       <LoginForm />
     </SafeAreaView>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {},
+const styles = StyleSheet.create<any>({
+  container: theme.baseContainer,
 })

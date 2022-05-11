@@ -1,41 +1,59 @@
-import React, { FC } from 'react';
-import {Text, StyleSheet, ButtonProps, TouchableOpacity} from 'react-native';
+import React, { FC } from 'react'
+import {
+  Text,
+  StyleSheet,
+  ButtonProps,
+  TouchableOpacity,
+  TextStyle,
+  TextStyleAndroid,
+} from 'react-native'
+import theme from '../../theme/theme'
 
 export enum ButtonTypes {
-  PRIMARY   = 'PRIMARY',
+  PRIMARY = 'PRIMARY',
   SECONDARY = 'SECONDARY',
-  TERTIARY  = 'TERTIARY',
+  ACCENT = 'ACCENT',
+  TERTIARY = 'TERTIARY',
+  WHITE = 'WHITE',
 }
 
 type Props = {
-  type: ButtonTypes,
-  bgColor?: string,
-  fgColor?: string,
+  type: ButtonTypes
+  bgColor?: string
+  fgColor?: string
+  customStyle?: TextStyle | TextStyleAndroid
 }
 
-
-const CustomButton: FC<Props & ButtonProps> = ({onPress, title, type = 'PRIMARY', bgColor, fgColor}) => {
+const CustomButton: FC<Props & ButtonProps> = ({
+  onPress,
+  title,
+  type = 'PRIMARY',
+  bgColor,
+  fgColor,
+  customStyle,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         styles.container,
-        styles[`container_${type}`],
-        bgColor ? {backgroundColor: bgColor} : {},
+        getContainer(type),
+        bgColor ? { backgroundColor: bgColor } : {},
       ]}>
       <Text
         style={[
           styles.text,
           styles[`text_${type}`],
-          fgColor ? {color: fgColor} : {},
+          fgColor ? { color: fgColor } : {},
+          {...customStyle}
         ]}>
         {title}
       </Text>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create<any>({
   container: {
     width: '100%',
 
@@ -46,29 +64,43 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
+  text: {
+    fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
+    fontFamily: theme.fonts.bold,
+    color: theme.colors.white,
+  },
+
   container_PRIMARY: {
-    backgroundColor: '#3B71F3',
+    backgroundColor: theme.colors.primary,
+  },
+
+  container_WHITE: {
+    backgroundColor: theme.colors.white,
+  },
+
+  text_WHITE: {
+    color: theme.colors.black,
   },
 
   container_SECONDARY: {
-    borderColor: '#3B71F3',
-    borderWidth: 2,
+    backgroundColor: theme.colors.secondary,
+  },
+
+  container_ACCENT: {
+    backgroundColor: theme.colors.accent,
   },
 
   container_TERTIARY: {},
 
-  text: {
-    fontWeight: 'bold',
-    color: 'white',
-  },
-
   text_SECONDARY: {
-    color: '#3B71F3',
+    color: theme.colors.secondary,
   },
 
   text_TERTIARY: {
-    color: 'gray',
+    color: theme.colors.accent,
   },
-});
+})
 
-export default CustomButton;
+const getContainer = (container: string) => styles[`container_${container}`]
+
+export default CustomButton

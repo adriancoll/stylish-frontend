@@ -14,6 +14,8 @@ import LoginScreen from './src/screens/auth/LoginScreen'
 import { useColorScheme } from 'react-native'
 import ProfileScreen from './src/screens/main/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
+import { useFonts } from '@use-expo/font'
+import { FullScreenLoader } from './src/components/ui/FullScreenSpinner'
 
 axios.defaults.baseURL = API_URL
 
@@ -24,6 +26,16 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   const scheme = useColorScheme()
 
+  const [isLoaded] = useFonts({
+    'gilroy-light': require('./assets/fonts/Gilroy-Light.otf'),
+    'gilroy-regular': require('./assets/fonts/Gilroy-Regular.ttf'),
+    'gilroy-bold': require('./assets/fonts/Gilroy-Bold.ttf'),
+    'gilroy-extra-bold': require('./assets/fonts/Gilroy-ExtraBold.otf'),
+  })
+
+  if (!isLoaded) {
+    return <FullScreenLoader /> 
+  }
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

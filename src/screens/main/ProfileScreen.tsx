@@ -25,11 +25,11 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: theme.colors.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rowButtons: {
-    justifyContent: 'space-between',
-  },
+  text: {
+    fontFamily: theme.fonts.bold
+  }
 })

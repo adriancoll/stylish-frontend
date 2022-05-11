@@ -73,7 +73,5 @@ export const LoginForm: FC = () => {
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
-    padding: 20,
   },
 })
