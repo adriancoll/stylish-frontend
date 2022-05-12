@@ -16,6 +16,7 @@ import ProfileScreen from './src/screens/main/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useFonts } from '@use-expo/font'
 import { FullScreenLoader } from './src/components/ui/FullScreenSpinner'
+import { MainNavigation } from './src/navigation/Main'
 
 axios.defaults.baseURL = API_URL
 
@@ -39,32 +40,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer
-          theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack.Navigator>
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Welcome'
-              component={WelcomeScreen}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Login'
-              component={LoginScreen}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Profile'
-              component={ProfileScreen}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <MainNavigation />
       </PersistGate>
     </Provider>
   )
