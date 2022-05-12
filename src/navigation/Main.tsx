@@ -1,13 +1,12 @@
 import {
   NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useColorScheme } from "react-native";
 import LoginScreen from "../screens/auth/LoginScreen";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import ProfileScreen from "../screens/main/ProfileScreen";
+import { darkTheme, lightTheme } from "../theme/theme";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +14,7 @@ export const MainNavigation = () => {
   const scheme = useColorScheme();
 
   return (
-    <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={scheme === "dark" ? darkTheme : lightTheme}>
       <Stack.Navigator>
         <Stack.Group>
           <Stack.Screen

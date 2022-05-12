@@ -1,13 +1,15 @@
+import { DarkTheme, DefaultTheme } from '@react-navigation/native'
+
 const theme = {
   colors: {
-    primary: '#C664BE',
-    ['primary-light']: '#DEA3FF',
-    accent: '#E1372D',
-    secondary: '#fafafa',
-    white: '#fafafa',
-    background: '#D0D4E3', // background color
-    black: '#444053', // text color
-    grey: '#736E7F', // text color
+    primary: "#C664BE",
+    ["primary-light"]: "#DEA3FF",
+    accent: "#E1372D",
+    secondary: "#fafafa",
+    white: "#fafafa",
+    background: "#D0D4E3", // background color
+    black: "#444053", // text color
+    grey: "#736E7F", // text color
     // background: '#BCC5D2',	// background color
   },
   fontSizes: {
@@ -16,9 +18,9 @@ const theme = {
     heading: 26,
   },
   fonts: {
-    regular: 'gilroy-regular',
-    bold: 'gilroy-bold',
-    thin: 'gilroy-regular',
+    regular: "gilroy-regular",
+    bold: "gilroy-bold",
+    thin: "gilroy-regular",
   },
   fotnSizes: {
     heading: 20,
@@ -26,12 +28,12 @@ const theme = {
     body: 14,
   },
   fontWeights: {
-    bold: '900',
-    normal: '400',
+    bold: "900",
+    normal: "400",
   },
   baseContainer: {
     flex: 1,
-    backgroundColor: '#D0D4E3',
+    backgroundColor: "#D0D4E3",
     paddingHorizontal: 20,
   },
   spacing: {
@@ -46,6 +48,27 @@ const theme = {
     lg: 20,
     xl: 30,
   },
-}
+};
 
-export default theme
+export const darkTheme = {
+  ...DarkTheme,
+  ...theme,
+  colors: {
+    ...DarkTheme.colors,
+    ...theme.colors,
+    primary: ''
+  }
+};
+
+
+export const lightTheme = {
+  ...DefaultTheme,
+  ...theme,
+  colors: {
+    ...DefaultTheme.colors,
+    ...theme.colors,
+    primary: ''
+  }
+};
+
+export default theme;
