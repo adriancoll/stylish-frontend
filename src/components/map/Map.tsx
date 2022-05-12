@@ -6,6 +6,7 @@ import {
   getCurrentPositionAsync,
   LocationObject,
   LocationObjectCoords,
+  PermissionStatus,
 } from "expo-location";
 import { isEmpty } from "lodash";
 import { FullScreenLoader } from "../ui/FullScreenLoader";
@@ -16,12 +17,15 @@ interface Props extends MapViewProps {}
 export const Maps: FC<Props> = ({ ...props }) => {
   const [location, setLocation] = useState<LocationObjectCoords>({} as LocationObjectCoords);
 
-  
+  /**
+   * Traer permisos y coordenadas del usuario
+   * @url https://docs.expo.dev/versions/latest/sdk/location/
+   */
   useEffect(() => {
     (async () => {
       let { status } = await getBackgroundPermissionsAsync();
 
-      if (status !== "granted") {
+      if (status !== PermissionStatus.GRANTED) {
         Alert.alert("Error", "Debes permitir la localización para ver el mapa");
         return;
       }
