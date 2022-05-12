@@ -15,7 +15,7 @@ import { useColorScheme } from 'react-native'
 import ProfileScreen from './src/screens/main/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useFonts } from '@use-expo/font'
-import { FullScreenLoader } from './src/components/ui/FullScreenSpinner'
+import { FullScreenLoader } from './src/components/ui/FullScreenLoader'
 import { MainNavigation } from './src/navigation/Main'
 
 axios.defaults.baseURL = API_URL

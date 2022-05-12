@@ -30,6 +30,7 @@
     "react-native-animated-spinkit": "^1.5.2",
     "react-native-async-storage": "0.0.1",
     "react-native-fontawesome": "^7.0.0",
+    "react-native-maps": "^0.31.1",
     "react-native-paper": "^4.12.1",
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
@@ -43,7 +44,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "reduxjs-toolkit-persist": "^7.2.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-location": "~14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
