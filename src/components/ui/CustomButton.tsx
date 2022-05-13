@@ -39,13 +39,20 @@ const CustomButton: FC<Props & ButtonProps> = ({
         styles.container,
         getContainer(type),
         bgColor ? { backgroundColor: bgColor } : {},
+        {
+          borderRadius: 10,
+          shadowOpacity: 1,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 0 },
+          shadowColor: '#22A7F0',
+        },
       ]}>
       <Text
         style={[
           styles.text,
           styles[`text_${type}`],
           fgColor ? { color: fgColor } : {},
-          {...customStyle}
+          { ...customStyle },
         ]}>
         {title}
       </Text>
@@ -58,7 +65,7 @@ const styles = StyleSheet.create<any>({
     width: '100%',
 
     padding: 15,
-    marginVertical: 5,
+    marginVertical: theme.spacing.md,
 
     alignItems: 'center',
     borderRadius: 5,

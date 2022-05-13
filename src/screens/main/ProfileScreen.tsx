@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
+import { Maps } from '../../components/map/Map'
 import CustomButton, { ButtonTypes } from '../../components/ui/CustomButton'
 import { RootState } from '../../store'
 import { UserState } from '../../store/features/user/userSlice'
@@ -17,7 +18,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       {/*  aqui va una img */}
-      <Text>Bienvenido a Stylish, {user.name}</Text>
+      <Maps />
     </View>
   )
 }
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    alignItems: 'center',
     justifyContent: 'center',
   },
   text: {

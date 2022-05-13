@@ -17,15 +17,16 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { useFonts } from '@use-expo/font'
 import { FullScreenLoader } from './src/components/ui/FullScreenLoader'
 import { MainNavigation } from './src/navigation/Main'
+import { darkTheme, lightTheme } from './src/theme/theme'
 
+// Setup Axios interceptors and stylish backend uri
 axios.defaults.baseURL = API_URL
-
 setupInterceptorsTo(axios)
-
-const Stack = createNativeStackNavigator()
 
 export default function App() {
   const scheme = useColorScheme()
+
+  console.log(scheme);
 
   const [isLoaded] = useFonts({
     'gilroy-light': require('./assets/fonts/Gilroy-Light.otf'),
@@ -39,7 +40,7 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor} theme={scheme === "dark" ? darkTheme : lightTheme }>
         <MainNavigation />
       </PersistGate>
     </Provider>

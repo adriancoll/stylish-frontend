@@ -20,6 +20,7 @@ const theme = {
   fonts: {
     regular: "gilroy-regular",
     bold: "gilroy-bold",
+    extrabold: "gilroy-extra'bold",
     thin: "gilroy-regular",
   },
   fotnSizes: {
@@ -56,7 +57,9 @@ export const darkTheme = {
   colors: {
     ...DarkTheme.colors,
     ...theme.colors,
-    primary: ''
+    background: '#050507',
+    background_light: '#554454',
+    text: theme.colors.white
   }
 };
 
@@ -67,7 +70,9 @@ export const lightTheme = {
   colors: {
     ...DefaultTheme.colors,
     ...theme.colors,
-    primary: ''
+    background: theme.colors.background,
+    background_light: theme.colors.white,
+    text: theme.colors.black
   }
 };
 

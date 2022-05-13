@@ -9,7 +9,8 @@ import { StyledInput } from '../../ui/TextInput'
 import { login } from '../../../store/features/user/userActions'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
-import { Ionicons } from '@expo/vector-icons'
+import { useTheme } from '@react-navigation/native'
+import theme from '../../../theme/theme'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +30,8 @@ type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
 
 export const LoginForm: FC = () => {
   const navigator = useNavigation<authScreenProp>()
+
+  const { colors } = useTheme()
 
   const {
     control,
@@ -57,21 +60,29 @@ export const LoginForm: FC = () => {
         control={control}
         name='email'
         placeholder='john@stylish.com'
+        label='Email'
       />
-      <StyledInput control={control} name='password' secureTextEntry />
-      <CustomButton
-        type={ButtonTypes.PRIMARY}
-        bgColor='#3B71F3'
-        fgColor='#000'
-        disabled={!isValid}
-        onPress={handleSubmit(onSubmit)}
-        title='Iniciar sesión'
+      <StyledInput
+        label='Contraseña'
+        control={control}
+        name='password'
+        placeholder='Introduce tu contraseña'
+        secureTextEntry
       />
+      <View
+        >
+        <CustomButton
+          type={ButtonTypes.PRIMARY}
+          bgColor={colors.primary}
+          disabled={!isValid}
+          onPress={handleSubmit(onSubmit)}
+          title='Iniciar sesión'
+        />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  root: {
-  },
+  root: {},
 })

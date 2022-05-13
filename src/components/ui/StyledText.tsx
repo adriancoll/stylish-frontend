@@ -1,13 +1,14 @@
+import { useTheme } from '@react-navigation/native'
 import { StyleSheet, Text } from 'react-native'
 import theme from '../../theme/theme'
 
 type Props = {
-  align?      : 'left' | 'center' | 'right'
-  children    : JSX.Element | string
-  color?      : string
-  fontSize?   : number
-  fontWeight? : 'bold' | 'normal'
-  style?      : any
+  align?: 'left' | 'center' | 'right'
+  children: JSX.Element | string
+  color?: string
+  fontSize?: number
+  fontWeight?: 'bold' | 'normal'
+  style?: any
 }
 
 const styles = StyleSheet.create({
@@ -38,11 +39,14 @@ export default function StyledText({
   style,
   ...restOfProps
 }: Props) {
+  const { colors } = useTheme()
+
   const textStyles = [
     styles.text,
     align === 'left' && styles.text.textAlignLeft,
     align === 'center' && styles.text.textAlignCenter,
     align === 'right' && styles.text.textAlignRight,
+    { color: colors.text },
     ...style,
   ]
 
