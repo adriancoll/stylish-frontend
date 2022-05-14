@@ -35,3 +35,10 @@ export interface RefreshTokenResponse {
   old           : token
   new           : token
 }
+
+export interface RegisterUserPayload {
+  name          : string
+  phone_number  : string
+  email         : string
+  password      : string
+}

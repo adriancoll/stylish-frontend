@@ -13,7 +13,7 @@ export const CreateAccountText: FC<Props> = () => {
   const { colors } = useTheme()
   const navigator = useNavigation<authScreenProp>()
 
-  const goToLogin = () => navigator.navigate('Login')
+  const goToRegister = () => navigator.navigate('Register')
 
   return (
     <View
@@ -22,15 +22,15 @@ export const CreateAccountText: FC<Props> = () => {
         justifyContent: 'center',
         marginVertical: theme.spacing.md,
       }}>
-      <Text style={styles.signUpText}>¿Ya tienes una cuenta? </Text>
-      <TouchableHighlight onPress={goToLogin}>
+      <Text style={styles.signUpText}>¿No tienes una cuenta? </Text>
+      <TouchableHighlight onPress={goToRegister}>
         <Text
           style={{
             ...styles.signUpText,
             color: colors.text,
             fontFamily: theme.fonts.bold,
           }}>
-          Inicia sesión
+          Crea una ahora
         </Text>
       </TouchableHighlight>
     </View>

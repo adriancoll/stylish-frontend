@@ -26,8 +26,6 @@ setupInterceptorsTo(axios)
 export default function App() {
   const scheme = useColorScheme()
 
-  console.log(scheme);
-
   const [isLoaded] = useFonts({
     'gilroy-light': require('./assets/fonts/Gilroy-Light.otf'),
     'gilroy-regular': require('./assets/fonts/Gilroy-Regular.ttf'),

@@ -1,9 +1,16 @@
 import { useTheme } from '@react-navigation/native'
 import { FC } from 'react'
 import { Control, Controller } from 'react-hook-form'
-import { StyleSheet, TextInput, TextInputProps, View, Text } from 'react-native'
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View,
+  Text,
+  useColorScheme,
+} from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
-import theme from '../../theme/theme'
+import theme from '../../../theme/theme'
 
 type Props = {
   control: Control<any>
@@ -11,13 +18,17 @@ type Props = {
   label: string
 }
 
-const StyledInput: FC<Props & TextInputProps> = ({
+export const StyledInput: FC<Props & TextInputProps> = ({
   name,
   control,
   label,
   ...restOfProps
 }) => {
   const { colors } = useTheme()
+  const schema = useColorScheme()
+
+  const backgroundColor =
+    schema === 'dark' ? theme.colors.input_dark : theme.colors.input_light
 
   return (
     <View style={{ marginVertical: theme.spacing.sm }}>
@@ -30,14 +41,20 @@ const StyledInput: FC<Props & TextInputProps> = ({
           fieldState: { error },
         }) => (
           <>
-            <View style={styles.container}>
+            <View
+              style={{
+                ...styles.container,
+                backgroundColor,
+                borderColor: error ? 'red' : colors.border,
+              }}>
               <TextInput
                 {...restOfProps}
-                style={{
-                  borderColor: error ? 'red' : colors.background_light,
-                }}
+                placeholderTextColor='darkgrey'
                 onChangeText={onChange}
                 value={value}
+                style={{
+                  color: colors.text
+                }}
                 {...field}
               />
             </View>
@@ -59,18 +76,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
 
-    paddingHorizontal: 15,
-    paddingVertical: 15,
+    padding: theme.spacing.md,
     marginVertical: 5,
   },
   errorText: {
     color: 'red',
     alignSelf: 'stretch',
+    fontFamily: theme.fonts.thin,
   },
   label: {
     fontSize: theme.fontSizes.subHeading,
-    fontFamily: theme.fonts.regular
+    fontFamily: theme.fonts.regular,
   },
 })
-
-export { StyledInput }

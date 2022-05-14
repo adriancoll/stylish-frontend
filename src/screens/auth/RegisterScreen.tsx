@@ -1,25 +1,15 @@
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableHighlight,
-  View,
-} from 'react-native'
-import { Plane } from 'react-native-animated-spinkit'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CreateAccountText } from '../../components/auth/login/CreateAccountText'
-import { LoginForm } from '../../components/auth/login/Form'
+import React from 'react'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { LoginAccountText } from '../../components/auth/register/LoginAccountText'
+import { RegisterForm } from '../../components/auth/register/RegisterForm'
 import theme from '../../theme/theme'
 
-type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
+type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const navigator = useNavigation<authScreenProp>()
-  const goToRegister = () => navigator.navigate('Register')
 
   const { colors } = useTheme()
 
@@ -33,15 +23,13 @@ export default function LoginScreen() {
         flex: 1
       }}>
       <View>
-        <Text style={{ ...styles.title, color: colors.text }}>
-          ¡Hola de nuevo!
-        </Text>
+        <Text style={{ ...styles.title, color: colors.text }}></Text>
         <Text style={{ ...styles.subtitle, color: colors.text }}>
           ¡Bienvenido/a, te hemos echado de menos!
         </Text>
-        <LoginForm />
+        <RegisterForm />
       </View>
-      <CreateAccountText />
+      <LoginAccountText />
     </SafeAreaView>
   )
 }

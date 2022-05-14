@@ -57,13 +57,10 @@ export default function WelcomeScreen() {
           ¿A qué esperas?
         </Text>
       </View>
-      <View style={{}}>
+      <View >
         <CustomButton
           type={ButtonTypes.WHITE}
           onPress={goToRegister}
-          customStyle={{
-            padding: theme.spacing.sm,
-          }}
           title='¡Regístrate!'
         />
         <CustomButton
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
   container: { ...theme.baseContainer, padding: 0 },
   textContainer: {
     marginHorizontal: 30,
-    marginVertical: 50,
+    marginVertical: 40,
   },
   smallText: {
     fontSize: theme.fontSizes.subHeading,

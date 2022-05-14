@@ -64,7 +64,6 @@ export const Maps: FC<Props> = ({ ...props }) => {
     return <FullScreenLoader />
   }
 
-  console.log(scheme)
   return (
     <MapView
       style={styles.map}

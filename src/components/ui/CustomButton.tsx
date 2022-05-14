@@ -43,8 +43,9 @@ const CustomButton: FC<Props & ButtonProps> = ({
           borderRadius: 10,
           shadowOpacity: 1,
           shadowRadius: 10,
-          shadowOffset: { width: 0, height: 0 },
-          shadowColor: '#22A7F0',
+          elevation: 3,
+          shadowOffset: { width: 10, height: 10 },  
+          shadowColor: theme.colors.accent,
         },
       ]}>
       <Text
@@ -64,7 +65,7 @@ const styles = StyleSheet.create<any>({
   container: {
     width: '100%',
 
-    padding: 15,
+    padding: theme.spacing.lg,
     marginVertical: theme.spacing.md,
 
     alignItems: 'center',
@@ -74,6 +75,7 @@ const styles = StyleSheet.create<any>({
   text: {
     fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
     fontFamily: theme.fonts.bold,
+    fontSize: theme.fontSizes.subHeading,
     color: theme.colors.white,
   },
 

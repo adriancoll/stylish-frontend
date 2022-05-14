@@ -3,17 +3,16 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { FC } from 'react'
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
-import theme from '../../../../theme/theme'
+import theme from '../../../theme/theme'
 
 interface Props {}
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, any>
 
-export const CreateAccountText: FC<Props> = () => {
+export const LoginAccountText: FC<Props> = () => {
   const { colors } = useTheme()
   const navigator = useNavigation<authScreenProp>()
-
-  const goToRegister = () => navigator.navigate('Register')
+  const goToLogin = () => navigator.navigate('Login')
 
   return (
     <View
@@ -22,15 +21,15 @@ export const CreateAccountText: FC<Props> = () => {
         justifyContent: 'center',
         marginVertical: theme.spacing.md,
       }}>
-      <Text style={styles.signUpText}>¿No tienes una cuenta? </Text>
-      <TouchableHighlight onPress={goToRegister}>
+      <Text style={styles.signUpText}>¿Ya tienes una cuenta? </Text>
+      <TouchableHighlight onPress={goToLogin}>
         <Text
           style={{
             ...styles.signUpText,
             color: colors.text,
             fontFamily: theme.fonts.bold,
           }}>
-          Crea una ahora
+          Inicia sesión
         </Text>
       </TouchableHighlight>
     </View>

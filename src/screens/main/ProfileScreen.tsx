@@ -18,7 +18,10 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       {/*  aqui va una img */}
-      <Maps />
+      {/* <Maps /> */}
+      <Text>
+        Hola, {user.name} {user.email}
+      </Text>
     </View>
   )
 }

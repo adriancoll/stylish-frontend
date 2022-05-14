@@ -10,7 +10,8 @@ const theme = {
     background: "#D0D4E3", // background color
     black: "#444053", // text color
     grey: "#736E7F", // text color
-    // background: '#BCC5D2',	// background color
+    input_light: "#fafafa",
+    input_dark: "#171717",
   },
   fontSizes: {
     body: 14,
@@ -34,7 +35,6 @@ const theme = {
   },
   baseContainer: {
     flex: 1,
-    backgroundColor: "#D0D4E3",
     paddingHorizontal: 20,
   },
   spacing: {
@@ -57,8 +57,8 @@ export const darkTheme = {
   colors: {
     ...DarkTheme.colors,
     ...theme.colors,
-    background: '#050507',
-    background_light: '#554454',
+    background: '#171717',
+    border: '#B8B8B8',
     text: theme.colors.white
   }
 };
@@ -71,7 +71,7 @@ export const lightTheme = {
     ...DefaultTheme.colors,
     ...theme.colors,
     background: theme.colors.background,
-    background_light: theme.colors.white,
+    border: 'darkgrey',
     text: theme.colors.black
   }
 };

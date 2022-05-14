@@ -6,14 +6,14 @@ import {
 } from 'axios'
 import { getData } from './asyncStorage'
 
-console.log('yee')
-
 const onRequest = async (config: AxiosRequestConfig) => {
   const token = await getData('token')
   if (token) {
     config.headers['x-token'] = token
+    console.info(`[request] [${config.method} => ${config.headers['x-token']}]`)
+    return config
   }
-  console.info(`[request] [${config.headers['x-token']}]`)
+  console.info(`[request] [${config.method} => ${config.baseURL}${config.url}]`)
   return config
 }
 
