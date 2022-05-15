@@ -24,11 +24,6 @@ const theme = {
     extrabold: "gilroy-extra'bold",
     thin: "gilroy-regular",
   },
-  fotnSizes: {
-    heading: 20,
-    subHeading: 16,
-    body: 14,
-  },
   fontWeights: {
     bold: "900",
     normal: "400",

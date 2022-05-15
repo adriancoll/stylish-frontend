@@ -12,7 +12,7 @@ import {
 import { Plane } from 'react-native-animated-spinkit'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CreateAccountText } from '../../components/auth/login/CreateAccountText'
-import { LoginForm } from '../../components/auth/login/Form'
+import { LoginForm } from '../../components/auth/login/LoginForm'
 import theme from '../../theme/theme'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
@@ -30,7 +30,7 @@ export default function LoginScreen() {
         backgroundColor: colors.background,
         justifyContent: 'space-between',
         marginVertical: theme.spacing.md,
-        flex: 1
+        flex: 1,
       }}>
       <View>
         <Text style={{ ...styles.title, color: colors.text }}>

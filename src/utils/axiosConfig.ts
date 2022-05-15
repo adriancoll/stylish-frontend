@@ -9,34 +9,33 @@ import { getData } from './asyncStorage'
 const onRequest = async (config: AxiosRequestConfig) => {
   const token = await getData('token')
   if (token) {
-    config.headers = Object.assign({}, config.headers,  {
-      'x-token': token
+    config.headers = Object.assign({}, config.headers, {
+      'x-token': token,
     })
   }
-  // console.info(`[request] [${config.method} => ${config.baseURL}${config.url}]`)
+  console.info(
+    `[⚙️ - request] [${config.method} => ${config.baseURL}${config.url}]`
+  )
   return config
 }
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${error.message}]`)
+  console.error(`[😞 - request error] [${error.message}]`)
   return Promise.reject(error)
 }
 
 const onResponse = (
   response: AxiosResponse<BaseResponse<any>>
 ): AxiosResponse => {
-  console.info(`[response] [${response.data.message}]`)
+  console.info(`[⚡ - response] [${response.data.message}]`)
   return response
 }
 
 const onResponseError = (
-  error: AxiosError<BaseResponse<any>>
+  error: AxiosError<BaseErrorResponse>
 ): Promise<AxiosError> => {
-  const message = error.response?.data?.message
-
-  console.error(`[response error] [${message}]`)
-
-  return Promise.reject(message)
+  console.error(`[😞 - response error] [${error.message} ${error.response?.data?.errors}]`)
+  return Promise.reject(error)
 }
 
 export function setupInterceptorsTo(

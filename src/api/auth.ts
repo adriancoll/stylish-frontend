@@ -8,7 +8,6 @@ import {
 import { clearAllData, storeData } from '../utils/asyncStorage'
 
 const loginRoute = '/auth/login'
-const registerUserRoute = '/user'
 const checkTokenRoute = '/auth/refresh'
 
 const loginAttempt = async (email: string, password: string) => {
@@ -20,10 +19,14 @@ const loginAttempt = async (email: string, password: string) => {
 }
 
 const registerUserAttempt = async (payload: RegisterUserPayload) => {
-  /**
-   * @TODO check why returns undefined
-   */
-  const res = await axios.post<BaseResponse<{user : User}>>(registerUserRoute, payload)
+  let payload2 = {
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    phone_number: payload.phone_number,
+  }
+  console.log(payload)
+  const res = await axios.post<BaseResponse<{ user: User }>>('/user', payload2)
   return res.data
 }
 

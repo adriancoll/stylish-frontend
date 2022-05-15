@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextStyle,
   TextStyleAndroid,
+  TouchableHighlight,
 } from 'react-native'
 import theme from '../../theme/theme'
 
@@ -15,13 +16,15 @@ export enum ButtonTypes {
   ACCENT = 'ACCENT',
   TERTIARY = 'TERTIARY',
   WHITE = 'WHITE',
+  TRANSPARENT = 'TRANSPARENT',
 }
 
 type Props = {
-  type: ButtonTypes
+  type?: ButtonTypes
   bgColor?: string
   fgColor?: string
   customStyle?: TextStyle | TextStyleAndroid
+  spacing?: number
 }
 
 const CustomButton: FC<Props & ButtonProps> = ({
@@ -31,22 +34,17 @@ const CustomButton: FC<Props & ButtonProps> = ({
   bgColor,
   fgColor,
   customStyle,
+  spacing = theme.spacing.lg,
 }) => {
   return (
-    <TouchableOpacity
+    <TouchableHighlight
       onPress={onPress}
+      touchSoundDisabled={false}
       style={[
         styles.container,
         getContainer(type),
         bgColor ? { backgroundColor: bgColor } : {},
-        {
-          borderRadius: 10,
-          shadowOpacity: 1,
-          shadowRadius: 10,
-          elevation: 3,
-          shadowOffset: { width: 10, height: 10 },  
-          shadowColor: theme.colors.accent,
-        },
+        { padding: spacing },
       ]}>
       <Text
         style={[
@@ -57,15 +55,14 @@ const CustomButton: FC<Props & ButtonProps> = ({
         ]}>
         {title}
       </Text>
-    </TouchableOpacity>
+    </TouchableHighlight>
   )
 }
 
 const styles = StyleSheet.create<any>({
   container: {
-    width: '100%',
+    width: 'auto',
 
-    padding: theme.spacing.lg,
     marginVertical: theme.spacing.md,
 
     alignItems: 'center',
@@ -101,12 +98,20 @@ const styles = StyleSheet.create<any>({
 
   container_TERTIARY: {},
 
+  container_TRANSPARENT: {
+    backgroundColor: 'transparent',
+  },
+
   text_SECONDARY: {
     color: theme.colors.secondary,
   },
 
   text_TERTIARY: {
     color: theme.colors.accent,
+  },
+
+  text_TRANSPARENT: {
+    color: theme.colors.grey,
   },
 })
 

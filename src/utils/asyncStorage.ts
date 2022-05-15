@@ -21,6 +21,8 @@ const getData = async (key: string) => {
   }
 }
 
+const deleteData = async (key: string) => await AsyncStorage.removeItem(key)
+
 /**
  * @description Clears all async storage DATA (token and redux store)
  */
@@ -33,4 +35,4 @@ const clearAllData = async () => {
   }
 }
 
-export { getData, storeData, clearAllData }
+export { getData, storeData, clearAllData, deleteData }

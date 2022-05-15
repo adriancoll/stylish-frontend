@@ -1,11 +1,11 @@
 import { store } from '../..'
 import { loginAttempt, registerUserAttempt } from '../../../api/auth'
-import { RegisterUserPayload } from '../../../interfaces/user.interface'
-import { storeData } from '../../../utils/asyncStorage'
+import { RegisterUserPayload, User } from '../../../interfaces/user.interface'
+import { deleteData, storeData } from '../../../utils/asyncStorage'
 import { loginUser } from './userSlice'
 
 export const login = (email: string, password: string) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise<User>(async (resolve, reject) => {
     try {
       const data = await loginAttempt(email, password)
 
@@ -24,16 +24,18 @@ export const login = (email: string, password: string) => {
 }
 
 export const registerUser = (payload: RegisterUserPayload) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise<string>(async (resolve, reject) => {
     try {
       const data = await registerUserAttempt(payload)
-      console.log('asdasdasdsad')
       if (data.error) {
         reject(data.error)
         throw new Error(data.message)
       }
 
-      resolve(data.results.user.email)
+      const { email } = data.results.user
+
+      deleteData('token');
+      resolve(email)
     } catch (error) {
       reject(error)
     }

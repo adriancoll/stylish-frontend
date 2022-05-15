@@ -1,18 +1,9 @@
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native'
 import { persistor, store } from './src/store'
 import { Provider } from 'react-redux'
-import WelcomeScreen from './src/screens/auth/WelcomeScreen'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { API_URL } from './src/utils/constants'
 import axios from 'axios'
 import { setupInterceptorsTo } from './src/utils/axiosConfig'
-import LoginScreen from './src/screens/auth/LoginScreen'
 import { useColorScheme } from 'react-native'
-import ProfileScreen from './src/screens/main/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useFonts } from '@use-expo/font'
 import { FullScreenLoader } from './src/components/ui/FullScreenLoader'
