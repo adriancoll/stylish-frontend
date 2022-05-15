@@ -5,7 +5,6 @@ import {
   RegisterUserPayload,
   User,
 } from '../interfaces/user.interface'
-import { registerUser } from '../store/features/user/userActions'
 import { clearAllData, storeData } from '../utils/asyncStorage'
 
 const loginRoute = '/auth/login'
@@ -21,11 +20,10 @@ const loginAttempt = async (email: string, password: string) => {
 }
 
 const registerUserAttempt = async (payload: RegisterUserPayload) => {
-  console.log(payload, registerUserRoute)
-  const res = await axios.post<BaseResponse<{ user: User }>>(
-    registerUserRoute,
-    payload
-  )
+  /**
+   * @TODO check why returns undefined
+   */
+  const res = await axios.post<BaseResponse<{user : User}>>(registerUserRoute, payload)
   return res.data
 }
 

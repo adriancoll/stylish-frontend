@@ -7,7 +7,7 @@ import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { useForm } from 'react-hook-form'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
 import { login } from '../../../store/features/user/userActions'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
@@ -21,10 +21,11 @@ interface FormData {
 }
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
+type params = NativeStackScreenProps<RootStackParamList, 'Login', 'Login'>;
 
 export const LoginForm: FC = () => {
   const navigator = useNavigation<authScreenProp>()
-  const { params: { email } } = useRoute();
+  const { params } = useRoute();
 
   const {
     control,
@@ -46,12 +47,12 @@ export const LoginForm: FC = () => {
       })
   }
 
-  useEffect(() => {
-    if (!email) return
+  // useEffect(() => {
+  //   if (!email) return
 
-    setValue('email', email)
+  //   setValue('email', email)
   
-  }, [email])
+  // }, [email])
   
 
   return (

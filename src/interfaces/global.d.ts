@@ -32,7 +32,7 @@ interface BaseErrorResponse<> {
 // Screens for react-navigation
 type RootStackParamList = {
   Welcome: undefined
-  Login: { email?: string } | undefined
+  Login: { email: string } | undefined
   Register: undefined
   Profile: undefined
 }

@@ -35,7 +35,6 @@ export const RegisterForm = () => {
       const email = await registerUser(data)
       navigate('Login', { email: email as string })
     } catch (error) {
-      console.warn(error)
     }
   }
 
@@ -48,6 +47,7 @@ export const RegisterForm = () => {
         placeholder='Introduce tu nombre y apellidos'
       />
       <StyledInput
+        keyboardType='email-address'
         label='Email'
         control={control}
         name='email'

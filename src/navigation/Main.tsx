@@ -7,7 +7,7 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import { darkTheme, lightTheme } from '../theme/theme'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export const MainNavigation = () => {
   const scheme = useColorScheme()

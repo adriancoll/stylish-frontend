@@ -23,12 +23,11 @@ export const login = (email: string, password: string) => {
   })
 }
 
-
 export const registerUser = (payload: RegisterUserPayload) => {
   return new Promise(async (resolve, reject) => {
     try {
       const data = await registerUserAttempt(payload)
-
+      console.log('asdasdasdsad')
       if (data.error) {
         reject(data.error)
         throw new Error(data.message)
