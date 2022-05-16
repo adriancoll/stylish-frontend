@@ -6,10 +6,10 @@ WebBrowser.maybeCompleteAuthSession()
 
 export const useGoogleOAuth = () => {
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    expoClientId: 'todo',
+    iosClientId: 'todo',
     androidClientId: '577661903302-84bigi7u4jsfjng99im6ejkvugg1s8c1.apps.googleusercontent.com',
-    webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    webClientId: 'todo',
   })
 
   React.useEffect(() => {

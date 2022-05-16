@@ -8,19 +8,15 @@ import { RootState } from '../../store'
 import { UserState } from '../../store/features/user/userSlice'
 import theme from '../../theme/theme'
 
-type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
+type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
 
-export default function ProfileScreen() {
+export default function HomeScreen() {
   const navigator = useNavigation<authScreenProp>()
-
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   return (
     <View style={styles.container}>
-      {/*  aqui va una img */}
-      {/* <Maps /> */}
       <Text>
-        Perfil, {user.name} {user.email}
+        La home
       </Text>
     </View>
   )

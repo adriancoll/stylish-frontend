@@ -100,13 +100,12 @@ export const LoginForm: FC = () => {
           marginVertical: theme.spacing.md,
         }}>
         <CustomButton
-          type={ButtonTypes.PRIMARY}
-          bgColor={theme.colors.accent}
+          bgColor={theme.colors.primary}
           disabled={!isValid}
           onPress={handleSubmit(onSubmit)}
           title='Iniciar sesión'
         />
-        <LoginGoogleButton />
+        {/* <LoginGoogleButton /> */}
       </View>
     </View>
   )

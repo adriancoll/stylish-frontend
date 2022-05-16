@@ -31,8 +31,15 @@ interface BaseErrorResponse<> {
 
 // Screens for react-navigation
 type RootStackParamList = {
+  // Auth
   Welcome: undefined
   Login: { email: string } | undefined
   Register: undefined
+
+  // Main
   Profile: undefined
+  Main: undefined
+  Appointments: undefined
+  Map: undefined
+  Home: undefined
 }

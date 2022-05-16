@@ -27,7 +27,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "userInterfaceStyle": "automatic",
-      "package": "com.stylish.frontend"
+      "package": "com.adriancoll.stylish"
     },
     "web": {
       "favicon": "./assets/favicon.png"

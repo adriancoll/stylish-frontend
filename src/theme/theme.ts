@@ -12,6 +12,7 @@ const theme = {
     grey: "#736E7F", // text color
     input_light: "#fafafa",
     input_dark: "#171717",
+    text_muted: "#748c94",
   },
   fontSizes: {
     body: 14,
@@ -43,6 +44,7 @@ const theme = {
     md: 10,
     lg: 20,
     xl: 30,
+    full: 50,
   },
 };
 
