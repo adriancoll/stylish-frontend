@@ -16,6 +16,7 @@ import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
 import LoginSchema from '../../../schemas/LoginSchema'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { LoginGoogleButton } from './GoogleButton'
 
 interface FormData {
   email: string
@@ -105,6 +106,7 @@ export const LoginForm: FC = () => {
           onPress={handleSubmit(onSubmit)}
           title='Iniciar sesión'
         />
+        <LoginGoogleButton />
       </View>
     </View>
   )
