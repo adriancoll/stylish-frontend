@@ -9,26 +9,32 @@ import { getData } from './asyncStorage'
 const onRequest = async (config: AxiosRequestConfig) => {
   const token = await getData('token')
   if (token) {
-    config.headers['x-token'] = token
+    config.headers = Object.assign({}, config.headers, {
+      'x-token': token,
+    })
   }
-  console.info(`[request] [${JSON.stringify(config)}]`)
+  console.info(
+    `[⚙️ - request] [${config.method} => ${config.baseURL}${config.url}]`
+  )
   return config
 }
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${JSON.stringify(error)}]`)
+  console.error(`[😞 - request error] [${error.message}]`)
   return Promise.reject(error)
 }
 
 const onResponse = (
   response: AxiosResponse<BaseResponse<any>>
 ): AxiosResponse => {
-  console.info(`[response] [${JSON.stringify(response)}]`)
+  console.info(`[⚡ - response] [${response.data.message}]`)
   return response
 }
 
-const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[response error] [${JSON.stringify(error)}]`)
+const onResponseError = (
+  error: AxiosError<BaseErrorResponse>
+): Promise<AxiosError> => {
+  console.error(`[😞 - response error] [${error.message} ${error.response?.data?.errors}]`)
   return Promise.reject(error)
 }
 

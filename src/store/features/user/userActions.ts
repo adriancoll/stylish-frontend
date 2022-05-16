@@ -1,18 +1,43 @@
-import { store } from '@store'
-import { API_AUTH } from 'api/auth'
+import { store } from '../..'
+import { loginAttempt, registerUserAttempt } from '../../../api/auth'
+import { RegisterUserPayload, User } from '../../../interfaces/user.interface'
+import { deleteData, storeData } from '../../../utils/asyncStorage'
 import { loginUser } from './userSlice'
 
-export const login = async (email: string, password: string) => {
-  try {
-    const data = await API_AUTH.login(email, password)
+export const login = (email: string, password: string) => {
+  return new Promise<User>(async (resolve, reject) => {
+    try {
+      const data = await loginAttempt(email, password)
 
-    if (data.error) {
-      console.error(data.message, data.errors)
-      throw new Error(data.message)
+      if (data.error) {
+        reject(data.error)
+        throw new Error(data.message)
+      }
+
+      storeData('token', data.results.token)
+      store.dispatch(loginUser(data.results))
+      resolve(data.results.user)
+    } catch (error) {
+      reject(error)
     }
+  })
+}
 
-    store.dispatch(loginUser(data.results))
-  } catch (error) {
-    console.error(error)
-  }
+export const registerUser = (payload: RegisterUserPayload) => {
+  return new Promise<string>(async (resolve, reject) => {
+    try {
+      const data = await registerUserAttempt(payload)
+      if (data.error) {
+        reject(data.error)
+        throw new Error(data.message)
+      }
+
+      const { email } = data.results.user
+
+      deleteData('token');
+      resolve(email)
+    } catch (error) {
+      reject(error)
+    }
+  })
 }

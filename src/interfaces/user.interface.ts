@@ -1,31 +1,44 @@
-import { Appointment } from "./appointment.interfaces";
-import { ServiceType } from "./service_type.interface";
+import { Appointment } from './appointment.interfaces'
+import { ServiceType } from './service_type.interface'
 
-export type roles = "USER_ROLE" | "ADMIN_ROLE" | "BUSINESS_ROLE";
+export type roles = 'USER_ROLE' | 'ADMIN_ROLE' | 'BUSINESS_ROLE'
+export type token = string
 
 export interface User {
-  name          : string;
-  phoneNumber   : string;
-  email         : string;
-  image         : string;
-  role          : roles;
-  status        : boolean;
-  google        : boolean;
-  uid           : string;
+  name          : string
+  phoneNumber   : string
+  email         : string
+  image         : string
+  role          : roles
+  status        : boolean
+  google        : boolean
+  uid           : string
 }
 
 export interface Business {
-  name          : string;
-  employees     : number;
-  image         : string;
-  serviceTypes? : ServiceType[];
-  user          : User;
-  uid           : string;
+  name          : string
+  employees     : number
+  image         : string
+  serviceTypes? : ServiceType[]
+  user          : User
+  uid           : string
 }
 
 export interface LoginResponse {
   appointments? : Appointment[]
   business?     : Business
   user          : User
-  token         : string
+  token         : token
+}
+
+export interface RefreshTokenResponse {
+  old           : token
+  new           : token
+}
+
+export interface RegisterUserPayload {
+  name          : string
+  phone_number  : string
+  email         : string
+  password      : string
 }
