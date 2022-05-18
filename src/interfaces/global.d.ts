@@ -37,9 +37,17 @@ type RootStackParamList = {
   Register: undefined
 
   // Main
-  Profile: undefined
   Main: undefined
+
+  Home: undefined
   Appointments: undefined
   Map: undefined
-  Home: undefined
+  Test: undefined
+  Profile: undefined
+}
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
 }

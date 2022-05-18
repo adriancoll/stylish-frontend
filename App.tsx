@@ -5,16 +5,12 @@ import { Provider } from "react-redux";
 import { API_URL } from "./src/utils/constants";
 import axios from "axios";
 import { setupInterceptorsTo } from "./src/utils/axiosConfig";
-import { useColorScheme } from "react-native";
+import { StatusBar, useColorScheme } from "react-native";
 import { PersistGate } from "redux-persist/integration/react";
 import { useFonts } from "@use-expo/font";
 import { FullScreenLoader } from "./src/components/ui/FullScreenLoader";
 import { darkTheme, lightTheme } from "./src/theme/theme";
 import { AuthNavigation } from "./src/navigation/Auth";
-import {
-  SafeAreaProvider,
-  initialWindowMetrics,
-} from "react-native-safe-area-context";
 
 // Setup Axios interceptors and stylish backend uri
 axios.defaults.baseURL = API_URL;
@@ -35,15 +31,14 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
         <PersistGate
           loading={null}
           persistor={persistor}
           theme={scheme === "dark" ? darkTheme : lightTheme}
         >
+          <StatusBar animated translucent barStyle={scheme === 'dark' ? 'dark-content' : 'light-content'} />
           <AuthNavigation />
         </PersistGate>
-      </SafeAreaProvider>
     </Provider>
   );
 }

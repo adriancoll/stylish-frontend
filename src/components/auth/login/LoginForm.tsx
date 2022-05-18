@@ -38,14 +38,14 @@ export const LoginForm: FC = () => {
     watch,
     formState: { isValid },
   } = useForm<FormData>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(LoginSchema),
   })
 
   const onSubmit = ({ email, password }: FormData) => {
     login(email, password)
       .then(() => {
-        navigator.navigate('Profile')
+        navigator.navigate('Main')
       })
       .catch((err) => {
         Alert.alert('Error', JSON.stringify(err))

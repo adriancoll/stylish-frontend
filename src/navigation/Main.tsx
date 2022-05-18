@@ -2,20 +2,24 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import theme from '../theme/theme'
-import { StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { CustomTabBarIcon } from '../components/ui/navigation/CustomTabBarIcon'
 import { AntDesign, FontAwesome } from '@expo/vector-icons'
-import { useTheme } from '@react-navigation/native'
+import { useNavigation, useTheme } from '@react-navigation/native'
 import AppointmentsScreen from '../screens/main/AppointmentsScreen'
 import HomeScreen from '../screens/main/HomeScreen'
 import MapScreen from '../screens/main/MapScreen'
-import { MapTabBar } from '../components/ui/navigation/MapTabBar'
-const { Screen, Navigator, Group } = createBottomTabNavigator()
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+const { Screen, Navigator, Group } =
+  createBottomTabNavigator<RootStackParamList>()
 
 const ICON_SIZE = 25
 
+type mainScreenProps = NativeStackNavigationProp<RootStackParamList, 'Main'>
+
 export const MainNavigation = () => {
   const { colors } = useTheme()
+  const { navigate } = useNavigation<mainScreenProps>()
 
   return (
     <Navigator
@@ -73,10 +77,32 @@ export const MainNavigation = () => {
         name='Map'
         component={MapScreen}
         options={{
+          tabBarStyle: {
+            display: 'none'
+          },
           tabBarIcon: ({ focused }) => (
-            <FontAwesome name='map-o' size={30} color={theme.colors.white} />
+            <FontAwesome
+              name='map-o'
+              size={ICON_SIZE}
+              color={theme.colors.white}
+              style={{
+                transform: [{ rotate: focused ? '10deg' : '0deg' }],
+              }}
+            />
           ),
-          tabBarButton: ({ children, onPress }) => <MapTabBar onPress={onPress} />,
+          tabBarButton: ({ children, ...props }) => (
+            <Pressable {...props} style={styles.mainButton}>
+              <View
+                style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: 35,
+                  backgroundColor: theme.colors.primary,
+                }}>
+                {children}
+              </View>
+            </Pressable>
+          ),
         }}
       />
       <Screen
@@ -145,6 +171,19 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 4,
+    elevation: 5,
+  },
+  mainButton: {
+    top: -30,
+    alignContent: 'center',
+    justifyContent: 'center',
+    shadowColor: theme.colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 5,
   },
 })

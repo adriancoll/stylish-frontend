@@ -25,6 +25,7 @@ type Props = {
   fgColor?: string
   customStyle?: TextStyle | TextStyleAndroid
   spacing?: number
+  disabledText?: string
 }
 
 const CustomButton: FC<Props & ButtonProps> = ({
@@ -34,16 +35,20 @@ const CustomButton: FC<Props & ButtonProps> = ({
   bgColor,
   fgColor,
   customStyle,
+  disabled,
+  disabledText = '¡Completa todos los campos!',
   spacing = theme.spacing.lg,
 }) => {
   return (
     <TouchableHighlight
       onPress={onPress}
+      disabled={disabled}
       touchSoundDisabled={false}
       style={[
         styles.container,
         getContainer(type),
         bgColor ? { backgroundColor: bgColor } : {},
+        disabled ? { opacity: 0.2 } : {},
         { padding: spacing },
       ]}>
       <Text
@@ -53,7 +58,7 @@ const CustomButton: FC<Props & ButtonProps> = ({
           fgColor ? { color: fgColor } : {},
           { ...customStyle },
         ]}>
-        {title}
+        {disabled ? disabledText : title}
       </Text>
     </TouchableHighlight>
   )

@@ -34,7 +34,7 @@ export const useTokenValidation = () => {
           return
         }
         
-        navigator.navigate('Profile')
+        navigator.navigate('Main')
         setToken(token)
         setIsValid(true)
       } catch (error) {

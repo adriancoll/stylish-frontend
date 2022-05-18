@@ -7,7 +7,7 @@ import theme from '../../../theme/theme'
 
 interface Props {}
 
-type authScreenProp = NativeStackNavigationProp<RootStackParamList, any>
+type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
 export const CreateAccountText: FC<Props> = () => {
   const { colors } = useTheme()

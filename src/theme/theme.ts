@@ -32,6 +32,7 @@ const theme = {
   baseContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingTop: 20,
   },
   spacing: {
     sm: 5,

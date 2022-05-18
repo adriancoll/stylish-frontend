@@ -1,12 +1,25 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useColorScheme } from 'react-native'
 import LoginScreen from '../screens/auth/LoginScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
 import WelcomeScreen from '../screens/auth/WelcomeScreen'
-import ProfileScreen from '../screens/main/ProfileScreen'
 import { darkTheme, lightTheme } from '../theme/theme'
 import { MainNavigation } from './Main'
+import 'react-native-gesture-handler'
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
+
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+}
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -15,38 +28,47 @@ export const AuthNavigation = () => {
 
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
-      <Stack.Navigator>
-        <Stack.Group>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <Stack.Navigator
+          screenOptions={{
+            gestureEnabled: true,
+            fullScreenGestureEnabled: true,
+            customAnimationOnGesture: true,
+            animation: 'slide_from_right',
+            animationTypeForReplace: 'push',
+          }}>
+          <Stack.Group>
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name='Welcome'
+              component={WelcomeScreen}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name='Login'
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name='Register'
+              component={RegisterScreen}
+            />
+          </Stack.Group>
           <Stack.Screen
             options={{
               headerShown: false,
             }}
-            name='Welcome'
-            component={WelcomeScreen}
+            name='Main'
+            component={MainNavigation}
           />
-          <Stack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name='Login'
-            component={LoginScreen}
-          />
-          <Stack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name='Register'
-            component={RegisterScreen}
-          />
-        </Stack.Group>
-        <Stack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name='Profile'
-          component={MainNavigation}
-        />
-      </Stack.Navigator>
+        </Stack.Navigator>
+      </SafeAreaProvider>
     </NavigationContainer>
   )
 }

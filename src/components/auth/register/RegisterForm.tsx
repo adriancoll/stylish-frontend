@@ -47,7 +47,7 @@ export const RegisterForm: FC<Props> = () => {
     reset,
     formState: { isValid },
   } = useForm<RegisterUserPayload>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(getSchema(region)),
   })
 
@@ -105,10 +105,11 @@ export const RegisterForm: FC<Props> = () => {
         }}>
         <CustomButton
           type={ButtonTypes.PRIMARY}
-          bgColor={theme.colors.accent}
+          bgColor={theme.colors['primary-light']}
           disabled={!isValid}
+          disabledText={'¡Completa todos los campos!'}
           onPress={handleSubmit(onSubmit)}
-          title='Crear cuenta'
+          title='¡Crear cuenta!'
         />
       </View>
     </View>

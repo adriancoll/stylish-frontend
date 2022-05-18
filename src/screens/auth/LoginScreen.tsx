@@ -52,7 +52,7 @@ const styles = StyleSheet.create<any>({
     textAlign: 'center',
     fontSize: theme.fontSizes.heading + 5,
     fontFamily: theme.fonts.bold,
-    marginVertical: theme.spacing.lg,
+    paddingVertical: theme.spacing.lg,
   },
   subtitle: {
     textAlign: 'center',

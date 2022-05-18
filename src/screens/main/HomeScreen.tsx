@@ -1,30 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux'
-import { Maps } from '../../components/map/Map'
-import CustomButton, { ButtonTypes } from '../../components/ui/CustomButton'
-import { RootState } from '../../store'
-import { UserState } from '../../store/features/user/userSlice'
+import { StyleSheet, Text } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useBaseContainer } from '../../hooks/useBaseContainer'
 import theme from '../../theme/theme'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
 
 export default function HomeScreen() {
   const navigator = useNavigation<authScreenProp>()
+  const { baseContainer, colors } = useBaseContainer()
 
   return (
-    <View style={styles.container}>
-      <Text>
+    <SafeAreaView style={[baseContainer]}>
+      <Text style={[{ color: colors.text}]}>
         La home
       </Text>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...theme.baseContainer,
     backgroundColor: theme.colors.background,
     justifyContent: 'center',
   },
