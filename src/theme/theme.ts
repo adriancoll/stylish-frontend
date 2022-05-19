@@ -22,7 +22,7 @@ const theme = {
   fonts: {
     regular: "gilroy-regular",
     bold: "gilroy-bold",
-    extrabold: "gilroy-extra'bold",
+    extrabold: "gilroy-extra-bold",
     thin: "gilroy-regular",
   },
   fontWeights: {

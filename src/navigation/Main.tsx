@@ -13,7 +13,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 const { Screen, Navigator, Group } =
   createBottomTabNavigator<RootStackParamList>()
 
-const ICON_SIZE = 25
+const ICON_SIZE = 30
 
 type mainScreenProps = NativeStackNavigationProp<RootStackParamList, 'Main'>
 
@@ -53,32 +53,11 @@ export const MainNavigation = () => {
         }}
       />
       <Screen
-        name='Appointments'
-        component={AppointmentsScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <CustomTabBarIcon
-              focused={focused}
-              name='Reservas'
-              Icon={
-                <AntDesign
-                  name='calendar'
-                  size={ICON_SIZE}
-                  color={
-                    focused ? theme.colors.primary : theme.colors.text_muted
-                  }
-                />
-              }
-            />
-          ),
-        }}
-      />
-      <Screen
         name='Map'
         component={MapScreen}
         options={{
           tabBarStyle: {
-            display: 'none'
+            display: 'none',
           },
           tabBarIcon: ({ focused }) => (
             <FontAwesome
@@ -105,9 +84,10 @@ export const MainNavigation = () => {
           ),
         }}
       />
+
       <Screen
-        name='Profile'
-        component={ProfileScreen}
+        name='Appointments'
+        component={AppointmentsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
@@ -116,27 +96,6 @@ export const MainNavigation = () => {
               Icon={
                 <AntDesign
                   name='calendar'
-                  size={ICON_SIZE}
-                  color={
-                    focused ? theme.colors.primary : theme.colors.text_muted
-                  }
-                />
-              }
-            />
-          ),
-        }}
-      />
-      <Screen
-        name='Test'
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <CustomTabBarIcon
-              focused={focused}
-              name='PERFIL'
-              Icon={
-                <AntDesign
-                  name='user'
                   size={ICON_SIZE}
                   color={
                     focused ? theme.colors.primary : theme.colors.text_muted

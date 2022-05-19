@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import MapView, {
   CalloutSubview,
+  Circle,
   MapViewProps,
   Marker,
   Polyline,
@@ -77,6 +78,7 @@ export const Maps: FC<Props> = ({ ...props }) => {
     })()
   }, [])
 
+
   if (isEmpty(location)) {
     return (
       <View
@@ -106,15 +108,13 @@ export const Maps: FC<Props> = ({ ...props }) => {
 
   return (
     <>
-      <StatusBar
-        animated={true}
-        backgroundColor='#61dafb'
-        showHideTransition={'slide'}
-        hidden={true}
-      />
       <MapView
         style={styles.map}
-        provider={PROVIDER_GOOGLE}
+        userLocationUpdateInterval={2000}
+        provider={'google'}
+        showsUserLocation
+        showsCompass={false}
+        loadingEnabled
         customMapStyle={scheme === 'dark' ? darkMap : lightMap}
         initialRegion={{
           longitude: location.longitude,
@@ -122,20 +122,28 @@ export const Maps: FC<Props> = ({ ...props }) => {
           latitudeDelta: 0.9,
           longitudeDelta: 0.4,
         }}
+        minZoomLevel={10}
+        region={{
+          longitude: location.longitude,
+          latitude: location.latitude,
+          latitudeDelta: 0.9,
+          longitudeDelta: 0.4,
+        }}
         {...props}>
-        <Marker
-          // image={{ uri: 'https://i.imgur.com/MK4NUzI.png' }}
 
-          coordinate={{
-            longitude: location.longitude,
-            latitude: location.latitude,
+
+        <Marker
+          onPress={() => {
+            /** @TODO add spreadsheet */
           }}
-          onTouchEnd={() => {
-            console.log('asda')
-            Alert.alert('Hola')
+          coordinate={{
+            longitude: location.longitude + 0.01,
+            latitude: location.latitude - 0.005,
           }}>
           <MaterialIcons name='person-pin' size={35} color={colors.primary} />
         </Marker>
+
+
       </MapView>
       <MapOverlay />
     </>

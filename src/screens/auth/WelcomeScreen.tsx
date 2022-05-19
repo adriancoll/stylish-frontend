@@ -12,7 +12,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 export default function WelcomeScreen() {
-  const { isLoading } = useTokenValidation()
+
   const navigator = useNavigation<authScreenProp>()
 
   const goToRegister = () => navigator.navigate('Register')
@@ -20,9 +20,7 @@ export default function WelcomeScreen() {
 
   const { colors } = useTheme()
 
-  if (isLoading) {
-    return <FullScreenLoader />
-  }
+
 
   return (
     <SafeAreaView

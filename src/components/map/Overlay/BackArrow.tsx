@@ -23,8 +23,8 @@ export const BackArrow = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 25,
-    left: 25,
+    top: theme.spacing.md,
+    left: theme.spacing.md,
     backgroundColor: 'rgba(0,0,0,0.8)',
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,
