@@ -12,7 +12,7 @@ import theme from '../../../theme/theme'
 import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { CustomPhoneInput } from '../../ui/form-inputs/CustomPhoneInput'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
-import { StyledModal } from '../../ui/modal/StyledModal'
+import { StyledModal } from '../../ui/modals/StyledModal'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
