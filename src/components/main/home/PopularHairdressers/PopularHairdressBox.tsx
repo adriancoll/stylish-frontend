@@ -42,13 +42,15 @@ export const PopularHairdressBox: FC<Props> = ({
       <Avatar
         size={84}
         image={{
-            uri: image,
+          uri: image,
         }}
         style={{
           marginBottom: theme.spacing.sm,
         }}
       />
       <Text
+        numberOfLines={1}
+        ellipsizeMode='tail'
         style={[
           styles.text,
           {
@@ -58,7 +60,9 @@ export const PopularHairdressBox: FC<Props> = ({
         {title}
       </Text>
 
-      <Text style={[styles.subHeading]}>{subtitle}</Text>
+      <Text numberOfLines={1} ellipsizeMode='tail' style={[styles.subHeading]}>
+        {subtitle}
+      </Text>
 
       <Chip color={colors.text} style={[styles.chip]} label=''>
         <AntDesign
@@ -69,7 +73,6 @@ export const PopularHairdressBox: FC<Props> = ({
         />
         <Text style={{ color: colors.text }}>{rating}</Text>
       </Chip>
-
     </Surface>
   )
 }
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
   box: {
     alignItems: 'center',
     padding: theme.spacing.md,
+    margin: theme.spacing.md,
   },
   chip: {
     marginTop: theme.spacing.md,
