@@ -6,13 +6,11 @@ import {
   useWindowDimensions,
   Pressable,
   useColorScheme,
+  FlatList,
 } from 'react-native'
 import React, { FC } from 'react'
-import { useTheme } from '@react-navigation/native'
 import theme from '../../../../theme/theme'
 import { BaseInfoContainer } from '../BaseInfoContainer/BaseInfoContainer'
-import { Avatar, Chip, Surface } from '@react-native-material/core'
-import { AntDesign } from '@expo/vector-icons'
 import { PopularHairdressBox } from './PopularHairdressBox'
 
 interface Props {}
@@ -20,20 +18,39 @@ interface Props {}
 export const PopularHairdressers: FC<Props> = () => {
   return (
     <BaseInfoContainer title='Peluquerías Populares'>
-      <ScrollView
+      <FlatList
         centerContent
         alwaysBounceHorizontal
         showsHorizontalScrollIndicator={false}
-        style={[styles.scrollView]}
-        contentContainerStyle={[styles.scrollViewContent]}
+        style={[styles.flatList]}
+        contentContainerStyle={[styles.flatListContent]}
         bounces
         pagingEnabled
-        horizontal>
-        <PopularHairdressBox title='Azarache' subtitle='Quart de poblet' rating={4.5} image='https://www.bing.com/th?id=AMMS_d285a1f71240c09ffc3deed2ad587d1d&w=236&h=183&c=8&rs=1&o=5&pid=3.1&rm=2' />
-        <PopularHairdressBox title='Azarache' subtitle='Quart de poblet' rating={4.5} image='https://www.bing.com/th?id=AMMS_d285a1f71240c09ffc3deed2ad587d1d&w=236&h=183&c=8&rs=1&o=5&pid=3.1&rm=2' />
-        <PopularHairdressBox title='Azarache' subtitle='Quart de poblet' rating={4.5} image='https://www.bing.com/th?id=AMMS_d285a1f71240c09ffc3deed2ad587d1d&w=236&h=183&c=8&rs=1&o=5&pid=3.1&rm=2' />
-        <PopularHairdressBox title='Azarache' subtitle='Quart de poblet' rating={4.5} image='https://www.bing.com/th?id=AMMS_d285a1f71240c09ffc3deed2ad587d1d&w=236&h=183&c=8&rs=1&o=5&pid=3.1&rm=2' />
-      </ScrollView>
+        data={[
+          {
+            title: 'Peluqueria 1',
+            image: 'https://i.pravatar.cc/300?img',
+            rating: 4.5,
+            subtitle: 'Ciudad de México',
+          },
+          {
+            title: 'Peluqueria 1',
+            image: 'https://i.pravatar.cc/300?img',
+            rating: 4.5,
+            subtitle: 'Ciudad de México',
+          },
+          {
+            title: 'Peluqueria 1',
+            image: 'https://i.pravatar.cc/300?img',
+            rating: 4.5,
+            subtitle: 'Ciudad de México',
+          },
+        ]}
+        horizontal
+        renderItem={({ item, index }) => (
+          <PopularHairdressBox key={index} {...item} />
+        )}
+      />
     </BaseInfoContainer>
   )
 }
@@ -45,9 +62,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.colors.background,
   },
-  scrollView: {
-  },
-  scrollViewContent: {
-    marginRight: theme.spacing.sm,
-  },
+  flatList: {},
+  flatListContent: {},
 })
