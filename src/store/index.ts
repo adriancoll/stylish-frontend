@@ -16,6 +16,8 @@ import autoMergeLevel1 from 'reduxjs-toolkit-persist/lib/stateReconciler/autoMer
 import userReducer from './features/user/userSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import persistStore from 'redux-persist/es/persistStore'
+import appointmentReducer from './features/appointments/appointmentSlice'
+import businessReducer from './features/business/businessSlice'
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +27,8 @@ const persistConfig = {
 
 const _persistedReducer = persistCombineReducers(persistConfig, {
   user: userReducer,
+  appointments: appointmentReducer,
+  business: businessReducer,
 })
 
 export const store = configureStore({

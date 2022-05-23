@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import MapView, {
   CalloutSubview,
   Circle,
@@ -78,13 +78,16 @@ export const Maps: FC<Props> = ({ ...props }) => {
     })()
   }, [])
 
-
   if (isEmpty(location)) {
     return (
       <View
         style={{
           width: width + 10,
           height: height,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+
         }}>
         <LottieView
           autoPlay
@@ -93,7 +96,7 @@ export const Maps: FC<Props> = ({ ...props }) => {
           style={{
             width: width * 0.5,
             height: height * 0.5,
-            marginTop: height * 0.1,
+            // marginTop: height * 0.1,
             alignSelf: 'center',
           }}
           source={
@@ -109,7 +112,7 @@ export const Maps: FC<Props> = ({ ...props }) => {
   return (
     <>
       <MapView
-        style={styles.map}
+        style={[StyleSheet.absoluteFillObject, styles.map]}
         userLocationUpdateInterval={2000}
         provider={'google'}
         showsUserLocation
@@ -152,7 +155,6 @@ export const Maps: FC<Props> = ({ ...props }) => {
 
 const styles = StyleSheet.create({
   map: {
-    ...StyleSheet.absoluteFillObject,
     borderRadius: 10,
   },
 })

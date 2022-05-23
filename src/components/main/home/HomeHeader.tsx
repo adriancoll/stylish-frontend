@@ -17,7 +17,6 @@ const HomeHeader: FC<Props> = ({ name }) => {
         <Text style={[styles.welcomeText, { color: colors.text }]}>
           Hola, {name} 👋
         </Text>
-        <Divider trailingInset={16} style={{opacity: 0.5}} color={'grey'} />
       </View>
       <Avatar image={{ uri: 'https://mui.com/static/images/avatar/1.jpg' }} />
     </View>
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.lg,
   },
   welcomeText: {
-    fontSize: theme.fontSizes.heading,
+    fontSize: 30,
     fontFamily: theme.fonts.extrabold,
     textTransform: 'capitalize',
     marginBottom: theme.spacing.sm

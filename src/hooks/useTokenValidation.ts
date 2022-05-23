@@ -12,7 +12,7 @@ export const useTokenValidation = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   
-  // const navigator = useNavigation<authScreenProp>()
+  const navigator = useNavigation<authScreenProp>()
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -35,7 +35,7 @@ export const useTokenValidation = () => {
           return
         }
         
-        // navigator.navigate('Main')
+        navigator.navigate('Main')
         setToken(token)
         setIsValid(true)
       } catch (error) {

@@ -40,11 +40,13 @@ export const ImageChanging: FC<Props> = ({ delay = 3000 }) => {
   return (
     <>
       <View
-        style={{
-          ...styles.container,
-          height: height * 0.5,
-          padding: width * 0.1,
-        }}>
+        style={[
+          styles.container,
+          {
+            height: height * 0.5,
+            padding: width * 0.1,
+          },
+        ]}>
         <Image
           style={{
             flex: 1,
@@ -61,7 +63,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors['primary-light'],
     borderRadius: theme.borderRadius.xl,
-    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },

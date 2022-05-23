@@ -9,22 +9,25 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image } from 'react-native'
 import { ImageChanging } from '../../components/auth/welcome/ImageChanging'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { useBaseContainer } from '../../hooks/useBaseContainer'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 export default function WelcomeScreen() {
-
   const navigator = useNavigation<authScreenProp>()
 
   const goToRegister = () => navigator.navigate('Register')
   const goToLogin = () => navigator.navigate('Login')
 
-  const { colors } = useTheme()
+  const { baseContainer, colors } = useBaseContainer()
+  const { isLoading, isValid } = useTokenValidation()
 
-
-
+  if (isLoading) {
+    return <FullScreenLoader />
+  }
+  
   return (
     <SafeAreaView
-      style={{ ...styles.container, backgroundColor: colors.background }}>
+      style={[baseContainer, {backgroundColor: colors.background }]}>
       <ImageChanging />
 
       <View
@@ -55,7 +58,7 @@ export default function WelcomeScreen() {
           ¿A qué esperas?
         </Text>
       </View>
-      <View >
+      <View>
         <CustomButton
           type={ButtonTypes.WHITE}
           onPress={goToRegister}
@@ -72,7 +75,6 @@ export default function WelcomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { ...theme.baseContainer, padding: 0 },
   textContainer: {
     marginHorizontal: 30,
     marginVertical: 40,

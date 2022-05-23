@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 import { Maps } from '../../components/map/Map'
@@ -11,6 +11,8 @@ import theme from '../../theme/theme'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Map'>
 
+const { width, height } = Dimensions.get('screen')
+
 export default function MapScreen() {
   const navigator = useNavigation<authScreenProp>()
   const { baseContainer, colors } = useBaseContainer(false)
@@ -19,6 +21,7 @@ export default function MapScreen() {
 
   return (
     <View style={[baseContainer, styles.container]}>
+      <StatusBar hidden />
       <Maps />
     </View>
   )
@@ -26,6 +29,8 @@ export default function MapScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    width,
+    height
   },
   text: {
     fontFamily: theme.fonts.bold,

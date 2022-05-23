@@ -1,9 +1,11 @@
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { LoginAccountText } from '../../components/auth/register/LoginAccountText'
 import { RegisterForm } from '../../components/auth/register/RegisterForm'
+import { useBaseContainer } from '../../hooks/useBaseContainer'
 import theme from '../../theme/theme'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
@@ -11,17 +13,18 @@ type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 export default function RegisterScreen() {
   const navigator = useNavigation<authScreenProp>()
 
-  const { colors } = useTheme()
+  const { baseContainer, colors } = useBaseContainer()
 
   return (
     <SafeAreaView
-      style={{
-        ...styles.container,
-        backgroundColor: colors.background,
-        justifyContent: 'space-between',
-        marginVertical: theme.spacing.md,
-        flex: 1
-      }}>
+      style={[
+        baseContainer,
+        {
+          backgroundColor: colors.background,
+          justifyContent: 'space-between',
+          marginVertical: theme.spacing.md,
+        },
+      ]}>
       <View>
         <Text style={{ ...styles.title, color: colors.text }}></Text>
         <Text style={{ ...styles.subtitle, color: colors.text }}>
@@ -35,7 +38,6 @@ export default function RegisterScreen() {
 }
 
 const styles = StyleSheet.create<any>({
-  container: theme.baseContainer,
   title: {
     textAlign: 'center',
     fontSize: theme.fontSizes.heading + 5,

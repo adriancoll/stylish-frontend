@@ -11,10 +11,16 @@ const theme = {
     black: "#444053", // text color
     grey: "#736E7F", // text color
     input_light: "#fafafa",
+    background_dark_light: "#444053",
     input_dark: "#171717",
-    text_muted: "#748c94",
+    text_muted: "#A2A8B4",
+    success: "lightgreen",
+    error: "red",
+    warning: "orange",
+    info: "blue",
   },
   fontSizes: {
+    sm: 10,
     body: 14,
     subHeading: 16,
     heading: 26,
@@ -31,8 +37,6 @@ const theme = {
   },
   baseContainer: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 20,
   },
   spacing: {
     sm: 5,
@@ -46,6 +50,12 @@ const theme = {
     lg: 20,
     xl: 30,
     full: 50,
+  },
+  loaderSize: {
+    sm: 20,
+    md: 40,
+    lg: 60,
+    xl: 80,
   },
 };
 

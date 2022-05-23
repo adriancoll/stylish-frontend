@@ -5,6 +5,7 @@ import axios from 'axios'
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyleSheet, View, Text } from 'react-native'
+import { useBaseContainer } from '../../../hooks/useBaseContainer'
 import { RegisterUserPayload, User } from '../../../interfaces/user.interface'
 import { getSchema } from '../../../schemas/RegisterUserSchema'
 import { registerUser } from '../../../store/features/user/userActions'
@@ -34,7 +35,6 @@ const RegisterSuccessfullModal = () => {
 }
 
 export const RegisterForm: FC<Props> = () => {
-  const { colors } = useTheme()
   const [region, setRegion] = useState('ES')
   const [isSuccess, setIsSuccess] = useState(false)
   const [email, setEmail] = useState<string>('')

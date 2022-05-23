@@ -7,7 +7,7 @@ export const FullScreenLoader = () => {
   const { colors } = useTheme()
   return (
     <View style={[style.container, { backgroundColor: colors.background }]}>
-      <Bounce size={50} color={theme.colors.primary} />
+      <Bounce size={theme.loaderSize.lg} color={theme.colors.primary} />
     </View>
   )
 }

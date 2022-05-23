@@ -11,7 +11,7 @@ interface Props {
 export const BaseInfoContainer: FC<Props> = ({ title, children }) => {
   const { colors } = useTheme()
   return (
-    <View>
+    <View style={[styles.container]}>
       <Text style={[{ color: colors.text }, styles.text]}>{title}</Text>
       {children}
     </View>
@@ -19,10 +19,12 @@ export const BaseInfoContainer: FC<Props> = ({ title, children }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginVertical: theme.spacing.md,
+  },
   text: {
     fontSize: theme.fontSizes.heading,
-    fontFamily: theme.fonts.bold,
+    fontFamily: theme.fonts.regular,
     marginBottom: theme.spacing.md
   },
 })

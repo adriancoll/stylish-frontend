@@ -14,7 +14,7 @@ export const BackArrow = () => {
   return (
     <View style={[styles.container]}>
       <Pressable onPress={handlePress} >
-        <AntDesign name='back' size={30} color={colors.text} />
+        <AntDesign name='back' size={30} color={colors.border} />
       </Pressable>
     </View>
   )
@@ -23,8 +23,8 @@ export const BackArrow = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: theme.spacing.md,
-    left: theme.spacing.md,
+    top: theme.spacing.lg,
+    left: theme.spacing.lg,
     backgroundColor: 'rgba(0,0,0,0.8)',
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,

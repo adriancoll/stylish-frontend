@@ -13,32 +13,21 @@ import {
 } from 'react-native-safe-area-context'
 import { useTokenValidation } from '../hooks/useTokenValidation'
 import { FullScreenLoader } from '../components/ui/FullScreenLoader'
-
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-}
+import { useInternetConnection } from '../hooks/useInternetConection'
+import { OfflineModal } from '../components/ui/modals/OfflineModal'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export const AuthNavigation = () => {
   const scheme = useColorScheme()
 
-  const { isLoading, isValid } = useTokenValidation()
+  const isOffline = useInternetConnection()
 
-  if (isLoading) {
-    return <FullScreenLoader />
-  }
+
 
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
+      <OfflineModal isVisible={isOffline} />
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <Stack.Navigator
           screenOptions={{
@@ -48,39 +37,36 @@ export const AuthNavigation = () => {
             animation: 'slide_from_right',
             animationTypeForReplace: 'push',
           }}>
-          {!isValid ? (
-            <Stack.Group>
-              <Stack.Screen
-                options={{
-                  headerShown: false,
-                }}
-                name='Welcome'
-                component={WelcomeScreen}
-              />
-              <Stack.Screen
-                options={{
-                  headerShown: false,
-                }}
-                name='Login'
-                component={LoginScreen}
-              />
-              <Stack.Screen
-                options={{
-                  headerShown: false,
-                }}
-                name='Register'
-                component={RegisterScreen}
-              />
-            </Stack.Group>
-          ) : (
+          <Stack.Group>
             <Stack.Screen
               options={{
                 headerShown: false,
               }}
-              name='Main'
-              component={MainNavigation}
+              name='Welcome'
+              component={WelcomeScreen}
             />
-          )}
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name='Login'
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name='Register'
+              component={RegisterScreen}
+            />
+          </Stack.Group>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name='Main'
+            component={MainNavigation}
+          />
         </Stack.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>

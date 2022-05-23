@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
 
-    padding: theme.spacing.md,
-    marginVertical: 5,
+    padding: theme.spacing.lg,
+    marginVertical: theme.spacing.sm,
   },
   errorText: {
     color: 'red',

@@ -30,6 +30,7 @@ export const MainNavigation = () => {
           ...styles.container,
           ...styles.shadow,
         },
+  
       }}>
       <Screen
         name='Home'
@@ -114,13 +115,7 @@ const styles = StyleSheet.create({
   container: {
     alignContent: 'center',
     justifyContent: 'center',
-    flex: 1,
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    borderRadius: theme.borderRadius.md,
-    height: 80,
+    height: 60,
   },
   shadow: {
     shadowColor: theme.colors['primary-light'],
