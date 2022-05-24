@@ -1,5 +1,4 @@
-import { NavigationContainer, useNavigation } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 import { useColorScheme } from 'react-native'
 import LoginScreen from '../screens/auth/LoginScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
@@ -11,19 +10,17 @@ import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from 'react-native-safe-area-context'
-import { useTokenValidation } from '../hooks/useTokenValidation'
-import { FullScreenLoader } from '../components/ui/FullScreenLoader'
 import { useInternetConnection } from '../hooks/useInternetConection'
 import { OfflineModal } from '../components/ui/modals/OfflineModal'
+import BusinessDetailsScreen from '../screens/BusinessDetails/BusinessDetailsScreen'
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
 export const AuthNavigation = () => {
   const scheme = useColorScheme()
 
   const isOffline = useInternetConnection()
-
-
 
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
@@ -32,40 +29,50 @@ export const AuthNavigation = () => {
         <Stack.Navigator
           screenOptions={{
             gestureEnabled: true,
-            fullScreenGestureEnabled: true,
-            customAnimationOnGesture: true,
-            animation: 'slide_from_right',
+            cardStyleInterpolator: ({ current: { progress } }) => {
+              return { cardStyle: { opacity: progress } }
+            },
             animationTypeForReplace: 'push',
           }}>
-          <Stack.Group>
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Welcome'
-              component={WelcomeScreen}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Login'
-              component={LoginScreen}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='Register'
-              component={RegisterScreen}
-            />
-          </Stack.Group>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name='Welcome'
+            component={WelcomeScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name='Login'
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name='Register'
+            component={RegisterScreen}
+          />
           <Stack.Screen
             options={{
               headerShown: false,
             }}
             name='Main'
             component={MainNavigation}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name='BusinessDetails'
+            sharedElements={(route, otherRoute, showing) => {
+              const { business } = route.params
+              const items = ['image', 'name', 'rating', 'employees'].map(item =>  `business.${business.uid}.${item}`)
+              return items
+            }}
+            component={BusinessDetailsScreen}
           />
         </Stack.Navigator>
       </SafeAreaProvider>

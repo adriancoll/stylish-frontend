@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useEffect, useState } from 'react'
 import { refreshToken } from '../api/auth'
@@ -11,7 +11,7 @@ export const useTokenValidation = () => {
   const [isValid, setIsValid] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  
+
   const navigator = useNavigation<authScreenProp>()
 
   useEffect(() => {
@@ -34,8 +34,9 @@ export const useTokenValidation = () => {
           setIsValid(false)
           return
         }
+
+        navigator.dispatch(StackActions.replace('Main'))
         
-        navigator.navigate('Main')
         setToken(token)
         setIsValid(true)
       } catch (error) {

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
 import { login } from '../../../store/features/user/userActions'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { StackActions, useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
 import LoginSchema from '../../../schemas/LoginSchema'
@@ -41,7 +41,7 @@ export const LoginForm: FC = () => {
   const onSubmit = ({ email, password }: FormData) => {
     login(email, password)
       .then(() => {
-        navigator.navigate('Main')
+        navigator.dispatch(StackActions.replace('Main'))
       })
       .catch((err) => {
         Alert.alert('Error', JSON.stringify(err))

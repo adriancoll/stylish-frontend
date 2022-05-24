@@ -10,6 +10,7 @@ import AppointmentsScreen from '../screens/main/AppointmentsScreen'
 import HomeScreen from '../screens/main/HomeScreen'
 import MapScreen from '../screens/main/MapScreen'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../interfaces/global'
 const { Screen, Navigator, Group } =
   createBottomTabNavigator<RootStackParamList>()
 
@@ -30,7 +31,6 @@ export const MainNavigation = () => {
           ...styles.container,
           ...styles.shadow,
         },
-  
       }}>
       <Screen
         name='Home'
