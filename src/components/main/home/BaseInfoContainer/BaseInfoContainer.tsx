@@ -20,7 +20,7 @@ export const BaseInfoContainer: FC<Props> = ({ title, children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: theme.spacing.md,
+    marginBottom: theme.spacing.md,
   },
   text: {
     fontSize: theme.fontSizes.heading,

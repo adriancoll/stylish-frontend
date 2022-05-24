@@ -28,7 +28,8 @@ export const getNextAppointment = () => {
       const data = await AppointmentsAPI.getNextAppointment()
 
       if (data.code !== 200)  {
-        return reject(data.message)
+      store.dispatch(setNextAppointment({} as Appointment))
+      return reject(data.message)
       }
 
       store.dispatch(setNextAppointment(data?.results?.appointment))

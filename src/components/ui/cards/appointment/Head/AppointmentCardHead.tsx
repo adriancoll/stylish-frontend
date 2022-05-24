@@ -31,9 +31,7 @@ export const AppointmentCardHead: FC<AppointmentHeadCardProps> = ({
       </Text>
     </View>
     <Avatar
-      label={name}
       image={{
-        cache: 'force-cache',
         uri,
       }}
     />

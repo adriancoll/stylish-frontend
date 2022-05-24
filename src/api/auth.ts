@@ -1,10 +1,16 @@
 import axios from 'axios'
+import { Appointment } from '../interfaces/appointment.interfaces'
 import {
+  Business,
   LoginResponse,
   RefreshTokenResponse,
   RegisterUserPayload,
   User,
 } from '../interfaces/user.interface'
+import { store } from '../store'
+import { setMyAppointments } from '../store/features/appointments/appointmentSlice'
+import { setMyBusiness } from '../store/features/business/businessSlice'
+import { loginUser } from '../store/features/user/userSlice'
 import { clearAllData, storeData } from '../utils/asyncStorage'
 
 const loginRoute = '/auth/login'
@@ -32,10 +38,16 @@ const registerUserAttempt = async (payload: RegisterUserPayload) => {
 
 const refreshToken = async () => {
   try {
-    const res = await axios.post<BaseResponse<RefreshTokenResponse>>(
+    const { data } = await axios.post<BaseResponse<RefreshTokenResponse>>(
       checkTokenRoute
     )
-    await storeData('token', res.data.results.new)
+
+    await storeData('token', data.results.token)
+    
+    store.dispatch(loginUser(data.results))
+    store.dispatch(setMyBusiness(data.results?.business as Business))
+    store.dispatch(setMyAppointments(data.results?.appointments as Appointment[]))
+
     return true
   } catch (ex) {
     await clearAllData()

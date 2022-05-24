@@ -27,7 +27,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={[baseContainer]}>
-      <HomeHeader name={user.name} />
+      <HomeHeader uri={user.image} name={user.name} />
       <NextAppointmentBox />
       <PopularHairdressers />
     </SafeAreaView>

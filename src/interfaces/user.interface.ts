@@ -34,10 +34,7 @@ export interface LoginResponse {
   token                : token
 }
 
-export interface RefreshTokenResponse {
-  old                  : token
-  new                  : token
-}
+export interface RefreshTokenResponse extends LoginResponse {}
 
 export interface RegisterUserPayload {
   name                 : string
