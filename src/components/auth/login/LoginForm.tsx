@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Alert, Button, Modal, StyleSheet, Text, View } from 'react-native'
+import React, { FC, useEffect, useRef, useState } from 'react'
+import { Alert, Button, Modal, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CustomButton from '../../ui/CustomButton'
 
@@ -11,8 +11,8 @@ import { StackActions, useNavigation, useRoute } from '@react-navigation/native'
 import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
 import LoginSchema from '../../../schemas/LoginSchema'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
-import { StyledModal } from '../../ui/modals/StyledModal'
+import { Snackbar } from '@react-native-material/core'
+import * as Animatable from 'react-native-animatable'
 
 interface FormData {
   email: string
@@ -26,6 +26,11 @@ export const LoginForm: FC = () => {
   const { params } = useRoute<any>()
   const { colors } = useTheme()
   const [showModal, setShowModal] = useState(false)
+
+  const [errors, setErrors] = useState(false)
+  const [message, setMessage] = useState('')
+  const buttonRef =
+    useRef<Animatable.View & View>() as React.RefObject<Animatable.View & View>
 
   const {
     control,
@@ -43,10 +48,19 @@ export const LoginForm: FC = () => {
       .then(() => {
         navigator.dispatch(StackActions.replace('Main'))
       })
-      .catch((err) => {
-        Alert.alert('Error', JSON.stringify(err))
+      .catch((error) => {
+        setErrors(true)
+        ToastAndroid.show(error?.response?.data?.message || error?.response?.data?.errors[0].msg, ToastAndroid.LONG);
+
+        if (
+          buttonRef.current &&
+          typeof buttonRef.current.shake === 'function' 
+        ) {
+          buttonRef.current.shake(1000)
+        }
       })
   }
+
 
   useEffect(() => {
     setValue('email', params?.email)
@@ -58,6 +72,7 @@ export const LoginForm: FC = () => {
         keyboardType='email-address'
         control={control}
         name='email'
+        autoCapitalize = 'none'
         placeholder='john@stylish.com'
         label='Email'
       />
@@ -68,7 +83,9 @@ export const LoginForm: FC = () => {
         placeholder='Introduce tu contraseña'
         secureTextEntry
       />
-      <View
+      <Animatable.View
+        ref={buttonRef}
+        easing={'ease-in-cubic'}
         style={{
           marginVertical: theme.spacing.md,
         }}>
@@ -79,7 +96,7 @@ export const LoginForm: FC = () => {
           title='Iniciar sesión'
         />
         {/* <LoginGoogleButton /> */}
-      </View>
+      </Animatable.View>
     </View>
   )
 }

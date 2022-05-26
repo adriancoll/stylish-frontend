@@ -23,7 +23,7 @@ interface BaseResponse<T> {
   errors: BackendValidationError[]
 }
 
-interface BaseErrorResponse<> {
+interface BaseErrorResponse {
   error: boolean
   code: number
   message: string

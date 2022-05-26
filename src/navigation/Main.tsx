@@ -10,7 +10,10 @@ import AppointmentsScreen from '../screens/main/AppointmentsScreen'
 import HomeScreen from '../screens/main/HomeScreen'
 import MapScreen from '../screens/main/MapScreen'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../interfaces/global'
+import * as Animatable from 'react-native-animatable'
+import { DELAY } from '../constants/animations'
+import TouchableScale from 'react-native-touchable-scale'
+
 const { Screen, Navigator, Group } =
   createBottomTabNavigator<RootStackParamList>()
 
@@ -71,8 +74,10 @@ export const MainNavigation = () => {
             />
           ),
           tabBarButton: ({ children, ...props }) => (
-            <Pressable {...props} style={styles.mainButton}>
-              <View
+            <TouchableScale {...props} style={styles.mainButton}>
+              <Animatable.View
+                animation={'bounceIn'}
+                delay={DELAY}
                 style={{
                   width: 70,
                   height: 70,
@@ -80,8 +85,8 @@ export const MainNavigation = () => {
                   backgroundColor: theme.colors.primary,
                 }}>
                 {children}
-              </View>
-            </Pressable>
+              </Animatable.View>
+            </TouchableScale>
           ),
         }}
       />
@@ -138,6 +143,5 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
   },
 })

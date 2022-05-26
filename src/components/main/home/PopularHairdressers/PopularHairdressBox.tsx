@@ -47,7 +47,6 @@ export const PopularHairdressBox = ({
           business,
         })
       }}
-      // pressEffectColor={theme.colors['primary-light']}
       style={[
         customStyle,
         styles.box,
@@ -95,17 +94,15 @@ export const PopularHairdressBox = ({
           </View>
         </SharedElement>
 
-        <SharedElement id={`business.${business.uid}.rating`}>
-          <Chip color={colors.text} style={[styles.chip]} label=''>
-            <AntDesign
-              name='star'
-              size={16}
-              color='black'
-              style={{ color: 'rgba(255, 173, 27,0.9)', marginRight: 2 }}
-            />
-            <Text style={{ color: colors.text }}>{business.rating}</Text>
-          </Chip>
-        </SharedElement>
+        <Chip color={colors.text} style={[styles.chip]} label=''>
+          <AntDesign
+            name='star'
+            size={16}
+            color='black'
+            style={{ color: 'rgba(255, 173, 27,0.9)', marginRight: 2 }}
+          />
+          <Text style={{ color: colors.text }}>{business.rating}</Text>
+        </Chip>
       </>
     </TouchableScale>
   )

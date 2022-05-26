@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
+import BusinessDetailsBottomSheet from '../../components/BusinessDetails/BusinessDetailsBottomSheet'
 import HomeHeader from '../../components/main/home/HomeHeader'
 import NextAppointmentBox from '../../components/main/home/NextAppointment/NextAppointmentBox'
 import { PopularHairdressers } from '../../components/main/home/PopularHairdressers/PopularHairdressers'
@@ -12,7 +13,9 @@ import { getNextAppointment } from '../../store/features/appointments/appointmen
 import { getPopularBusiness } from '../../store/features/business/businessActions'
 import { UserState } from '../../store/features/user/userSlice'
 import theme from '../../theme/theme'
+import { SharedElement } from 'react-navigation-shared-element'
 
+const { height } = Dimensions.get('window')
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
 
 export default function HomeScreen() {
@@ -26,13 +29,16 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={[baseContainer]}>
-      <HomeHeader uri={user.image} name={user.name} />
-      <NextAppointmentBox />
-      <PopularHairdressers />
-    </SafeAreaView>
+    <>
+      <SafeAreaView style={[baseContainer]}>
+        <HomeHeader uri={user.image} name={user.name} />
+        <NextAppointmentBox />
+        <PopularHairdressers />
+      </SafeAreaView>
+    </>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {

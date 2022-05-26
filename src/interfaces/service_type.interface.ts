@@ -1,5 +1,5 @@
 export type ServiceType = {
-  uid      : string;
-  name     : string;
-  duration : number;
-};
+  uid          : string
+  name         : string
+  duration     : number
+}

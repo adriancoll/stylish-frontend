@@ -69,7 +69,10 @@ export const AuthNavigation = () => {
             name='BusinessDetails'
             sharedElements={(route, otherRoute, showing) => {
               const { business } = route.params
-              const items = ['image', 'name', 'rating', 'employees'].map(item =>  `business.${business.uid}.${item}`)
+              const items = ['image', 'name', 'employees'].map(
+                (item) => `business.${business.uid}.${item}`
+              )
+
               return items
             }}
             component={BusinessDetailsScreen}

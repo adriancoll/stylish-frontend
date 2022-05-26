@@ -20,6 +20,8 @@ import SkeletonLoader from 'expo-skeleton-loader'
 import { FullScreenLoader } from '../../../ui/FullScreenLoader'
 import { Pulse } from 'react-native-animated-spinkit'
 import { useTheme } from '@react-navigation/native'
+import { SharedElement } from 'react-navigation-shared-element'
+import BusinessDetailsBottomSheet from '../../../BusinessDetails/BusinessDetailsBottomSheet'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -58,28 +60,36 @@ export const PopularHairdressers: FC<Props> = () => {
   }
 
   return (
-    <BaseInfoContainer title='Peluquerías Populares'>
-      {isLoading ? (
-        <View style={[styles.loader, { backgroundColor: colors.background }]}>
-          <Pulse size={theme.loaderSize.lg} color={theme.colors.primary} />
-        </View>
-      ) : (
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          style={[styles.flatList]}
-          columnWrapperStyle={[styles.columnWrapper]}
-          bounces
-          refreshControl={
-            <RefreshControl colors={['red', 'yellow']} refreshing={isLoading} onRefresh={handleRefresh} />
-          }
-          data={popularBusiness}
-          numColumns={2}
-          keyExtractor={(business: Business) => business.uid}
-          renderItem={({ item }) => <PopularHairdressBox business={item} />}
-        />
-      )}
-    </BaseInfoContainer>
+    <>
+      <BaseInfoContainer title='Peluquerías Populares'>
+        {isLoading ? (
+          <View style={[styles.loader, { backgroundColor: colors.background }]}>
+            <Pulse size={theme.loaderSize.lg} color={theme.colors.primary} />
+          </View>
+        ) : (
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            style={[styles.flatList]}
+            columnWrapperStyle={[styles.columnWrapper]}
+            bounces
+            refreshControl={
+              <RefreshControl
+                colors={['red', 'yellow']}
+                refreshing={isLoading}
+                onRefresh={handleRefresh}
+              />
+            }
+            data={popularBusiness}
+            numColumns={2}
+            keyExtractor={(business: Business) => business.uid}
+            renderItem={({ item, index }) => (
+              <PopularHairdressBox index={index} business={item} />
+            )}
+          />
+        )}
+      </BaseInfoContainer>
+    </>
   )
 }
 
@@ -100,5 +110,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: height * 0.3,
     width: width - theme.spacing.md * 2,
-  }
+  },
 })

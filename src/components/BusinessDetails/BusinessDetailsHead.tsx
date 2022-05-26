@@ -51,7 +51,7 @@ const BaseButton: FC<BaseButtonProps> = ({ icon, onPress }) => (
       alignItems: 'center',
       justifyContent: 'center',
       padding: theme.spacing.lg,
-      backgroundColor: 'rgba(255,255,255,0.2)',
+      backgroundColor: theme.colors.iconBackground,
     }}>
     {icon}
   </TouchableScale>
@@ -68,7 +68,6 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
-
       transform: [{ translateY: transalateY.value }, { scale: scale.value }],
     }
   })
@@ -84,7 +83,7 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? theme.colors.black : theme.colors.white,
+          backgroundColor: 'transparent',
         },
       ]}>
       <SharedElement id={`business.${business.uid}.image`}>
@@ -96,20 +95,10 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
         />
       </SharedElement>
 
-      <SharedElement id={`business.${business.uid}.rating`}>
-        <Chip color={colors.text} style={[styles.chip]} label=''>
-          <AntDesign
-            name='star'
-            size={16}
-            color='black'
-            style={{ color: 'rgba(255, 173, 27,0.9)', marginRight: 2 }}
-          />
-          <Text style={{ color: colors.text }}>{business.rating}</Text>
-        </Chip>
-      </SharedElement>
+      
 
       <SharedElement id={`business.${business.uid}.name`}>
-        <Text style={[styles.text, { color: colors.text }]}>
+        <Text style={[styles.text, { color: isDark ? colors.text : theme.colors.white }]}>
           {business.name}
         </Text>
       </SharedElement>
@@ -137,7 +126,7 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
             <MaterialIcons
               name='phone'
               size={theme.iconSize.sm}
-              color={colors.text}
+              color={ isDark ? colors.text : theme.colors.white }
             />
           }
           onPress={() => {
@@ -157,7 +146,7 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
             <MaterialIcons
               name='alternate-email'
               size={theme.iconSize.sm}
-              color={colors.text}
+              color={ isDark ? colors.text : theme.colors.white }
             />
           }
           onPress={() => {

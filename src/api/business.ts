@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Appointment } from '../interfaces/appointment.interfaces'
 import { Business } from '../interfaces/user.interface'
 
 const prefix = '/business'

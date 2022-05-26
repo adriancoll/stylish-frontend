@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Appointment } from '../interfaces/appointment.interfaces'
+import { Appointment, StoreAppointment } from '../interfaces/appointment.interfaces'
 
 const prefix = '/appointment'
 
@@ -24,7 +24,7 @@ const confirmAppointment = async (uid: string) => {
   return res.data
 }
 
-const storeAppointment = async (appointment: Appointment) => {
+const storeAppointment = async (appointment: StoreAppointment) => {
   const res = await axios.post(`${prefix}`, appointment)
   return res.data
 }

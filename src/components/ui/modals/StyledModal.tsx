@@ -55,7 +55,10 @@ export const StyledModal: FC<Props & ModalProps> = ({
             customStyle={styles.button}
             spacing={theme.spacing.md}
             title={confirmText}
-            onPress={() => callback()}
+            onPress={() => {
+              callback()
+              closeModal(false)
+            }}
           />
         </View>
       </View>

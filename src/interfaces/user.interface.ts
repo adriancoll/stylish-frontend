@@ -25,6 +25,7 @@ export interface Business {
   total_users_feedback : number
   total_stars          : number
   rating               : number
+  description          : string
 }
 
 export interface LoginResponse {

@@ -22,3 +22,11 @@ export interface Appointment {
     updatedAt    : Date;
     uid          : string;
 }
+
+
+export interface StoreAppointment {
+    business     : string
+    service_type : string
+    date         : Date
+    observations : string
+}

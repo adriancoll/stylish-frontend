@@ -14,12 +14,11 @@ import LottieView from 'lottie-react-native'
 interface Props {
   isVisible: boolean
   animationInTiming?: number
-  children?: JSX.Element
 }
 
 const { width, height } = Dimensions.get('screen')
 
-export const OfflineModal: FC<Props & ModalProps> = ({
+export const OfflineModal: FC<ModalProps & Props> = ({
   isVisible,
   animationInTiming = 1500,
   ...otherProps

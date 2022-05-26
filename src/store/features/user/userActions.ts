@@ -42,6 +42,7 @@ export const registerUser = (payload: RegisterUserPayload) => {
 
       deleteData('token');
       resolve(email)
+
     } catch (error) {
       reject(error)
     }

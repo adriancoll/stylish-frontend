@@ -23,17 +23,14 @@ interface Props {
 const HomeHeader: FC<Props> = ({ name, uri }) => {
   const { colors } = useTheme()
 
-  const handleLongPress = () => {
-    console.log('Open actionsheet')
-    SheetManager.show(USER_ACTIONSHEET)
-  }
+  const handleLongPress = () => SheetManager.show(USER_ACTIONSHEET)
 
   return (
     <View style={styles.container}>
       <UserActionSheet />
       <View>
         <Text style={[styles.welcomeText, { color: colors.text }]}>
-          Hola, {name} 👋
+          Hola, {name.split(' ')[0]} 👋
         </Text>
       </View>
       <Pressable pressEffect='none' onLongPress={handleLongPress}>

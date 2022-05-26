@@ -20,7 +20,7 @@ const onRequest = async (config: AxiosRequestConfig) => {
 }
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[😞 - request error] [${error.message}]`)
+  console.info(`[😞 - request error] [${error.message}]`)
   return Promise.reject(error)
 }
 
@@ -34,7 +34,7 @@ const onResponse = (
 const onResponseError = (
   error: AxiosError<BaseErrorResponse>
 ): Promise<AxiosError> => {
-  console.error(`[😞 - response error] [${error.message} ${error.response?.data?.errors}]`)
+  console.info(`[😞 - response error] [${error.message} ${error.response?.data?.errors}]`)
   return Promise.reject(error)
 }
 

@@ -37,8 +37,12 @@ const appointmentSlice = createSlice({
     setNextAppointment: (state, action: PayloadAction<Appointment | null>) => {
       state.nextAppointment = action.payload
     },
+    addAppointment: (state, action: PayloadAction<Appointment>) => {
+      state.appointments.push(action.payload)
+    }
   },
 })
+
 
 export const {
   setMyAppointments,

@@ -2,9 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import axios from 'axios'
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, ToastAndroid } from 'react-native'
 import { useBaseContainer } from '../../../hooks/useBaseContainer'
 import { RegisterUserPayload, User } from '../../../interfaces/user.interface'
 import { getSchema } from '../../../schemas/RegisterUserSchema'
@@ -14,6 +14,8 @@ import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { CustomPhoneInput } from '../../ui/form-inputs/CustomPhoneInput'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
 import { StyledModal } from '../../ui/modals/StyledModal'
+import * as Animatable from 'react-native-animatable'
+import Snackbar from 'react-native-snackbar'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
@@ -27,7 +29,7 @@ const RegisterSuccessfullModal = () => {
       style={{
         color: colors.text,
         fontFamily: theme.fonts.regular,
-        fontSize: theme.fontSizes.subHeading
+        fontSize: theme.fontSizes.subHeading,
       }}>
       ¡Ahora formas parte del club Stylish!
     </Text>
@@ -37,7 +39,14 @@ const RegisterSuccessfullModal = () => {
 export const RegisterForm: FC<Props> = () => {
   const [region, setRegion] = useState('ES')
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(' ')
+
   const [email, setEmail] = useState<string>('')
+  const buttonRef = useRef<Animatable.View & View>() as React.RefObject<
+    Animatable.View & View
+  >
 
   const { navigate } = useNavigation<authScreenProp>()
 
@@ -52,13 +61,23 @@ export const RegisterForm: FC<Props> = () => {
   })
 
   const onSubmit = async (data: RegisterUserPayload) => {
-    const email = await registerUser(data)
-    reset()
-    setEmail(email)
-    setIsSuccess(true)
+    try {
+      const email = await registerUser(data)
+      reset()
+      setEmail(email)
+      setIsSuccess(true)
+    } catch (error) {
+      ToastAndroid.show(error?.response?.data?.message || error?.response?.data?.errors[0].msg, ToastAndroid.LONG);
+
+      if (buttonRef.current && typeof buttonRef.current.shake === 'function') {
+        buttonRef.current.shake(1000)
+      }
+    }
   }
 
-  const goToLogin = () => navigate('Login', { email: email as string })
+  const goToLogin = () => {
+    navigate('Login', { email: email as string })
+  }
 
   return (
     <View style={styles.container}>
@@ -82,6 +101,7 @@ export const RegisterForm: FC<Props> = () => {
         keyboardType='email-address'
         label='Email'
         control={control}
+        autoCapitalize='none'
         name='email'
         placeholder='Introduce tu dirección de correo'
       />
@@ -99,7 +119,8 @@ export const RegisterForm: FC<Props> = () => {
         label='Número de teléfono'
         name='phone_number'
       />
-      <View
+      <Animatable.View
+        ref={buttonRef}
         style={{
           marginVertical: theme.spacing.md,
         }}>
@@ -111,7 +132,7 @@ export const RegisterForm: FC<Props> = () => {
           onPress={handleSubmit(onSubmit)}
           title='¡Crear cuenta!'
         />
-      </View>
+      </Animatable.View>
     </View>
   )
 }

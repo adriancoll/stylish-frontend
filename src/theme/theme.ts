@@ -18,6 +18,7 @@ const theme = {
     error: 'red',
     warning: 'orange',
     info: 'blue',
+    iconBackground: 'rgba(183,183,183,0.4)'
   },
   fontSizes: {
     sm: 10,
