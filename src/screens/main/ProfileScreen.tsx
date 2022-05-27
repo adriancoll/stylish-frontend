@@ -7,6 +7,9 @@ import theme from '../../theme/theme'
 
 import { EditProfileForm } from '../../components/main/Profile/EditProfileForm'
 import { User } from '../../interfaces/user.interface'
+import { RootState } from '../../store'
+import { UserState } from '../../store/features/user/userSlice'
+import { useSelector } from 'react-redux'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
 
@@ -15,9 +18,7 @@ export default function ProfileScreen() {
   const { baseContainer, colors } = useBaseContainer()
   const route = useRoute()
 
-  const { user } = route.params as { user: User }
-
-  // const { user } = useSelector<RootState, UserState>((state) => state.user)
+  const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   return (
     <SafeAreaView style={[baseContainer]}>

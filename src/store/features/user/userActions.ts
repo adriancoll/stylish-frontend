@@ -9,7 +9,7 @@ import {
   storeData,
 } from '../../../utils/asyncStorage'
 import { setMyAppointments } from '../appointments/appointmentSlice'
-import { loginUser } from './userSlice'
+import { loginUser, setUser } from './userSlice'
 
 export const login = (email: string, password: string) => {
   return new Promise<User>(async (resolve, reject) => {
@@ -47,6 +47,7 @@ export const registerUser = (payload: RegisterUserPayload) => {
       const { email } = data.results.user
 
       deleteData('token')
+      store.dispatch(setUser(data.results))
       resolve(email)
     } catch (error) {
       reject(error)
@@ -64,6 +65,7 @@ export const editUser = (uid: string, payload: FormData) => {
       }
 
       const { user } = data.results
+      store.dispatch(setUser(data.results.user))
 
       resolve(user)
     } catch (error) {

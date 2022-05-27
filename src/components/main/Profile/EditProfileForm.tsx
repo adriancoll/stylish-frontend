@@ -8,7 +8,7 @@ import { StyleSheet, View, Text, ToastAndroid } from 'react-native'
 import { useBaseContainer } from '../../../hooks/useBaseContainer'
 import { EditUserPayload, User } from '../../../interfaces/user.interface'
 import { getSchema } from '../../../schemas/RegisterUserSchema'
-import { registerUser } from '../../../store/features/user/userActions'
+import { editUser, registerUser } from '../../../store/features/user/userActions'
 import theme from '../../../theme/theme'
 import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { CustomPhoneInput } from '../../ui/form-inputs/CustomPhoneInput'
@@ -66,7 +66,7 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
         }
       })
 
-      const res = await editUserAttempt(user.uid, formData)
+      const res = await editUser(user.uid, formData)
 
       console.log(res)
 
@@ -90,7 +90,7 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
     <View style={styles.container}>
       <AvatarInput
         setImage={setImage}
-        uri={image ? image.localUri : user.image}
+        uri={image ? image.uri : user.image}
         label={user.name}
       />
 
