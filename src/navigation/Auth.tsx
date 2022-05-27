@@ -14,6 +14,7 @@ import { useInternetConnection } from '../hooks/useInternetConection'
 import { OfflineModal } from '../components/ui/modals/OfflineModal'
 import BusinessDetailsScreen from '../screens/BusinessDetails/BusinessDetailsScreen'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
+import ProfileScreen from '../screens/main/ProfileScreen'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -80,9 +81,11 @@ export const AuthNavigation = () => {
           <Stack.Screen
             options={{
               headerShown: true,
+              headerTitleAlign: 'center',
+              title: 'Mi perfil',
             }}
             name='Profile'
-            component={BusinessDetailsScreen}
+            component={ProfileScreen}
           />
         </Stack.Navigator>
       </SafeAreaProvider>

@@ -6,7 +6,7 @@ export type token = string
 
 export interface User {
   name                 : string
-  phoneNumber          : string
+  phone_number         : string
   email                : string
   image                : string
   role                 : roles
@@ -44,4 +44,12 @@ export interface RegisterUserPayload {
   phone_number         : string
   email                : string
   password             : string
+}
+
+export interface EditUserPayload {
+  name                 ?: string
+  phone_number         ?: string
+  email                ?: string
+  password             ?: string
+  image                ?: any
 }

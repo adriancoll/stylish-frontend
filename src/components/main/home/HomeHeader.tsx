@@ -33,7 +33,7 @@ const HomeHeader: FC<Props> = ({ name, uri }) => {
           Hola, {name.split(' ')[0]} 👋
         </Text>
       </View>
-      <Pressable pressEffect='none' onLongPress={handleLongPress}>
+      <Pressable pressEffect='none' onPress={handleLongPress} onLongPress={handleLongPress}>
         <Avatar label={name} image={{ uri }} />
       </Pressable>
     </View>

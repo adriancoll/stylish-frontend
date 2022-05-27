@@ -65,6 +65,7 @@ export const CustomPhoneInput: FC<Props & TextInputProps> = ({
                 textProps={{
                   placeholder,
                   placeholderTextColor: 'darkgrey',
+                  
                 }}
                 {...restOfProps}
               />

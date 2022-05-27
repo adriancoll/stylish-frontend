@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Image,
   StyleSheet,
   Text,
   useColorScheme,
@@ -17,6 +18,7 @@ import { RootState } from '../../../store'
 import { UserState } from '../../../store/features/user/userSlice'
 import { clearAllData, deleteData } from '../../../utils/asyncStorage'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { SharedElement } from 'react-navigation-shared-element'
 
 const { width } = Dimensions.get('screen')
 
@@ -32,7 +34,7 @@ const UserActionSheet = () => {
 
   const handleLogout = async () => {
     thisSheet.current.hide()
-    
+
     await clearAllData()
 
     navigator.dispatch(StackActions.replace('Welcome'))
@@ -40,7 +42,7 @@ const UserActionSheet = () => {
 
   const goToProfile = () => {
     thisSheet.current.hide()
-    
+
     navigator.navigate('Profile', { user })
   }
 
@@ -119,5 +121,11 @@ const styles = StyleSheet.create({
   },
   logout: {
     borderRadius: theme.borderRadius.md,
+  },
+  avatar: {
+    marginBottom: theme.spacing.sm,
+    width: theme.iconSize.xl * 1.3,
+    height: theme.iconSize.xl * 1.3,
+    borderRadius: 100,
   },
 })

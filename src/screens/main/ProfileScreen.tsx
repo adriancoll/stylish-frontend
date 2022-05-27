@@ -1,28 +1,27 @@
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet  } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useSelector } from 'react-redux'
-import { Maps } from '../../components/map/Map'
-import CustomButton, { ButtonTypes } from '../../components/ui/CustomButton'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
-import { RootState } from '../../store'
-import { UserState } from '../../store/features/user/userSlice'
 import theme from '../../theme/theme'
+
+import { EditProfileForm } from '../../components/main/Profile/EditProfileForm'
+import { User } from '../../interfaces/user.interface'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
 
 export default function ProfileScreen() {
   const navigator = useNavigation<authScreenProp>()
   const { baseContainer, colors } = useBaseContainer()
+  const route = useRoute()
 
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
+  const { user } = route.params as { user: User }
+
+  // const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   return (
     <SafeAreaView style={[baseContainer]}>
-      <Text style={[{ color: colors.text }]}>
-        Perfil, {user.name} {user.email}
-      </Text>
+      <EditProfileForm user={user} />
     </SafeAreaView>
   )
 }
@@ -35,5 +34,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: theme.fonts.bold,
+  },
+  avatar: {
+    marginBottom: theme.spacing.sm,
+    width: theme.iconSize.xl * 2,
+    height: theme.iconSize.xl * 2,
+    borderRadius: 100,
   },
 })
