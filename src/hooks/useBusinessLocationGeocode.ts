@@ -17,16 +17,17 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
 
     if (isStored) {
       console.log('[info] Localización recuperada de async store!')
-      return isStored
+      setLocation(isStored)
+      return;
     }
 
     Geocoder.init(GOOGLE_API_TOKEN)
 
     console.log('[info] Buscando de google maps API!')
     Geocoder.from({ lat, lng })
-      .then((json) => {
+      .then(async (json) => {
         console.log('[info] Dirección encontrada, guardando en async store!')
-        storeData('geocoding', json)
+        await storeData('geocoding', json)
         setLocation(json)
         return json
       })

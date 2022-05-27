@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { BaseSectionStyles, Section } from './Section'
 import { useBusinessLocationGeocode } from '../../../hooks/useBusinessLocationGeocode'
 import { useTheme } from '@react-navigation/native'
@@ -16,6 +16,11 @@ const Location: FC<Props> = ({ lat, lng }) => {
   const { colors } = useTheme()
 
   const location = useBusinessLocationGeocode({ lat, lng })
+
+  useEffect(() => {
+    console.log(location);
+  }, [location])
+  
 
   if (!location) (<Text> Cargando </Text>)
 
