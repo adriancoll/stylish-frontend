@@ -6,6 +6,7 @@ import { useTheme } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import { DELAY } from '../../../constants/animations'
 import { LocationCard } from '../../ui/cards/LocationCard/LocationCard'
+import theme from '../../../theme/theme'
 
 interface Props {
   lat: number
@@ -17,12 +18,15 @@ const Location: FC<Props> = ({ lat, lng }) => {
 
   const location = useBusinessLocationGeocode({ lat, lng })
 
-  useEffect(() => {
-    console.log(location);
-  }, [location])
-  
-
-  if (!location) (<Text> Cargando </Text>)
+  if (!location)
+    <Text
+      style={{
+        color: colors.text,
+        fontFamily: theme.fonts.thin,
+        fontSize: theme.fontSizes.sm,
+      }}>
+      Cargando
+    </Text>
 
   return (
     <Section>
