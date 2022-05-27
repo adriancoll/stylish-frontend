@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigation, useTheme } from '@react-navigation/native'
+import { StackActions, useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import axios from 'axios'
 import { FC, useEffect, useRef, useState } from 'react'
@@ -21,7 +21,7 @@ import { getEditUserSchema } from '../../../schemas/UpdateUserSchema'
 import { editUserAttempt } from '../../../api/user'
 import { isEmpty } from 'lodash'
 
-type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
+type profileScreenNavigation = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
 interface Props {
   user: User
@@ -30,6 +30,7 @@ interface Props {
 export const EditProfileForm: FC<Props> = ({ user }) => {
   const [region, setRegion] = useState('ES')
   const [isSuccess, setIsSuccess] = useState(false)
+  const navigator = useNavigation<profileScreenNavigation>()
 
   const [image, setImage] = useState<any>(null)
 
@@ -66,10 +67,9 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
         }
       })
 
-      const res = await editUser(user.uid, formData)
+      await editUser(user.uid, formData)
 
-      console.log(res)
-
+      navigator.goBack()
       setIsSuccess(true)
     } catch (error) {
       if (!isEmpty(error?.response?.data?.errors)) {

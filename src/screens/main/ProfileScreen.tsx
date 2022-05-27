@@ -14,9 +14,7 @@ import { useSelector } from 'react-redux'
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
 
 export default function ProfileScreen() {
-  const navigator = useNavigation<authScreenProp>()
   const { baseContainer, colors } = useBaseContainer()
-  const route = useRoute()
 
   const { user } = useSelector<RootState, UserState>((state) => state.user)
 

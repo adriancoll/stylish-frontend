@@ -40,10 +40,10 @@ const UserActionSheet = () => {
     navigator.dispatch(StackActions.replace('Welcome'))
   }
 
-  const goToProfile = () => {
-    thisSheet.current.hide()
+  const goToProfile = async () => {
+    await thisSheet.current.hide()
 
-    navigator.navigate('Profile', { user })
+    navigator.navigate('Profile')
   }
 
   return (
