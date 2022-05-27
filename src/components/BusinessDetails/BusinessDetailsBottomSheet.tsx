@@ -43,7 +43,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
               stars={business?.total_stars}
               uid={business?.uid}
             />
-            <Location />
+            <Location lat={business.latitude} lng={business.longitude} />
             <BookAppointmentButton business={business} />
           </>
         )}

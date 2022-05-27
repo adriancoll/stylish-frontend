@@ -77,6 +77,13 @@ export const AuthNavigation = () => {
             }}
             component={BusinessDetailsScreen}
           />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+            }}
+            name='Profile'
+            component={BusinessDetailsScreen}
+          />
         </Stack.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>

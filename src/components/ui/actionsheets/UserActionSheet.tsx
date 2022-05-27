@@ -16,11 +16,14 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { UserState } from '../../../store/features/user/userSlice'
 import { clearAllData, deleteData } from '../../../utils/asyncStorage'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 const { width } = Dimensions.get('screen')
 
+type homeScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
+
 const UserActionSheet = () => {
-  const navigator = useNavigation()
+  const navigator = useNavigation<homeScreenProp>()
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
   const thisSheet = useRef<any>()
@@ -33,6 +36,12 @@ const UserActionSheet = () => {
     await clearAllData()
 
     navigator.dispatch(StackActions.replace('Welcome'))
+  }
+
+  const goToProfile = () => {
+    thisSheet.current.hide()
+    
+    navigator.navigate('Profile', { user })
   }
 
   return (
@@ -48,7 +57,7 @@ const UserActionSheet = () => {
         ...styles.container,
         backgroundColor: isDark ? theme.colors.black : theme.colors.white,
       }}>
-      <Pressable>
+      <Pressable onPress={goToProfile}>
         <View style={[styles.item]}>
           <View style={[styles.iconContainer]}>
             <Avatar

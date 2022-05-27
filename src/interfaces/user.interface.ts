@@ -26,6 +26,8 @@ export interface Business {
   total_stars          : number
   rating               : number
   description          : string
+  latitude             : number
+  longitude            : number
 }
 
 export interface LoginResponse {

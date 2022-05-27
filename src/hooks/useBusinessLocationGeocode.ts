@@ -7,28 +7,34 @@ type Location = {
   lng: number
 }
 
+const GOOGLE_API_TOKEN = 'AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM'
+
 export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
   const [location, setLocation] = useState<Geocoder.GeocoderResponse>()
+
   const checkIfIsStored = async () => {
     const isStored = await getData('geocoding')
 
     if (isStored) {
-        console.log('recuperado de async store')
+      console.log('[info] Localización recuperada de async store!')
       return isStored
     }
 
-    Geocoder.init('AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM') // use a valid API key
+    Geocoder.init(GOOGLE_API_TOKEN)
 
+    console.log('[info] Buscando de google maps API!')
     Geocoder.from({ lat, lng })
       .then((json) => {
+        console.log('[info] Dirección encontrada, guardando en async store!')
         storeData('geocoding', json)
+        setLocation(json)
         return json
       })
       .catch((error) => console.warn(error))
   }
 
   useEffect(() => {
-    checkIfIsStored().then((location) => setLocation(location))
+    checkIfIsStored()
   }, [])
 
   return location

@@ -95,6 +95,7 @@ export const MainNavigation = () => {
         name='Appointments'
         component={AppointmentsScreen}
         options={{
+          tabBarBadge: '1',
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}

@@ -45,7 +45,7 @@ type RootStackParamList = {
   Appointments: undefined
   Map: undefined
   Test: undefined
-  Profile: undefined
+  Profile: { user: User } | undefined
 }
 
 declare global {

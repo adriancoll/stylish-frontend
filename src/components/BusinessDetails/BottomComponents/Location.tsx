@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react'
 import { BaseSectionStyles, Section } from './Section'
 import { useBusinessLocationGeocode } from '../../../hooks/useBusinessLocationGeocode'
 import { useTheme } from '@react-navigation/native'
@@ -7,15 +7,17 @@ import * as Animatable from 'react-native-animatable'
 import { DELAY } from '../../../constants/animations'
 import { LocationCard } from '../../ui/cards/LocationCard/LocationCard'
 
-const Location = () => {
+interface Props {
+  lat: number
+  lng: number
+}
+
+const Location: FC<Props> = ({ lat, lng }) => {
   const { colors } = useTheme()
 
-  const location = useBusinessLocationGeocode({
-    lat: 39.479962,
-    lng: -0.437108,
-  })
+  const location = useBusinessLocationGeocode({ lat, lng })
 
-  if (!location) (<Text> fetching </Text>)
+  if (!location) (<Text> Cargando </Text>)
 
   return (
     <Section>
