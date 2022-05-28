@@ -1,27 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { StackActions, useNavigation, useTheme } from '@react-navigation/native'
+import { useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import axios from 'axios'
+import { AxiosError } from 'axios'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyleSheet, View, Text, ToastAndroid } from 'react-native'
-import { useBaseContainer } from '../../../hooks/useBaseContainer'
 import { EditUserPayload, User } from '../../../interfaces/user.interface'
-import { getSchema } from '../../../schemas/RegisterUserSchema'
-import { editUser, registerUser } from '../../../store/features/user/userActions'
+import { editUser } from '../../../store/features/user/userActions'
 import theme from '../../../theme/theme'
-import CustomButton, { ButtonTypes } from '../../ui/CustomButton'
 import { CustomPhoneInput } from '../../ui/form-inputs/CustomPhoneInput'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
-import { StyledModal } from '../../ui/modals/StyledModal'
 import * as Animatable from 'react-native-animatable'
-import { ImagePickerResult } from 'expo-image-picker'
-import AvatarInput, { ImageFile } from '../../ui/form-inputs/AvatarInput'
+import AvatarInput from '../../ui/form-inputs/AvatarInput'
 import { getEditUserSchema } from '../../../schemas/UpdateUserSchema'
-import { editUserAttempt } from '../../../api/user'
 import { isEmpty } from 'lodash'
+import TouchableScale from 'react-native-touchable-scale'
+import { ActivityIndicator } from '@react-native-material/core'
+import { AntDesign } from '@expo/vector-icons'
 
-type profileScreenNavigation = NativeStackNavigationProp<RootStackParamList, 'Register'>
+type profileScreenNavigation = NativeStackNavigationProp<
+  RootStackParamList,
+  'Register'
+>
 
 interface Props {
   user: User
@@ -31,6 +31,8 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
   const [region, setRegion] = useState('ES')
   const [isSuccess, setIsSuccess] = useState(false)
   const navigator = useNavigation<profileScreenNavigation>()
+  const [isLoading, setIsLoading] = useState(false)
+  const { colors } = useTheme()
 
   const [image, setImage] = useState<any>(null)
 
@@ -42,8 +44,7 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
     control,
     handleSubmit,
     reset,
-    watch,
-    formState: { isValid },
+    formState: { isValid, isDirty },
   } = useForm<EditUserPayload>({
     mode: 'onChange',
     resolver: yupResolver(getEditUserSchema(region)),
@@ -54,30 +55,43 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
   }, [])
 
   const onSubmit = async (data: EditUserPayload) => {
+    setIsSuccess(false)
     try {
+      setIsLoading(true)
       const formData = new FormData()
 
       if (image) {
         formData.append('file', image)
       }
 
-      Object.keys(data).forEach((value) => {
-        if (data[value]) {
-          formData.append(value, data[value])
-        }
-      })
+      // fill form data with form inputs
+      Object.entries(data).forEach(([key, value]) =>
+        formData.append(key, value)
+      )
 
       await editUser(user.uid, formData)
 
-      navigator.goBack()
+      setIsLoading(false)
       setIsSuccess(true)
-    } catch (error) {
+
+      setTimeout(() => {
+        setIsSuccess(false)
+        reset(user)
+      }, 2000)
+    } catch (err) {
+      const error = err as AxiosError<BaseErrorResponse>
+      setIsLoading(false)
+
       if (!isEmpty(error?.response?.data?.errors)) {
         error?.response?.data?.errors.forEach((value) => {
           ToastAndroid.show(value.msg, ToastAndroid.SHORT)
         })
       } else {
-        ToastAndroid.show(error?.response?.data?.message, ToastAndroid.LONG)
+        ToastAndroid.show(
+          error?.response?.data?.message ??
+            'Error desconocido, contacta a un administrador.',
+          ToastAndroid.LONG
+        )
       }
 
       if (buttonRef.current && typeof buttonRef.current.shake === 'function') {
@@ -86,8 +100,15 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
     }
   }
 
+  const getBackgroundColor = () => {
+    if (isSuccess) return theme.colors.success
+    if (isValid) return colors.primary
+
+    return theme.colors.grey
+  }
+
   return (
-    <View style={styles.container}>
+    <View>
       <AvatarInput
         setImage={setImage}
         uri={image ? image.uri : user.image}
@@ -128,20 +149,63 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
         style={{
           marginVertical: theme.spacing.md,
         }}>
-        <CustomButton
-          type={ButtonTypes.PRIMARY}
-          bgColor={theme.colors['primary-light']}
-          disabled={!isValid}
-          disabledText={'¡Completa todos los campos!'}
-          onPress={handleSubmit(onSubmit)}
-          title='Editar cuenta'
-        />
+        <TouchableScale disabled={!isValid} onPress={handleSubmit(onSubmit)}>
+          <Animatable.View
+            transition={['backgroundColor']}
+            style={[
+              styles.button,
+              {
+                flexDirection: 'row',
+                opacity: isLoading || !isValid ? 0.5 : 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: getBackgroundColor(),
+              },
+            ]}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: theme.spacing.md,
+              }}>
+              {isLoading && (
+                <ActivityIndicator size='small' color={colors.text} />
+              )}
+              {isSuccess && (
+                <AntDesign name='check' size={24} color={colors.text} />
+              )}
+            </View>
+
+            <Text style={[styles.text, { color: colors.text }]}>
+              {isSuccess
+                ? 'Guardado correctamente'
+                : isLoading
+                ? 'Guardando...'
+                : isValid
+                ? 'Guardar cambios'
+                : 'Completa los campos requeridos'}
+            </Text>
+          </Animatable.View>
+        </TouchableScale>
       </Animatable.View>
-      <Text>{JSON.stringify(watch())}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.md,
+  },
+  button: {
+    padding: theme.spacing.lg,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.md,
+    alignItems: 'center',
+  },
+  text: {
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.fontSizes.subHeading,
+  },
 })

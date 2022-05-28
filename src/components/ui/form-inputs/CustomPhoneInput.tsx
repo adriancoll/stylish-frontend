@@ -56,6 +56,7 @@ export const CustomPhoneInput: FC<Props & TextInputProps> = ({
                 confirmTextStyle={{ color: theme.colors['primary-light'] }}
                 cancelTextStyle={{ color: theme.colors['primary-light'] }}
                 cancelText='Cerrar'
+                initialValue={value}
                 initialCountry={'es'}
                 onChangePhoneNumber={onChange}
                 pickerBackgroundColor={theme.colors.white}

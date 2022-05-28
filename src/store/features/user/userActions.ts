@@ -47,7 +47,7 @@ export const registerUser = (payload: RegisterUserPayload) => {
       const { email } = data.results.user
 
       deleteData('token')
-      store.dispatch(setUser(data.results))
+      store.dispatch(setUser(data.results.user))
       resolve(email)
     } catch (error) {
       reject(error)
@@ -56,7 +56,7 @@ export const registerUser = (payload: RegisterUserPayload) => {
 }
 
 export const editUser = (uid: string, payload: FormData) => {
-  return new Promise<User>(async (resolve, reject) => {
+  return new Promise<BaseResponse<{ user: User }>>(async (resolve, reject) => {
     try {
       const data = await editUserAttempt(uid, payload)
       if (data.error) {
@@ -67,7 +67,7 @@ export const editUser = (uid: string, payload: FormData) => {
       const { user } = data.results
       store.dispatch(setUser(data.results.user))
 
-      resolve(user)
+      resolve(data)
     } catch (error) {
       reject(error)
     }

@@ -45,6 +45,8 @@ interface BaseButtonProps {
 
 const BaseButton: FC<BaseButtonProps> = ({ icon, onPress }) => (
   <TouchableScale
+    accessibilityHint='Pulsar para ver más información'
+    accessibilityLabel='Abrir redes sociales de la empresa'
     onPress={onPress}
     style={{
       borderRadius: width,
@@ -95,10 +97,12 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
         />
       </SharedElement>
 
-      
-
       <SharedElement id={`business.${business.uid}.name`}>
-        <Text style={[styles.text, { color: isDark ? colors.text : theme.colors.white }]}>
+        <Text
+          style={[
+            styles.text,
+            { color: isDark ? colors.text : theme.colors.white },
+          ]}>
           {business.name}
         </Text>
       </SharedElement>
@@ -126,16 +130,16 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
             <MaterialIcons
               name='phone'
               size={theme.iconSize.sm}
-              color={ isDark ? colors.text : theme.colors.white }
+              color={isDark ? colors.text : theme.colors.white}
             />
           }
           onPress={() => {
             let phoneNumber = ''
 
             if (Platform.OS === 'android') {
-              phoneNumber = `tel:${business.user.phoneNumber}`
+              phoneNumber = `tel:${business.user.phone_number}`
             } else {
-              phoneNumber = `telprompt:${business.user.phoneNumber}`
+              phoneNumber = `telprompt:${business.user.phone_number}`
             }
 
             Linking.openURL(phoneNumber)
@@ -146,7 +150,7 @@ const BusinessDetailsHead: FC<Props> = ({ children, business }) => {
             <MaterialIcons
               name='alternate-email'
               size={theme.iconSize.sm}
-              color={ isDark ? colors.text : theme.colors.white }
+              color={isDark ? colors.text : theme.colors.white}
             />
           }
           onPress={() => {

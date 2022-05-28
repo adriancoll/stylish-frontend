@@ -60,7 +60,7 @@ const Reviews: FC<Props> = ({ users, rating, stars, uid }) => {
               size={theme.iconSize.xs}
               color='black'
             />
-            <Text style={[styles.reviewItemText]}>{users}</Text>
+            <Text style={[styles.reviewItemText, { color: colors.text }]}>{users}</Text>
           </Chip>
         </ReviewItem>
 
@@ -72,11 +72,11 @@ const Reviews: FC<Props> = ({ users, rating, stars, uid }) => {
               color='black'
               style={{ color: theme.colors.primary, marginRight: 5 }}
             />
-            <Text style={[styles.reviewItemText]}>{rating}</Text>
+            <Text style={[styles.reviewItemText, { color: colors.text }]}>{rating}</Text>
           </Chip>
         </ReviewItem>
 
-        <ReviewItem title='Estrellas' delay={DELAY + 850}>
+        <ReviewItem title='Estrellas' delay={DELAY + 1150}>
           <Chip color={colors.text} style={[styles.chip]} label=''>
             <MaterialCommunityIcons
               style={{ color: theme.colors.primary, marginRight: 5 }}
@@ -84,7 +84,7 @@ const Reviews: FC<Props> = ({ users, rating, stars, uid }) => {
               size={theme.iconSize.xs + 5}
               color='black'
             />
-            <Text style={[styles.reviewItemText]}>{stars}</Text>
+            <Text style={[styles.reviewItemText, { color: colors.text }]}>{stars}</Text>
           </Chip>
         </ReviewItem>
       </Animatable.View>
@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   reviewItemText: {
-    color: 'lightgrey',
     fontSize: theme.fontSizes.body,
   },
 })
