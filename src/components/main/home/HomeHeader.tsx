@@ -1,16 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { FC } from 'react'
-import {
-  ActivityIndicator,
-  Avatar,
-  Divider,
-  Pressable,
-} from '@react-native-material/core'
+import { Avatar, Pressable } from '@react-native-material/core'
 import theme from '../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../store'
-import { UserState } from '../../../store/features/user/userSlice'
 import { SheetManager } from 'react-native-actions-sheet'
 import { USER_ACTIONSHEET } from '../../../constants/actionsheets'
 import UserActionSheet from '../../ui/actionsheets/UserActionSheet'
@@ -33,7 +25,10 @@ const HomeHeader: FC<Props> = ({ name, uri }) => {
           Hola, {name.split(' ')[0]} 👋
         </Text>
       </View>
-      <Pressable pressEffect='none' onPress={handleLongPress} onLongPress={handleLongPress}>
+      <Pressable
+        pressEffect='none'
+        onPress={handleLongPress}
+        onLongPress={handleLongPress}>
         <Avatar label={name} image={{ uri }} />
       </Pressable>
     </View>

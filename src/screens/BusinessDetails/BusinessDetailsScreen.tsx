@@ -83,5 +83,6 @@ const styles = StyleSheet.create({
     left: theme.spacing.lg,
     elevation: 2,
     padding: theme.spacing.sm,
+    zIndex: 1,
   },
 })

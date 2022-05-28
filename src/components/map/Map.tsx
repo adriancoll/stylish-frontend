@@ -21,7 +21,6 @@ import {
 import {
   getCurrentPositionAsync,
   LocationObjectCoords,
-  PermissionStatus,
   requestForegroundPermissionsAsync,
 } from 'expo-location'
 import { isEmpty } from 'lodash'
@@ -33,14 +32,16 @@ import LottieView from 'lottie-react-native'
 // Maps
 import lightMap from '../../../assets/maps/light.json'
 import darkMap from '../../../assets/maps/dark.json'
-import theme from '../../theme/theme'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
 import { MapOverlay } from './Overlay/MapOverlay'
-import { BackArrow } from './Overlay/BackArrow'
+import { Business } from '../../interfaces/user.interface'
+import BusinessMarker from './Markers/BusinessMarker'
 
-interface Props extends MapViewProps {}
+interface Props extends MapViewProps {
+  businesses: Business[]
+}
 
-export const Maps: FC<Props> = ({ ...props }) => {
+export const Maps: FC<Props> = ({ businesses, ...props }) => {
   const [location, setLocation] = useState<LocationObjectCoords>(
     {} as LocationObjectCoords
   )
@@ -87,7 +88,6 @@ export const Maps: FC<Props> = ({ ...props }) => {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-
         }}>
         <LottieView
           autoPlay
@@ -125,7 +125,6 @@ export const Maps: FC<Props> = ({ ...props }) => {
           latitudeDelta: 0.9,
           longitudeDelta: 0.4,
         }}
-        minZoomLevel={10}
         region={{
           longitude: location.longitude,
           latitude: location.latitude,
@@ -133,20 +132,9 @@ export const Maps: FC<Props> = ({ ...props }) => {
           longitudeDelta: 0.4,
         }}
         {...props}>
-
-
-        <Marker
-          onPress={() => {
-            /** @TODO add spreadsheet */
-          }}
-          coordinate={{
-            longitude: location.longitude + 0.01,
-            latitude: location.latitude - 0.005,
-          }}>
-          <MaterialIcons name='person-pin' size={35} color={colors.primary} />
-        </Marker>
-
-
+        {businesses.map((business) => (
+          <BusinessMarker business={business} key={business.uid} />
+        ))}
       </MapView>
       <MapOverlay />
     </>

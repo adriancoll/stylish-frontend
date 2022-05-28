@@ -19,7 +19,7 @@ export interface Business {
   name                 : string
   employees            : number
   image                : string
-  serviceTypes?        : ServiceType[]
+  service_types        : ServiceType[]
   user                 : User
   uid                  : string
   total_users_feedback : number

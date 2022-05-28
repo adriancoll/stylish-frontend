@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useEffect } from 'react'
 import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 import { Maps } from '../../components/map/Map'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
 import { RootState } from '../../store'
+import { getBusiness } from '../../store/features/business/businessActions'
+import { BusinessState } from '../../store/features/business/businessSlice'
 import { UserState } from '../../store/features/user/userSlice'
 import theme from '../../theme/theme'
 
@@ -17,12 +20,17 @@ export default function MapScreen() {
   const navigator = useNavigation<authScreenProp>()
   const { baseContainer, colors } = useBaseContainer(false)
 
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
+  useEffect(() => {
+    getBusiness()
+  }, [])
+
+  const { businesses } = useSelector<RootState, BusinessState>(
+    (state) => state.business
+  )
 
   return (
     <View style={[baseContainer, styles.container]}>
-      <StatusBar hidden />
-      <Maps />
+      <Maps businesses={businesses} />
     </View>
   )
 }
@@ -30,7 +38,7 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     width,
-    height
+    height,
   },
   text: {
     fontFamily: theme.fonts.bold,

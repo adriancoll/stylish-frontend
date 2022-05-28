@@ -3,14 +3,14 @@ import { Business } from '../../../interfaces/user.interface'
 
 export interface BusinessState {
   myBusiness: Business | null
-  business: Business[]
+  businesses: Business[]
   popularBusiness: Business[]
 }
 
 //** @var {User} Just a mock for testing */
 const initialState = {
   myBusiness: {} as Business,
-  business: [],
+  businesses: [],
   popularBusiness: [],
 } as BusinessState
 
@@ -22,7 +22,7 @@ const businessSlice = createSlice({
       state.myBusiness = action.payload
     },
     setAllBusiness: (state, action: PayloadAction<Business[]>) => {
-      state.business = action.payload
+      state.businesses = action.payload
     },
     setPopularBusiness: (state, action: PayloadAction<Business[]>) => {
       state.popularBusiness = action.payload

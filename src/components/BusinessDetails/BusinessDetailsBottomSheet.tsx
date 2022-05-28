@@ -10,6 +10,8 @@ import Reviews from './BottomComponents/Reviews'
 import Location from './BottomComponents/Location'
 import BookAppointmentButton from './BottomComponents/BookAppointmentButton'
 import { transform } from 'lodash'
+import { ScrollView } from 'react-native-gesture-handler'
+import { Services } from './BottomComponents/Services'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -30,13 +32,16 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
           backgroundColor: isDark ? theme.colors.black : theme.colors.white,
         },
       ]}>
-      <Animatable.View>
-        {business && (
-          <>
+      {business && (
+        <Animatable.View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.scrollView}>
             <Description
               name={business?.name}
               description={business?.description}
             />
+            <Services business={business} />
             <Reviews
               users={business?.total_users_feedback}
               rating={business?.rating}
@@ -44,10 +49,10 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
               uid={business?.uid}
             />
             <Location lat={business.latitude} lng={business.longitude} />
-            <BookAppointmentButton business={business} />
-          </>
-        )}
-      </Animatable.View>
+          </ScrollView>
+          <BookAppointmentButton business={business} />
+        </Animatable.View>
+      )}
     </Animatable.View>
   )
 }
@@ -61,5 +66,8 @@ const styles = StyleSheet.create({
     width,
     padding: theme.spacing.lg,
     height: height * 0.75,
+  },
+  scrollView: {
+    height: '60%',
   },
 })

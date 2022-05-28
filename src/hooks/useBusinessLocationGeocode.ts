@@ -9,6 +9,13 @@ type Location = {
 
 const GOOGLE_API_TOKEN = 'AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM'
 
+/**
+ * Gets the data from the business latitude and longitude through the Geocoding Google API, and stores it on AsyncStorage just for the current session.
+ * To prevent many requests to the API, the data is stored on AsyncStorage for the current session. 
+ * @see https://developers.google.com/maps/documentation/geocoding/start
+ * @param param0 
+ * @returns 
+ */
 export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
   const [location, setLocation] = useState<Geocoder.GeocoderResponse>()
 
