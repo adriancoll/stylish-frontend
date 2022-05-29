@@ -84,7 +84,7 @@ export const AppointmentFormModal: FC<Props> = ({
           onAnimationFinish={() => {
             setTimeout(() => {
               toggleModal()
-              navigator.dispatch(StackActions.replace('Appointments'))
+              navigator.dispatch(StackActions.replace('Main'))
             }, 1000)
           }}
           style={{
