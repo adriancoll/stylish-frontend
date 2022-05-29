@@ -25,7 +25,7 @@ export interface Appointment {
 
 
 export interface StoreAppointment {
-    business     : string
+    business     ?: string
     service_type : string
     date         : Date
     observations : string

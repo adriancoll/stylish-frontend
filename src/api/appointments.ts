@@ -25,7 +25,7 @@ const confirmAppointment = async (uid: string) => {
 }
 
 const storeAppointment = async (appointment: StoreAppointment) => {
-  const res = await axios.post(`${prefix}`, appointment)
+  const res = await axios.post<BaseResponse<{ appontment: Appointment}>>(`${prefix}`, appointment)
   return res.data
 }
 

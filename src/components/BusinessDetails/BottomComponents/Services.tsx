@@ -27,10 +27,12 @@ export const Services: FC<Props> = ({ business }) => {
           </Animatable.Text>
           <FlatList
             horizontal
+            key={'services'}
             keyExtractor={(item) => item.uid}
             data={business.service_types}
             renderItem={({ item }) => (
               <Animatable.View
+                key={item.uid}
                 animation={'fadeInUp'}
                 delay={DELAY + 100}>
                 <Chip color={colors.text} style={[styles.chip]} label=''>

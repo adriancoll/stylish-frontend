@@ -3,7 +3,6 @@
  * REQUEST STRUCTURE, IN SUCCESS / ERRORS AND VALIDATION REQUESTS
  */
 
-
 declare module 'redux-persist/es/persistStore'
 declare module 'redux-persist/integration/react'
 
@@ -40,6 +39,7 @@ type RootStackParamList = {
   // Main
   Main: undefined
   BusinessDetails: { business: Business } | undefined
+  AppointmentFormScreen: { business: Business } | undefined
 
   Home: undefined
   Appointments: undefined

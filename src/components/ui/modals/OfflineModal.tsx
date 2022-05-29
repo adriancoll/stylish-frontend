@@ -18,7 +18,7 @@ interface Props {
 
 const { width, height } = Dimensions.get('screen')
 
-export const OfflineModal: FC<ModalProps & Props> = ({
+export const OfflineModal: FC<Props> = ({
   isVisible,
   animationInTiming = 1500,
   ...otherProps

@@ -35,6 +35,18 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
       {business && (
         <Animatable.View>
           <ScrollView
+            contentContainerStyle={{
+              paddingBottom: theme.spacing.lg,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.23,
+              shadowRadius: 2.62,
+              elevation: 20,
+              
+            }}
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>
             <Description

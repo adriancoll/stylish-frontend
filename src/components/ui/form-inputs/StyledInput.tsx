@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import theme from '../../../theme/theme'
+import * as Animatable from 'react-native-animatable'
 
 type Props = {
   control: Control<any>
@@ -22,6 +23,7 @@ export const StyledInput: FC<Props & TextInputProps> = ({
   name,
   control,
   label,
+  style,
   ...restOfProps
 }) => {
   const { colors } = useTheme()
@@ -41,23 +43,27 @@ export const StyledInput: FC<Props & TextInputProps> = ({
           fieldState: { error },
         }) => (
           <>
-            <View
-              style={{
-                ...styles.container,
-                backgroundColor,
-                borderColor: error ? 'red' : colors.border,
-              }}>
+            <Animatable.View
+              transition={['backgroundColor', 'borderRadius', 'borderColor']}
+              style={[
+                styles.container,
+                style,
+                {
+                  backgroundColor,
+                  borderColor: error ? 'red' : colors.border,
+                },
+              ]}>
               <TextInput
                 {...restOfProps}
                 placeholderTextColor='darkgrey'
                 onChangeText={onChange}
                 value={value}
                 style={{
-                  color: colors.text
+                  color: colors.text,
                 }}
                 {...field}
               />
-            </View>
+            </Animatable.View>
             {error && <Text style={styles.errorText}>{error?.message}</Text>}
           </>
         )}

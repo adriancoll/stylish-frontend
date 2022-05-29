@@ -15,6 +15,7 @@ import { OfflineModal } from '../components/ui/modals/OfflineModal'
 import BusinessDetailsScreen from '../screens/BusinessDetails/BusinessDetailsScreen'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import ProfileScreen from '../screens/main/ProfileScreen'
+import AppointmentFormScreen from '../screens/main/AppointmentFormScreen'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -77,6 +78,23 @@ export const AuthNavigation = () => {
               return items
             }}
             component={BusinessDetailsScreen}
+          />
+          <Stack.Screen
+            options={{
+              title: 'Configurar cita',
+              headerTitleAlign: 'center',
+            }}
+            name='AppointmentFormScreen'
+            sharedElements={(route, otherRoute, showing) => {
+              const { business } = route.params
+
+              const items = ['image', 'name'].map(
+                (item) => `appointment.form.${business.uid}.${item}`
+              )
+
+              return items
+            }}
+            component={AppointmentFormScreen}
           />
           <Stack.Screen
             options={{

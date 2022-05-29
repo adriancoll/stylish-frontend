@@ -1,10 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Appointment } from '../../../interfaces/appointment.interfaces'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppointmentsAPI } from '../../../api/appointments'
+import { Appointment, StoreAppointment } from '../../../interfaces/appointment.interfaces'
 
 export interface AppointmentsState {
   appointments: Appointment[]
   nextAppointment: Appointment | null
 }
+
+export const createAppointment = createAsyncThunk(
+  'appointments/addAppointment',
+  async (payload: StoreAppointment, thunkAPI) => {
+    const response = await AppointmentsAPI.storeAppointment(payload)
+    return response.results.appontment
+  }
+)
 
 //** @var {User} Just a mock for testing */
 const initialState = {
@@ -39,10 +48,9 @@ const appointmentSlice = createSlice({
     },
     addAppointment: (state, action: PayloadAction<Appointment>) => {
       state.appointments.push(action.payload)
-    }
+    },
   },
 })
-
 
 export const {
   setMyAppointments,
