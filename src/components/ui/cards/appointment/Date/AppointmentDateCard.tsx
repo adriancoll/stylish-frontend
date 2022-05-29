@@ -8,7 +8,7 @@ import { AntDesign } from '@expo/vector-icons'
 import TouchableScale from 'react-native-touchable-scale'
 
 interface Props {
-  date: Moment | null
+  date: any
   label: string
   onPress: () => void
 }

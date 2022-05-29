@@ -1,3 +1,4 @@
+import moment from "moment";
 import { ServiceType } from "./service_type.interface";
 import { Business, User } from "./user.interface";
 
@@ -27,6 +28,6 @@ export interface Appointment {
 export interface StoreAppointment {
     business     ?: string
     service_type : string
-    date         : Date
+    date         : any
     observations : string
 }

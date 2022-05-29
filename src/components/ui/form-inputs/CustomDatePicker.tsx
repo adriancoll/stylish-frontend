@@ -35,22 +35,27 @@ const CustomDatePicker: FC<Props> = ({ name, control, setShowPicker }) => {
             locale='es-ES'
             onChange={(event, date) => {
               if (mode === 'date') {
+                if (event.type === 'dismissed') {
+                  return setShowPicker(false)
+                }
                 setFinalDate(moment(date))
                 setMode('time')
               } else if (mode === 'time') {
                 if (event.type === 'dismissed') {
-                  setMode('date')
+                  return setMode('date')
                 }
 
                 if (date !== undefined) {
-                  const newDate = moment(finalDate).set({
-                    hour: date.getHours(),
-                    minute: date.getMinutes(),
-                  }).toDate()
+                  const newDate = moment(finalDate)
+                    .set({
+                      hour: date.getHours(),
+                      minute: date.getMinutes(),
+                    })
+                    .toDate()
 
                   setFinalDate(moment(newDate))
-                  onChange(newDate)
                   setShowPicker(false)
+                  onChange(newDate)
                 }
               }
             }}

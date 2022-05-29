@@ -1,8 +1,8 @@
 import { isEmpty } from 'lodash'
 import { store } from '../..'
 import { AppointmentsAPI } from '../../../api/appointments'
-import { Appointment } from '../../../interfaces/appointment.interfaces'
-import { setMyAppointments, setNextAppointment } from './appointmentSlice'
+import { Appointment, StoreAppointment } from '../../../interfaces/appointment.interfaces'
+import { addAppointment, setMyAppointments, setNextAppointment } from './appointmentSlice'
 
 export const getAppointments = () => {
   return new Promise<Appointment[]>(async (resolve, reject) => {
@@ -34,6 +34,19 @@ export const getNextAppointment = () => {
 
       store.dispatch(setNextAppointment(data?.results?.appointment))
       resolve(data.results.appointment)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const createAppointment = (payload: StoreAppointment) => {
+  return new Promise<Appointment>(async (resolve, reject) => {
+    try {
+      const data = await AppointmentsAPI.storeAppointment(payload)
+      store.dispatch(addAppointment(data?.results?.appointment))
+      getNextAppointment()
+      resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)
     }

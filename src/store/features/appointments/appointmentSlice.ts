@@ -7,13 +7,6 @@ export interface AppointmentsState {
   nextAppointment: Appointment | null
 }
 
-export const createAppointment = createAsyncThunk(
-  'appointments/addAppointment',
-  async (payload: StoreAppointment, thunkAPI) => {
-    const response = await AppointmentsAPI.storeAppointment(payload)
-    return response.results.appontment
-  }
-)
 
 //** @var {User} Just a mock for testing */
 const initialState = {
@@ -58,5 +51,6 @@ export const {
   setNextAppointment,
   storeAppointment,
   updateAppointment,
+  addAppointment
 } = appointmentSlice.actions
 export default appointmentSlice.reducer

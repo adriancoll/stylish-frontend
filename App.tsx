@@ -16,6 +16,7 @@ import { AuthNavigation } from './src/navigation/Auth'
 import moment from 'moment'
 import 'moment/locale/es'
 import { useTheme } from '@react-navigation/native'
+import { clearAllData } from './src/utils/asyncStorage'
 moment.locale('es')
 
 // Setup Axios interceptors and stylish backend uri

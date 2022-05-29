@@ -5,7 +5,8 @@ import theme from '../../../theme/theme'
 import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
 import { JumpingTransition } from 'react-native-reanimated'
-
+import { DELAY } from '../../../constants/animations'
+import { FontAwesome } from '@expo/vector-icons'
 interface Props {
   business_uri: string
   user_uri: string
@@ -17,20 +18,33 @@ const AppointmentFormHead: FC<Props> = ({ business_uri, user_uri }) => {
   const { colors } = useTheme()
 
   return (
-    <Animatable.View animation={'fadeInDown'} style={[styles.container]}>
-      <Animatable.Image animation={'bounceInLeft'} style={[styles.icon]} source={{ uri: business_uri }} />
+    <Animatable.View
+      animation={'fadeInDown'}
+      delay={700}
+      style={[styles.container]}>
+      {/* <Animatable.Image
+        delay={DELAY + 300}
+        animation={'bounceInLeft'}
+        style={[styles.icon]}
+        source={{ uri: business_uri }}
+      /> */}
       <LottieView
         autoPlay
         speed={0.6}
         resizeMode='cover'
         style={{
-          width: width * 0.5,
-          height: 100,
+          width: width * 0.7,
+          height: 180,
           alignSelf: 'center',
         }}
         source={require(`../../../../assets/lotties/configure-appointment.json`)}
       />
-      <Animatable.Image animation={'bounceInRight'} style={[styles.icon]} source={{ uri: user_uri }} />
+      {/* <Animatable.Image
+        delay={DELAY + 300}
+        animation={'bounceInRight'}
+        style={[styles.icon]}
+        source={{ uri: user_uri }}
+      /> */}
     </Animatable.View>
   )
 }
