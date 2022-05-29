@@ -14,13 +14,14 @@ import * as Animatable from 'react-native-animatable'
 import CustomButtonAnimated from '../../ui/CustomButtonAnimated'
 import { ServiceTypePicker } from '../../ui/form-inputs/ServiceTypePicker'
 import AppointmentDateCard from '../../ui/cards/appointment/Date/AppointmentDateCard'
+import { isEmpty } from 'lodash'
 
 interface Props {
   business: Business
 }
 
 const AppointmentForm: FC<Props> = ({ business }) => {
-  const [showPicker, setShowPicker] = useState(true)
+  const [showPicker, setShowPicker] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -65,7 +66,7 @@ const AppointmentForm: FC<Props> = ({ business }) => {
 
   return (
     <View>
-      {(!watch().date || showPicker) && (
+      {showPicker && (
         <CustomDatePicker
           key='datepicker'
           control={control}
@@ -73,13 +74,11 @@ const AppointmentForm: FC<Props> = ({ business }) => {
           name='date'
         />
       )}
-      {watch().date && (
-        <AppointmentDateCard
-          label='Fecha de la cita'
-          onPress={() => setShowPicker(true)}
-          date={moment(watch().date)}
-        />
-      )}
+      <AppointmentDateCard
+        label='Fecha de la cita'
+        onPress={() => setShowPicker(true)}
+        date={!watch().date ? null : moment(watch().date)}
+      />
       <ServiceTypePicker
         label='Tipo de servicio'
         mode='dialog'

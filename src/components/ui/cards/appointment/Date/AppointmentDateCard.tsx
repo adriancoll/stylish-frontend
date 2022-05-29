@@ -8,7 +8,7 @@ import { AntDesign } from '@expo/vector-icons'
 import TouchableScale from 'react-native-touchable-scale'
 
 interface Props {
-  date: Moment
+  date: Moment | null
   label: string
   onPress: () => void
 }
@@ -27,13 +27,24 @@ const AppointmentDateCard: FC<Props> = ({ label, date, onPress }) => {
             size={theme.iconSize.xl}
             color={colors.text}
           />
-          <View>
-            <Text style={[styles.date, { color: colors.text }]}>
-              {moment(date).format('LLL')}
-            </Text>
-            <Text style={[styles.subtitle, { color: colors.text }]}>
-              {moment(date).fromNow()}
-            </Text>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            {date && (
+              <>
+                <Text style={[styles.date, { color: colors.text }]}>
+                  {moment(date).format('LLL')}
+                </Text>
+                <Text style={[styles.subtitle, { color: colors.text }]}>
+                  {moment(date).fromNow()}
+                </Text>
+              </>
+            )}
+            {!date && (
+              <>
+                <Text style={[styles.configureText, { color: colors.text }]}>
+                  Pulsa para configurar tu cita
+                </Text>
+              </>
+            )}
           </View>
         </Animatable.View>
       </TouchableScale>
@@ -67,5 +78,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: theme.fontSizes.subHeading,
     fontFamily: theme.fonts.regular,
+  },
+  configureText: {
+    alignSelf: 'center',
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.fontSizes.subHeading,
   },
 })
