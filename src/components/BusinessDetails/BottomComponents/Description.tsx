@@ -18,6 +18,7 @@ const Description: FC<Props> = ({ name, description }) => {
     <View>
       <Section>
         <Animatable.Text
+          useNativeDriver
           animation={'fadeInUp'}
           delay={DELAY + 100}
           style={[BaseSectionStyles.title, { color: colors.text }]}>

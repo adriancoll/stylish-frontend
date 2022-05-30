@@ -1,4 +1,4 @@
-import { StyleSheet, ToastAndroid, View } from 'react-native'
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { FC, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
@@ -126,6 +126,11 @@ const AppointmentForm: FC<Props> = ({ business }) => {
         isLoading={isLoading}
         ref={buttonRef}
       />
+      <Text style={{ color: "#fff"}}>
+        {
+          JSON.stringify(watch())
+        }
+      </Text>
     </View>
   )
 }

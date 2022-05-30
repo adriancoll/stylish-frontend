@@ -14,8 +14,8 @@ export const getMyAppointments = () => {
         throw new Error(data.message)
       }
 
-      store.dispatch(setMyAppointments(data.results))
-      resolve(data.results)
+      store.dispatch(setMyAppointments(data.results.appointments))
+      resolve(data.results.appointments)
     } catch (error) {
       reject(error)
     }

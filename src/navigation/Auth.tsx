@@ -24,6 +24,8 @@ export const AuthNavigation = () => {
 
   const isOffline = useInternetConnection()
 
+  
+
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
       <OfflineModal isVisible={isOffline} />

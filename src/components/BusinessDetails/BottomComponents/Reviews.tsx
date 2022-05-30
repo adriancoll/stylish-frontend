@@ -45,6 +45,7 @@ const Reviews: FC<Props> = ({ users, rating, stars, uid }) => {
   return (
     <Section>
       <Animatable.Text
+      useNativeDriver
         animation={'fadeInUp'}
         delay={DELAY + 300}
         style={[BaseSectionStyles.title, { color: colors.text }]}>

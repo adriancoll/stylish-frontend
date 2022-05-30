@@ -10,7 +10,7 @@ const confirmAppointmentRoute = `${prefix}/confirm`
 // BASE APPOINTMENTS CALLS
 
 const getAllMyAppointments = async () => {
-  const res = await axios.post<BaseResponse<MyAppointments>>(myAppointmentsRoute)
+  const res = await axios.post<BaseResponse<{ appointments: MyAppointments}>>(myAppointmentsRoute)
   return res.data
 }
 

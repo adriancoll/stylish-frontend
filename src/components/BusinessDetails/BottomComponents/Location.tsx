@@ -32,6 +32,7 @@ const Location: FC<Props> = ({ lat, lng }) => {
     <Section>
       <Animatable.Text
         animation={'fadeInUp'}
+        useNativeDriver
         delay={DELAY + 1000}
         style={[BaseSectionStyles.title, { color: colors.text }]}>
         Dónde encontrarnos

@@ -4,12 +4,13 @@ import {
   View,
   Animated,
   useWindowDimensions,
+  RefreshControl,
 } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { AppointmentsState } from '../store/features/appointments/appointmentSlice'
-import { getMyAppointments } from '../store/features/appointments/appointmentActions'
+import { getMyAppointments, getNextAppointment } from '../store/features/appointments/appointmentActions'
 import {
   AppointmentStatus,
   AppointmentStatusTypes,
@@ -19,6 +20,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 import moment from 'moment'
 import { AppointmentCard } from '../components/ui/cards/appointment/AppointmentCard'
 import { FullScreenLoader } from '../components/ui/FullScreenLoader'
+import { getPopularBusiness } from '../store/features/business/businessActions'
+import theme from '../theme/theme'
 
 export type AppointmentTab = {
   key: AppointmentStatusTypes
@@ -63,12 +66,8 @@ export const AppointmentTabs = () => {
   }, [tabs])
 
   const { appointments } = useSelector<RootState, AppointmentsState>(
-    (state) => state.appointments.appointments
+    (state) => state.appointments
   )
-
-  useEffect(() => {
-    getMyAppointments()
-  }, [])
 
   return (
     <View style={styles.container}>
@@ -76,11 +75,14 @@ export const AppointmentTabs = () => {
       {!appointments && <FullScreenLoader />}
       {appointments && (
         <ScrollView
-          style={{
-          }}
+          style={{}}
           showsVerticalScrollIndicator={false}>
           {appointments[selectedTab.key]?.map((appointment, index) => (
-            <AppointmentCard appointment={appointment} index={index} key={appointment.uid} />
+            <AppointmentCard
+              appointment={appointment}
+              index={index}
+              key={appointment.uid}
+            />
           ))}
         </ScrollView>
       )}

@@ -14,7 +14,10 @@ import { getPopularBusiness } from '../../../../store/features/business/business
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { BusinessState } from '../../../../store/features/business/businessSlice'
-import { getNextAppointment } from '../../../../store/features/appointments/appointmentActions'
+import {
+  getMyAppointments,
+  getNextAppointment,
+} from '../../../../store/features/appointments/appointmentActions'
 import { Business } from '../../../../interfaces/user.interface'
 import SkeletonLoader from 'expo-skeleton-loader'
 import { FullScreenLoader } from '../../../ui/FullScreenLoader'
@@ -53,7 +56,10 @@ export const PopularHairdressers: FC<Props> = () => {
   }, [])
 
   const handleRefresh = async () => {
-    await Promise.all([getPopularBusiness(), getNextAppointment()])
+    await Promise.all([
+      getPopularBusiness(),
+      getNextAppointment(),
+    ])
     setTimeout(() => {
       setisLoading(false)
     }, 1000)
@@ -75,7 +81,7 @@ export const PopularHairdressers: FC<Props> = () => {
             bounces
             refreshControl={
               <RefreshControl
-                colors={['red', 'yellow']}
+                colors={[theme.colors.primary, theme.colors.grey]}
                 refreshing={isLoading}
                 onRefresh={handleRefresh}
               />

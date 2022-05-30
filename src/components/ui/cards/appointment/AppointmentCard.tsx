@@ -40,6 +40,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
     <Animatable.View
       animation={'fadeInLeft'}
       duration={500}
+      useNativeDriver
       delay={index * 100}
       style={[
         styles.container,
@@ -49,6 +50,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
       ]}>
       <TouchableOpacity onPress={goToProfile}>
         <AppointmentCardHead
+          uid={appointment.business.uid}
           name={appointment.business.name}
           timeFromNow={fromNow}
           uri={appointment.business.image}

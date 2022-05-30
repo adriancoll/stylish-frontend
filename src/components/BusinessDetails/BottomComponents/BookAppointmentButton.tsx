@@ -26,7 +26,7 @@ const BookAppointmentButton: FC<Props> = ({ business }) => {
 
   return (
     // <Animatable.View animation='bounceInUp' delay={DELAY + 1800}>
-    <Animatable.View animation='bounceInUp' delay={0}>
+    <Animatable.View useNativeDriver animation='bounceInUp' delay={0}>
       <Button
         pressableContainerStyle={{
           borderRadius: theme.borderRadius.lg,

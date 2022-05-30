@@ -25,6 +25,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
 
   return (
     <Animatable.View
+      useNativeDriver
       animation={'fadeInUpBig'}
       style={[
         styles.container,
@@ -33,7 +34,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
         },
       ]}>
       {business && (
-        <Animatable.View>
+        <Animatable.View useNativeDriver>
           <ScrollView
             contentContainerStyle={{
               paddingBottom: theme.spacing.lg,
@@ -45,7 +46,6 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
               shadowOpacity: 0.23,
               shadowRadius: 2.62,
               elevation: 20,
-              
             }}
             showsVerticalScrollIndicator={false}
             style={styles.scrollView}>

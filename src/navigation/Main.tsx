@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import theme from '../theme/theme'
@@ -13,6 +13,15 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import * as Animatable from 'react-native-animatable'
 import { DELAY } from '../constants/animations'
 import TouchableScale from 'react-native-touchable-scale'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { AppointmentsState } from '../store/features/appointments/appointmentSlice'
+import { first, isEmpty } from 'lodash'
+import {
+  getMyAppointments,
+  getNextAppointment,
+} from '../store/features/appointments/appointmentActions'
+import { FullScreenLoader } from '../components/ui/FullScreenLoader'
 
 const { Screen, Navigator, Group } =
   createBottomTabNavigator<RootStackParamList>()
@@ -22,8 +31,24 @@ const ICON_SIZE = 30
 type mainScreenProps = NativeStackNavigationProp<RootStackParamList, 'Main'>
 
 export const MainNavigation = () => {
-  const { colors } = useTheme()
-  const { navigate } = useNavigation<mainScreenProps>()
+  const [isLoading, setIsLoading] = useState(true)
+
+  const { appointments } = useSelector<RootState, AppointmentsState>(
+    (state) => state.appointments
+  )
+
+  const firstLoad = async () => {
+    await Promise.all([getMyAppointments()])
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    firstLoad()
+  }, [])
+
+  if (isLoading) {
+    return <FullScreenLoader />
+  }
 
   return (
     <Navigator
@@ -95,7 +120,9 @@ export const MainNavigation = () => {
         name='Appointments'
         component={AppointmentsScreen}
         options={{
-          tabBarBadge: '1',
+          tabBarBadge: !isEmpty(appointments.PENDING_CONFIRM)
+            ? appointments.PENDING_CONFIRM.length
+            : 0,
           tabBarIcon: ({ focused }) => (
             <CustomTabBarIcon
               focused={focused}
