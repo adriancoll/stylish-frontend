@@ -55,6 +55,9 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
   }, [])
 
   const onSubmit = async (data: EditUserPayload) => {
+    if (!image && !isDirty) return
+
+
     setIsSuccess(false)
     try {
       setIsLoading(true)

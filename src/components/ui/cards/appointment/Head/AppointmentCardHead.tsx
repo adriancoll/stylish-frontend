@@ -14,6 +14,7 @@ interface AppointmentHeadCardProps {
   subtitle: string
   uri: string
   timeFromNow?: string
+  isBusinessOwner: boolean
 }
 
 export const AppointmentCardHead: FC<AppointmentHeadCardProps> = ({
@@ -23,6 +24,7 @@ export const AppointmentCardHead: FC<AppointmentHeadCardProps> = ({
   uri,
   uid,
   timeFromNow = '',
+  isBusinessOwner
 }) => {
   return (
     <View style={[styles.headContainer]}>

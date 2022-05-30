@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, useColorScheme, View } from 'react-native'
 import React, { FC, useEffect } from 'react'
 import { useNavigation, useTheme } from '@react-navigation/native'
 import theme from '../../../../theme/theme'
-import { Appointment } from '../../../../interfaces/appointment.interfaces'
+import { Appointment, AppointmentStatus } from '../../../../interfaces/appointment.interfaces'
 import { Divider } from '@react-native-material/core'
 import { AppointmentCardBody } from './Body/AppointmentCardBody'
 import { AppointmentCardFooter } from './Footer/AppointmentCardFooter'
@@ -11,6 +11,9 @@ import moment from 'moment'
 import * as Animatable from 'react-native-animatable'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../store'
+import { UserState } from '../../../../store/features/user/userSlice'
 
 const { width } = Dimensions.get('screen')
 
@@ -29,14 +32,24 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   const isDark = useColorScheme() === 'dark'
 
   const navigator = useNavigation<authScreenProp>()
-  const goToProfile = () =>
+  const goToProfile = () => {
+    if (isBusinessOwner) return
     navigator.push('BusinessDetails', { business: appointment.business })
+  }
 
   const startDate = moment(appointment.date).format('L')
   const startTime = moment(appointment.date).format('hh:mm a')
   const fromNow = moment(appointment.date).fromNow()
+  
+  const { user } = useSelector<RootState, UserState>((state) => state.user)
 
-  return (
+  const showFooter =
+    appointment.status === AppointmentStatus.PENDING_CONFIRM ||
+    appointment.status === AppointmentStatus.CONFIRMED
+  
+  const isBusinessOwner = user.uid === appointment.business.user.uid
+
+    return (
     <Animatable.View
       animation={'fadeInLeft'}
       duration={500}
@@ -50,10 +63,11 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
       ]}>
       <TouchableOpacity onPress={goToProfile}>
         <AppointmentCardHead
+          isBusinessOwner={isBusinessOwner}
           uid={appointment.business.uid}
           name={appointment.business.name}
           timeFromNow={fromNow}
-          uri={appointment.business.image}
+          uri={isBusinessOwner ? appointment.user.image : appointment.business.image}
           colors={colors}
           subtitle={appointment.service_type.name}
         />
@@ -64,7 +78,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           time={startTime}
         />
       </TouchableOpacity>
-      <AppointmentCardFooter />
+      {showFooter && <AppointmentCardFooter isBusinessOwner={isBusinessOwner} appointment={appointment} />}
     </Animatable.View>
   )
 }

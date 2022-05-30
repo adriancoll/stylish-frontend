@@ -22,12 +22,6 @@ const AppointmentFormHead: FC<Props> = ({ business_uri, user_uri }) => {
       animation={'fadeInDown'}
       delay={700}
       style={[styles.container]}>
-      {/* <Animatable.Image
-        delay={DELAY + 300}
-        animation={'bounceInLeft'}
-        style={[styles.icon]}
-        source={{ uri: business_uri }}
-      /> */}
       <LottieView
         autoPlay
         speed={0.6}
@@ -39,12 +33,6 @@ const AppointmentFormHead: FC<Props> = ({ business_uri, user_uri }) => {
         }}
         source={require(`../../../../assets/lotties/configure-appointment.json`)}
       />
-      {/* <Animatable.Image
-        delay={DELAY + 300}
-        animation={'bounceInRight'}
-        style={[styles.icon]}
-        source={{ uri: user_uri }}
-      /> */}
     </Animatable.View>
   )
 }

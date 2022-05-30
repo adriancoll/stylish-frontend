@@ -12,6 +12,10 @@ import BookAppointmentButton from './BottomComponents/BookAppointmentButton'
 import { transform } from 'lodash'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Services } from './BottomComponents/Services'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { BusinessState } from '../../store/features/business/businessSlice'
+import { UserState } from '../../store/features/user/userSlice'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -23,6 +27,10 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
 
+  const { isBusiness } = useSelector<RootState, UserState>(
+    (state) => state.user
+  )
+
   return (
     <Animatable.View
       useNativeDriver
@@ -31,6 +39,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
         styles.container,
         {
           backgroundColor: isDark ? theme.colors.black : theme.colors.white,
+          height: isBusiness ? height : height * 0.75,
         },
       ]}>
       {business && (
@@ -62,7 +71,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
             />
             <Location lat={business.latitude} lng={business.longitude} />
           </ScrollView>
-          <BookAppointmentButton business={business} />
+          {!isBusiness && <BookAppointmentButton business={business} />}
         </Animatable.View>
       )}
     </Animatable.View>
@@ -77,7 +86,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: theme.borderRadius.lg,
     width,
     padding: theme.spacing.lg,
-    height: height * 0.75,
   },
   scrollView: {
     height: '60%',

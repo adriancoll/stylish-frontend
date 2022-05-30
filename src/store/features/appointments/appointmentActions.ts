@@ -1,8 +1,16 @@
 import { isEmpty } from 'lodash'
 import { store } from '../..'
 import { AppointmentsAPI } from '../../../api/appointments'
-import { Appointment, MyAppointments, StoreAppointment } from '../../../interfaces/appointment.interfaces'
-import { addAppointment, setMyAppointments, setNextAppointment } from './appointmentSlice'
+import {
+  Appointment,
+  MyAppointments,
+  StoreAppointment,
+} from '../../../interfaces/appointment.interfaces'
+import {
+  addAppointment,
+  setMyAppointments,
+  setNextAppointment,
+} from './appointmentSlice'
 
 export const getMyAppointments = () => {
   return new Promise<MyAppointments>(async (resolve, reject) => {
@@ -27,9 +35,9 @@ export const getNextAppointment = () => {
     try {
       const data = await AppointmentsAPI.getNextAppointment()
 
-      if (data.code !== 200)  {
-      store.dispatch(setNextAppointment({} as Appointment))
-      return reject(data.message)
+      if (data.code !== 200) {
+        store.dispatch(setNextAppointment({} as Appointment))
+        return reject(data.message)
       }
 
       store.dispatch(setNextAppointment(data?.results?.appointment))
@@ -46,6 +54,18 @@ export const createAppointment = (payload: StoreAppointment) => {
       const data = await AppointmentsAPI.storeAppointment(payload)
       store.dispatch(addAppointment(data?.results?.appointment))
       getNextAppointment()
+      resolve(data?.results?.appointment)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const cancelAppointment = (uid: string) => {
+  return new Promise<Appointment>(async (resolve, reject) => {
+    try {
+      const data = await AppointmentsAPI.cancelAppointment(uid)
+      await getNextAppointment()
       resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)

@@ -22,7 +22,9 @@ export default function HomeScreen() {
   const navigator = useNavigation<authScreenProp>()
 
   const { baseContainer, colors } = useBaseContainer()
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
+  const { user, isBusiness } = useSelector<RootState, UserState>(
+    (state) => state.user
+  )
 
   const handleRefresh = async () => {
     await Promise.all([getPopularBusiness(), getNextAppointment()])
@@ -31,14 +33,13 @@ export default function HomeScreen() {
   return (
     <>
       <SafeAreaView style={[baseContainer]}>
-        <HomeHeader uri={user.image} name={user.name} />
+        <HomeHeader isBusiness={isBusiness} uri={user.image} name={user.name} />
         <NextAppointmentBox />
         <PopularHairdressers />
       </SafeAreaView>
     </>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {

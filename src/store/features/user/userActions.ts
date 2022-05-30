@@ -1,14 +1,22 @@
 import { store } from '../..'
 import { loginAttempt, registerUserAttempt } from '../../../api/auth'
 import { editUserAttempt } from '../../../api/user'
-import { Appointment } from '../../../interfaces/appointment.interfaces'
-import { RegisterUserPayload, User } from '../../../interfaces/user.interface'
+import {
+  Appointment,
+  MyAppointments,
+} from '../../../interfaces/appointment.interfaces'
+import {
+  Business,
+  RegisterUserPayload,
+  User,
+} from '../../../interfaces/user.interface'
 import {
   clearAllData,
   deleteData,
   storeData,
 } from '../../../utils/asyncStorage'
 import { setMyAppointments } from '../appointments/appointmentSlice'
+import { setMyBusiness } from '../business/businessSlice'
 import { loginUser, setUser } from './userSlice'
 
 export const login = (email: string, password: string) => {
@@ -23,9 +31,13 @@ export const login = (email: string, password: string) => {
 
       storeData('token', data.results.token)
 
+      if (data.results.business) {
+        store.dispatch(setMyBusiness(data.results.business))
+      }
+
       store.dispatch(loginUser(data.results))
       store.dispatch(
-        setMyAppointments(data.results.appointments as Appointment[])
+        setMyAppointments(data.results.appointments as MyAppointments)
       )
 
       resolve(data.results.user)

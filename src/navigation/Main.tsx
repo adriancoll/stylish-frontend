@@ -38,7 +38,7 @@ export const MainNavigation = () => {
   )
 
   const firstLoad = async () => {
-    await Promise.all([getMyAppointments()])
+    // await Promise.all([getMyAppointments()])
     setIsLoading(false)
   }
 

@@ -85,7 +85,7 @@ export const AppointmentFormModal: FC<Props> = ({
             setTimeout(() => {
               toggleModal()
               navigator.dispatch(StackActions.replace('Main'))
-            }, 1000)
+            }, 3000)
           }}
           style={{
             height: height * 0.3,

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Appointment } from '../interfaces/appointment.interfaces'
+import { Appointment, MyAppointments } from '../interfaces/appointment.interfaces'
 import {
   Business,
   LoginResponse,
@@ -46,7 +46,7 @@ const refreshToken = async () => {
     
     store.dispatch(loginUser(data.results))
     store.dispatch(setMyBusiness(data.results?.business as Business))
-    store.dispatch(setMyAppointments(data.results?.appointments as Appointment[]))
+    store.dispatch(setMyAppointments(data.results?.appointments as MyAppointments))
 
     return true
   } catch (ex) {
