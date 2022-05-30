@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { FC, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { StyleSheet, View, Text, ToastAndroid } from 'react-native'
@@ -66,8 +66,12 @@ export const RegisterForm: FC<Props> = () => {
       reset()
       setEmail(email)
       setIsSuccess(true)
-    } catch (error) {
-      ToastAndroid.show(error?.response?.data?.message || error?.response?.data?.errors[0].msg, ToastAndroid.LONG);
+    } catch (err) {
+      const error = err as AxiosError<BaseErrorResponse>
+      ToastAndroid.show(
+        error.response?.data.message || error?.response?.data?.errors[0].msg,
+        ToastAndroid.LONG
+      )
 
       if (buttonRef.current && typeof buttonRef.current.shake === 'function') {
         buttonRef.current.shake(1000)

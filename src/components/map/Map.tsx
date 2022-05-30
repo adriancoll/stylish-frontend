@@ -36,48 +36,21 @@ import { useBaseContainer } from '../../hooks/useBaseContainer'
 import { MapOverlay } from './Overlay/MapOverlay'
 import { Business } from '../../interfaces/user.interface'
 import BusinessMarker from './Markers/BusinessMarker'
+import { useCurrentLocation } from '../../hooks/useCurrentLocation'
 
 interface Props extends MapViewProps {
   businesses: Business[]
 }
 
 export const Maps: FC<Props> = ({ businesses, ...props }) => {
-  const [location, setLocation] = useState<LocationObjectCoords>(
-    {} as LocationObjectCoords
-  )
+  const location = useCurrentLocation()
+
   const { height, width } = useWindowDimensions()
   const scheme = useColorScheme()
 
   const { baseContainer, colors } = useBaseContainer()
 
-  /**
-   * Traer permisos y coordenadas del usuario
-   * @url https://docs.expo.dev/versions/latest/sdk/location/
-   */
-  useEffect(() => {
-    ;(async () => {
-      let {
-        status: _status,
-        granted,
-        canAskAgain,
-        expires,
-      } = await requestForegroundPermissionsAsync()
-
-      if (!granted) {
-        if (!canAskAgain) {
-          Alert.alert(
-            'Error',
-            'Debes permitir la localización para ver el mapa'
-          )
-          return
-        }
-        await requestForegroundPermissionsAsync()
-      }
-
-      let { coords, timestamp: _timestamp } = await getCurrentPositionAsync({})
-      setLocation(coords)
-    })()
-  }, [])
+  
 
   if (isEmpty(location)) {
     return (

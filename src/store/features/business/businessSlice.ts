@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Business } from '../../../interfaces/user.interface'
+import { Business } from '../../../interfaces/business.interface'
 
 export interface BusinessState {
-  myBusiness: Business | null
+  myBusiness: Business
   businesses: Business[]
   popularBusiness: Business[]
 }

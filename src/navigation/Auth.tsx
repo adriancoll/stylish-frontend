@@ -16,6 +16,7 @@ import BusinessDetailsScreen from '../screens/BusinessDetails/BusinessDetailsScr
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import AppointmentFormScreen from '../screens/main/AppointmentFormScreen'
+import BusinessStoreFormScreen from '../screens/main/BusinessUpdateFormScreen'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -23,8 +24,6 @@ export const AuthNavigation = () => {
   const scheme = useColorScheme()
 
   const isOffline = useInternetConnection()
-
-  
 
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
@@ -106,6 +105,15 @@ export const AuthNavigation = () => {
             }}
             name='Profile'
             component={ProfileScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleAlign: 'center',
+              title: 'Mi empresa',
+            }}
+            name='BusinessStoreForm'
+            component={BusinessStoreFormScreen}
           />
         </Stack.Navigator>
       </SafeAreaProvider>

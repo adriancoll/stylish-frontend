@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ServiceType } from '../../../interfaces/service_type.interface'
-import { Business } from '../../../interfaces/user.interface'
 
 export interface ServiceTypesState {
   serviceTypes: ServiceType[]

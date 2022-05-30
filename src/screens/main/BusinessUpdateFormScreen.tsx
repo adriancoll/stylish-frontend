@@ -11,17 +11,22 @@ import { RootState } from '../../store'
 import { UserState } from '../../store/features/user/userSlice'
 import { useSelector } from 'react-redux'
 import GooglePlacesInput from '../../components/ui/form-inputs/GooglePlacesInput'
+import BusinessCrudForm from '../../components/main/BusinessStoreFormScreen/BusinessStoreForm'
 
-type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'BusinessStoreForm'>
+type authScreenProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'BusinessStoreForm'
+>
 
-export default function BusinessStoreForm() {
+export default function BusinessStoreFormScreen() {
   const { baseContainer, colors } = useBaseContainer()
 
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
 
-  return <SafeAreaView style={[baseContainer]}>
-    <GooglePlacesInput />
-  </SafeAreaView>
+  return (
+    <SafeAreaView style={[baseContainer]}>
+      <BusinessCrudForm isEditing />
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({

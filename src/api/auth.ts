@@ -1,7 +1,10 @@
 import axios from 'axios'
-import { Appointment, MyAppointments } from '../interfaces/appointment.interfaces'
 import {
-  Business,
+  Appointment,
+  MyAppointments,
+} from '../interfaces/appointment.interfaces'
+import { Business } from '../interfaces/business.interface'
+import {
   LoginResponse,
   RefreshTokenResponse,
   RegisterUserPayload,
@@ -10,6 +13,7 @@ import {
 import { store } from '../store'
 import { setMyAppointments } from '../store/features/appointments/appointmentSlice'
 import { setMyBusiness } from '../store/features/business/businessSlice'
+import { getAllServiceTypesBusiness } from '../store/features/service_types/serviceTypesActions'
 import { loginUser } from '../store/features/user/userSlice'
 import { clearAllData, storeData } from '../utils/asyncStorage'
 
@@ -43,10 +47,20 @@ const refreshToken = async () => {
     )
 
     await storeData('token', data.results.token)
-    
+
     store.dispatch(loginUser(data.results))
-    store.dispatch(setMyBusiness(data.results?.business as Business))
-    store.dispatch(setMyAppointments(data.results?.appointments as MyAppointments))
+    if (data.results.business) {
+      store.dispatch(setMyBusiness(data.results?.business))
+    }
+
+    if (data.results.appointments) {
+      store.dispatch(
+        setMyAppointments(data.results.appointments)
+      )
+    }
+
+
+    await getAllServiceTypesBusiness()
 
     return true
   } catch (ex) {

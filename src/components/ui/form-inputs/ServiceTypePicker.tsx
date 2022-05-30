@@ -10,7 +10,7 @@ interface Props {
   control: Control<any>
   name: string
   label: string
-  businessServices?: ServiceType[]
+  services?: ServiceType[]
   mode: 'dialog' | 'dropdown'
 }
 
@@ -18,7 +18,7 @@ export const ServiceTypePicker: FC<Props> = ({
   control,
   name,
   label,
-  businessServices,
+  services,
   mode,
 }) => {
   const { colors } = useTheme()
@@ -68,8 +68,8 @@ export const ServiceTypePicker: FC<Props> = ({
                   },
                 ]}
               />
-              {businessServices &&
-                businessServices.map((serviceType) => (
+              {services &&
+                services.map((serviceType) => (
                   <SelectPicker.Item
                     key={serviceType.uid}
                     label={`${serviceType.name} (${serviceType.duration} min)`}

@@ -2,7 +2,6 @@ import { store } from '../..'
 import { BusinessAPI } from '../../../api/business'
 import { ServiceTypesAPI } from '../../../api/servicetype'
 import { ServiceType } from '../../../interfaces/service_type.interface'
-import { Business } from '../../../interfaces/user.interface'
 import { setAllServiceTypes } from './serviceTypesSlice'
 
 export const getAllServiceTypesBusiness = () => {
@@ -16,10 +15,10 @@ export const getAllServiceTypesBusiness = () => {
       }
 
       store.dispatch(setAllServiceTypes(data.results))
+
       resolve(data.results)
     } catch (error) {
       reject(error)
     }
   })
 }
-
