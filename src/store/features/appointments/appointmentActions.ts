@@ -1,11 +1,11 @@
 import { isEmpty } from 'lodash'
 import { store } from '../..'
 import { AppointmentsAPI } from '../../../api/appointments'
-import { Appointment, StoreAppointment } from '../../../interfaces/appointment.interfaces'
+import { Appointment, MyAppointments, StoreAppointment } from '../../../interfaces/appointment.interfaces'
 import { addAppointment, setMyAppointments, setNextAppointment } from './appointmentSlice'
 
-export const getAppointments = () => {
-  return new Promise<Appointment[]>(async (resolve, reject) => {
+export const getMyAppointments = () => {
+  return new Promise<MyAppointments>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.getAllMyAppointments()
 

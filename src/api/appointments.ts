@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Appointment, StoreAppointment } from '../interfaces/appointment.interfaces'
+import { Appointment, MyAppointments, StoreAppointment } from '../interfaces/appointment.interfaces'
 
 const prefix = '/appointment'
 
@@ -10,7 +10,7 @@ const confirmAppointmentRoute = `${prefix}/confirm`
 // BASE APPOINTMENTS CALLS
 
 const getAllMyAppointments = async () => {
-  const res = await axios.post<BaseResponse<Appointment[]>>(myAppointmentsRoute)
+  const res = await axios.post<BaseResponse<MyAppointments>>(myAppointmentsRoute)
   return res.data
 }
 

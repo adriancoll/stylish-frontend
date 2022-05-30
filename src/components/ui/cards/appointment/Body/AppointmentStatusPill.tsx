@@ -29,6 +29,10 @@ export const AppointmentStatusPill: FC<{
       color: theme.colors.success,
       label: 'Completado',
     },
+    [AppointmentStatus.TIMEOUT]: {
+      color: theme.colors.primary,
+      label: 'Vencido',
+    },
   }
 
   return (
