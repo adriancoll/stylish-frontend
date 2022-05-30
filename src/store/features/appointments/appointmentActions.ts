@@ -53,7 +53,9 @@ export const createAppointment = (payload: StoreAppointment) => {
     try {
       const data = await AppointmentsAPI.storeAppointment(payload)
       store.dispatch(addAppointment(data?.results?.appointment))
+
       getNextAppointment()
+
       resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)
@@ -65,7 +67,10 @@ export const cancelAppointment = (uid: string) => {
   return new Promise<Appointment>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.cancelAppointment(uid)
-      await getNextAppointment()
+      await Promise.all([
+        getNextAppointment(),
+        getMyAppointments()
+      ])
       resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)

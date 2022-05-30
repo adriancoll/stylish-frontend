@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { FC } from 'react'
-import { Avatar, Chip, Pressable } from '@react-native-material/core'
+import { Avatar, Chip, Pressable, ThemeContext } from '@react-native-material/core'
 import theme from '../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
 import { SheetManager } from 'react-native-actions-sheet'
@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../store'
 import { BusinessState } from '../../../store/features/business/businessSlice'
 import { Ionicons } from '@expo/vector-icons'
-import * as Animated from 'react-native-animatable'
 import { DELAY } from '../../../constants/animations'
+import * as Animated from 'react-native-animatable'
 
 interface Props {
   name: string
@@ -32,9 +32,25 @@ const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
     <View style={styles.container}>
       <UserActionSheet />
       <View>
-        <Text style={[styles.welcomeText, { color: colors.text }]}>
-          Hola, {name.split(' ')[0]} 👋
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={[styles.welcomeText, { color: colors.text }]}>
+            Hola, {name.split(' ')[0]}
+          </Text>
+          <Animated.Text
+            iterationCount={2}
+            easing='linear'
+            animation='swing'
+            delay={DELAY}
+            style={[styles.welcomeText, { color: colors.text, marginLeft: theme.spacing.md }]}>
+            👋
+          </Animated.Text>
+        </View>
+
         {isBusiness && (
           <Animated.View
             animation={'bounceIn'}

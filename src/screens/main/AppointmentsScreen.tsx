@@ -21,17 +21,13 @@ export default function AppointmentsScreen() {
   const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   return (
-    <SafeAreaView style={[baseContainer]}>
+    <SafeAreaView style={[{ flex: 1 }]}>
       <AppointmentTabs />
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...theme.baseContainer,
-    backgroundColor: theme.colors.background,
-  },
   text: {
     fontFamily: theme.fonts.bold,
   },

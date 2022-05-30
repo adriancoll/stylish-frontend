@@ -2,9 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { FC, SetStateAction } from 'react'
 import theme from '../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
-import TouchableScale from 'react-native-touchable-scale'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AppointmentTab } from '../../../navigation/AppointmentTabs'
+import * as Animated from 'react-native-animatable'
+import TouchableScale from 'react-native-touchable-scale'
 
 interface Props {
   label: string
@@ -31,24 +32,27 @@ const Tab: FC<Props> = ({ label, active, setTab, index }) => {
   }
 
   return (
-    <TouchableOpacity
-      onPress={handlePress}
-      style={[
-        styles.tab,
-        {
-          backgroundColor: active ? colors.primary : colors.background,
-        },
-      ]}>
-      <Text
+    <TouchableScale activeScale={0.99} onPress={handlePress}>
+      <Animated.View
+        transition={['backgroundColor', 'borderRadius']}
         style={[
-          styles.text,
+          styles.tab,
           {
-            color: active ? colors.text : theme.colors.text_muted,
+            backgroundColor: active ? colors.primary : colors.background,
           },
         ]}>
-        {label}
-      </Text>
-    </TouchableOpacity>
+        <Animated.Text
+          transition={['backgroundColor', 'color']}
+          style={[
+            styles.text,
+            {
+              color: active ? colors.text : theme.colors.text_muted,
+            },
+          ]}>
+          {label}
+        </Animated.Text>
+      </Animated.View>
+    </TouchableScale>
   )
 }
 

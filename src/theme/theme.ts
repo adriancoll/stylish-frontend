@@ -24,6 +24,7 @@ const theme = {
     sm: 10,
     body: 14,
     subHeading: 16,
+    lg: 22,
     heading: 26,
   },
   fonts: {

@@ -14,6 +14,7 @@ const Tabs: FC<Props> = ({ tabs, setTab }) => {
   return (
     <ScrollView
       horizontal
+      bounces={false}
       showsHorizontalScrollIndicator={false}
       style={styles.tabs}>
       {tabs.map((tab, index) => (
@@ -34,5 +35,5 @@ export default Tabs
 const styles = StyleSheet.create({
   tabs: {
     margin: theme.spacing.lg,
-  },
+  }
 })

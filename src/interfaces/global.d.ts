@@ -42,6 +42,7 @@ type RootStackParamList = {
   AppointmentFormScreen: { business: Business } | undefined
 
   Home: undefined
+  BusinessStoreForm: undefined
   Appointments: undefined
   Map: undefined
   Test: undefined
