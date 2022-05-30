@@ -53,6 +53,12 @@ const UserActionSheet = () => {
     navigator.navigate('Profile')
   }
 
+  const goToBusinessProfile = async () => {
+    await thisSheet.current.hide()
+
+    navigator.navigate('BusinessStoreForm')
+  }
+
   return (
     <ActionSheet
       bounceOnOpen
@@ -81,19 +87,21 @@ const UserActionSheet = () => {
       </Pressable>
 
       {isBusiness && myBusiness && (
-        <Pressable onPress={goToProfile}>
-        <View style={[styles.item]}>
-          <View style={[styles.iconContainer]}>
-            <Avatar
-              image={{ uri: myBusiness.image }}
-              label={user.name}
-              style={[styles.icon]}
-            />
-          </View>
+        <Pressable onPress={goToBusinessProfile}>
+          <View style={[styles.item]}>
+            <View style={[styles.iconContainer]}>
+              <Avatar
+                image={{ uri: myBusiness.image }}
+                label={user.name}
+                style={[styles.icon]}
+              />
+            </View>
 
-          <Text style={[styles.title, { color: colors.text }]}>Mi Empresa</Text>
-        </View>
-      </Pressable>
+            <Text style={[styles.title, { color: colors.text }]}>
+              Mi Empresa
+            </Text>
+          </View>
+        </Pressable>
       )}
 
       <Pressable onPress={handleLogout}>
