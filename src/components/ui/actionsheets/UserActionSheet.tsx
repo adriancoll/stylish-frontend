@@ -19,6 +19,7 @@ import { UserState } from '../../../store/features/user/userSlice'
 import { clearAllData, deleteData } from '../../../utils/asyncStorage'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { SharedElement } from 'react-navigation-shared-element'
+import { BusinessState } from '../../../store/features/business/businessSlice'
 
 const { width } = Dimensions.get('screen')
 
@@ -30,7 +31,13 @@ const UserActionSheet = () => {
   const isDark = useColorScheme() === 'dark'
   const thisSheet = useRef<any>()
 
-  const { user } = useSelector<RootState, UserState>((state) => state.user)
+  const { user, isBusiness } = useSelector<RootState, UserState>(
+    (state) => state.user
+  )
+
+  const { myBusiness } = useSelector<RootState, BusinessState>(
+    (state) => state.business
+  )
 
   const handleLogout = async () => {
     thisSheet.current.hide()
@@ -72,6 +79,22 @@ const UserActionSheet = () => {
           <Text style={[styles.title, { color: colors.text }]}>Mi Perfil</Text>
         </View>
       </Pressable>
+
+      {isBusiness && myBusiness && (
+        <Pressable onPress={goToProfile}>
+        <View style={[styles.item]}>
+          <View style={[styles.iconContainer]}>
+            <Avatar
+              image={{ uri: myBusiness.image }}
+              label={user.name}
+              style={[styles.icon]}
+            />
+          </View>
+
+          <Text style={[styles.title, { color: colors.text }]}>Mi Empresa</Text>
+        </View>
+      </Pressable>
+      )}
 
       <Pressable onPress={handleLogout}>
         <View style={[styles.item, styles.logout]}>

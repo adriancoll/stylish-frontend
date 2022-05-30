@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { FC } from 'react'
-import { Avatar, Pressable } from '@react-native-material/core'
+import { Avatar, Chip, Pressable } from '@react-native-material/core'
 import theme from '../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
 import { SheetManager } from 'react-native-actions-sheet'
@@ -36,9 +36,17 @@ const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
           Hola, {name.split(' ')[0]} 👋
         </Text>
         {isBusiness && (
-          <Animated.View animation={'bounceIn'} delay={DELAY} style={{ flexDirection: 'row' }}>
-            <Ionicons style={{ marginRight: theme.spacing.sm }} name='business' size={theme.iconSize.xs} color={colors.primary} />
-            <Text style={[styles.subtitle]}>Business account</Text>
+          <Animated.View
+            animation={'bounceIn'}
+            delay={DELAY}
+            style={{ flexDirection: 'row', opacity: 0.2 }}>
+            <Ionicons
+              style={{ marginRight: theme.spacing.sm }}
+              name='business'
+              size={theme.iconSize.xs}
+              color={colors.primary}
+            />
+            <Text style={[styles.subtitle]}>Cuenta de empresa</Text>
           </Animated.View>
         )}
       </View>
