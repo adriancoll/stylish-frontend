@@ -2,7 +2,7 @@ import { StackActions, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useEffect, useState } from 'react'
 import { refreshToken } from '../api/auth'
-import { getData } from '../utils/asyncStorage'
+import { clearAllData, getData } from '../utils/asyncStorage'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 

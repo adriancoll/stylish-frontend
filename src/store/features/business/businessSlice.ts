@@ -36,7 +36,6 @@ const businessSlice = createSlice({
       )
       state.myBusiness = action.payload
     }
-
   },
 })
 

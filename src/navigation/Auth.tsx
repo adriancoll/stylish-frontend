@@ -1,4 +1,4 @@
-import { NavigationContainer, useTheme } from '@react-navigation/native'
+import { NavigationContainer, useNavigation, useTheme } from '@react-navigation/native'
 import { StyleSheet, useColorScheme, View } from 'react-native'
 import LoginScreen from '../screens/auth/LoginScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
@@ -20,6 +20,11 @@ import BusinessStoreFormScreen from '../screens/main/BusinessStoreFormScreen'
 import BusinessUpdateFormScreen from '../screens/main/BusinessUpdateFormScreen'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import TouchableScale from 'react-native-touchable-scale'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { UserState } from '../store/features/user/userSlice'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -107,8 +112,16 @@ export const AuthNavigation = () => {
               headerTitleAlign: 'center',
               title: 'Mi perfil',
               animationEnabled: true,
-              headerRight: () => (
-                <View style={styles.iconContainer}>
+              headerRight: () => {
+                type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
+                const navigator = useNavigation<authScreenProp>()
+
+                const { isBusiness } = useSelector<RootState, UserState>(state => state.user) 
+
+                if (!isBusiness) return <></>
+
+                return (
+                <TouchableScale onPress={() => navigator.navigate('BusinessStoreForm')} style={styles.iconContainer}>
                   <MaterialIcons
                     name='add-business'
                     size={24}
@@ -118,8 +131,8 @@ export const AuthNavigation = () => {
                         : theme.colors.input_dark
                     }
                   />
-                </View>
-              ),
+                </TouchableScale>
+              )},
             }}
             name='Profile'
             component={ProfileScreen}

@@ -8,7 +8,6 @@ const prefix = '/business'
 
 const getAllRoute = `${prefix}/all`
 const getPopularRoute = `${prefix}/popular/all`
-const geMyRoute = `${prefix}`
 const createRoute = `${prefix}`
 const setFeedbackRoute = `${prefix}/%s/feedback`
 
@@ -47,7 +46,7 @@ const updateBusinessImage = async (
   payload: FormData
 ) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
-    `/business/${uid}`,
+    `/business/${uid}/image`,
     payload,
     {
       headers: {
@@ -68,12 +67,7 @@ const storeBusiness = async (
 ) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
     createRoute,
-    payload,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }
+    payload
   )
   return res.data
 }

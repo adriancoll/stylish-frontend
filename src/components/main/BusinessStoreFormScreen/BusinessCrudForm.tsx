@@ -1,11 +1,4 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -18,11 +11,9 @@ import { useTheme } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import { StoreBusinessPayload } from '../../../interfaces/business.interface'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
-import { ServiceTypePicker } from '../../ui/form-inputs/ServiceTypePicker'
 import { UserState } from '../../../store/features/user/userSlice'
 import { RootState } from '../../../store'
 import { useSelector } from 'react-redux'
-import { ServiceTypesState } from '../../../store/features/service_types/serviceTypesSlice'
 import { BusinessState } from '../../../store/features/business/businessSlice'
 import { ServiceType } from '../../../interfaces/service_type.interface'
 import AvatarInput from '../../ui/form-inputs/AvatarInput'
@@ -32,6 +23,7 @@ import {
 } from '../../../store/features/business/businessActions'
 import { getAllServiceTypesBusiness } from '../../../store/features/service_types/serviceTypesActions'
 import { MultiServiceTypePicker } from '../../ui/form-inputs/MultiServiceTypePicker'
+import { BusinessSuccessModal } from '../../../components/ui/modals/BusinessSuccessModal'
 
 interface Props {
   isEditing?: boolean
@@ -107,8 +99,6 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
   }
 
   const storeBusiness = async (data: StoreBusinessPayload) => {
-    const formData = new FormData()
-
     const business = await createBusiness({
       ...data,
       user_id: user.uid,
@@ -117,8 +107,10 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
     })
 
     if (image) {
+      console.log('miauaaau', image, business.uid)
+      const formData = new FormData()
       formData.append('file', image)
-      await updateBusiness(business.uid, formData)
+      await updateBusiness(business.uid, formData, true)
     }
   }
 
@@ -160,6 +152,11 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
 
   return (
     <>
+      <BusinessSuccessModal
+        isVisible={isSuccess && !isEditing}
+        name={myBusiness.name}
+        toggleModal={() => setIsSuccess(false)}
+      />
       <AvatarInput
         setImage={setImage}
         uri={
@@ -219,7 +216,7 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
           ref={buttonRef}
         />
 
-        <Text style={{ color: colors.text }}>{JSON.stringify(watch())}</Text>
+        <Text style={{ color: colors.text }}>{JSON.stringify(watch().service_types)}</Text>
       </ScrollView>
     </>
   )

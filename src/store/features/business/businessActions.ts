@@ -4,6 +4,7 @@ import {
   Business,
   StoreBusinessPayload,
 } from '../../../interfaces/business.interface'
+import { setUser } from '../user/userSlice'
 import {
   setAllBusiness,
   setPopularBusiness,
@@ -63,6 +64,8 @@ export const updateBusiness = (
 
       // Update both, myBusiness and general businesses
       store.dispatch(updateGeneralBusiness(data.results.business))
+      store.dispatch(setUser(data.results.business.user))
+      console.log(data.results.business.user)
 
       resolve(data.results.business)
     } catch (error) {
@@ -82,7 +85,7 @@ export const createBusiness = (payload: FormData | StoreBusinessPayload) => {
       }
 
       // Update both, myBusiness and general businesses
-      // store.dispatch(storeBusiness(data.results.business))
+      store.dispatch(updateGeneralBusiness(data.results.business))
 
       resolve(data.results.business)
     } catch (error) {
