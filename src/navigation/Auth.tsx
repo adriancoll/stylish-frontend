@@ -1,5 +1,9 @@
-import { NavigationContainer, useNavigation, useTheme } from '@react-navigation/native'
-import { StyleSheet, useColorScheme, View } from 'react-native'
+import {
+  NavigationContainer,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native'
+import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 import LoginScreen from '../screens/auth/LoginScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
 import WelcomeScreen from '../screens/auth/WelcomeScreen'
@@ -25,6 +29,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { UserState } from '../store/features/user/userSlice'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { USER_ROLES } from '../interfaces/user.interface'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -113,26 +118,45 @@ export const AuthNavigation = () => {
               title: 'Mi perfil',
               animationEnabled: true,
               headerRight: () => {
-                type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>
+                type authScreenProp = NativeStackNavigationProp<
+                  RootStackParamList,
+                  'Profile'
+                >
                 const navigator = useNavigation<authScreenProp>()
 
-                const { isBusiness } = useSelector<RootState, UserState>(state => state.user) 
+                const { user } = useSelector<RootState, UserState>(
+                  (state) => state.user
+                )
 
-                if (!isBusiness) return <></>
+                if (user.role === USER_ROLES.BUSINESS_ROLE) return <></>
 
                 return (
-                <TouchableScale onPress={() => navigator.navigate('BusinessStoreForm')} style={styles.iconContainer}>
-                  <MaterialIcons
-                    name='add-business'
-                    size={24}
-                    color={
-                      scheme === 'dark'
-                        ? theme.colors.white
-                        : theme.colors.input_dark
-                    }
-                  />
-                </TouchableScale>
-              )},
+                  <TouchableScale
+                    onPress={() => navigator.navigate('BusinessStoreForm')}
+                    style={styles.iconContainer}>
+                    <MaterialIcons
+                      name='add-business'
+                      size={24}
+                      color={
+                        scheme === 'dark'
+                          ? theme.colors.white
+                          : theme.colors.input_dark
+                      }
+                    />
+                    <Text
+                      style={{
+                        fontSize: theme.fontSizes.sm,
+                        fontFamily: theme.fonts.thin,
+                        color:
+                          scheme === 'dark'
+                            ? theme.colors.white
+                            : theme.colors.input_dark,
+                      }}>
+                      Pasar a empresa
+                    </Text>
+                  </TouchableScale>
+                )
+              },
             }}
             name='Profile'
             component={ProfileScreen}
@@ -163,8 +187,8 @@ export const AuthNavigation = () => {
 
 const styles = StyleSheet.create({
   iconContainer: {
-    flexDirection: 'row',
     justifyContent: 'center',
-    width: 50,
+    alignItems: 'center',
+    marginRight: 10,
   },
 })

@@ -13,6 +13,9 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../store'
 import { UserState } from '../../../../../store/features/user/userSlice'
 import { ConfirmModal } from '../../../modals/ConfirmModal'
+import ConfirmAppointmentButton from './Buttons/ConfirmAppointmentButton'
+import CompleteAppointmentButton from './Buttons/CompleteAppointmentButton'
+import moment from 'moment'
 
 interface Props {
   loading?: boolean
@@ -65,18 +68,14 @@ export const AppointmentCardFooter: FC<Props> = ({
           </Text>
         )}
       />
-      {isBusinessOwner && (
-        <Button
-          variant='contained'
-          color={colors.text}
-          title={() => (
-            <Text style={[styles.button, { color: theme.colors.text_muted }]}>
-              Confirmar
-            </Text>
-          )}
-          onPress={() => {}}
-        />
-      )}
+      {isBusinessOwner &&
+        appointment.status === AppointmentStatus.PENDING_CONFIRM && (
+          <ConfirmAppointmentButton uid={appointment.uid} />
+        )}
+      {!isBusinessOwner &&
+        appointment.status === AppointmentStatus.CONFIRMED && (
+          <CompleteAppointmentButton disabled={moment().diff(appointment.endDate) > 0} uid={appointment.uid} />
+        )}
     </View>
   )
 }

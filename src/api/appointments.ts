@@ -6,6 +6,7 @@ const prefix = '/appointment'
 const myAppointmentsRoute = `${prefix}/my`
 const nextAppointmentRoute = `${prefix}/next`
 const confirmAppointmentRoute = `${prefix}/confirm`
+const completeAppointmentRoute = `${prefix}/complete`
 
 // BASE APPOINTMENTS CALLS
 
@@ -19,8 +20,14 @@ const cancelAppointment = async (uid: string) => {
   return res.data
 }
 
+
+const completeAppointment = async (uid: string) => {
+  const res = await axios.delete(`${completeAppointmentRoute}/${uid}`)
+  return res.data
+}
+
 const confirmAppointment = async (uid: string) => {
-  const res = await axios.post(`${confirmAppointment}/${uid}`)
+  const res = await axios.post<BaseResponse<{ appointment: Appointment }>>(`${confirmAppointmentRoute}/${uid}`)
   return res.data
 }
 
@@ -45,4 +52,5 @@ export const AppointmentsAPI = {
   cancelAppointment,
   storeAppointment,
   confirmAppointment,
+  completeAppointment
 }

@@ -8,6 +8,7 @@ import {
 } from '../../../interfaces/appointment.interfaces'
 import {
   addAppointment,
+  confirmAppointment,
   setMyAppointments,
   setNextAppointment,
 } from './appointmentSlice'
@@ -67,10 +68,41 @@ export const cancelAppointment = (uid: string) => {
   return new Promise<Appointment>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.cancelAppointment(uid)
+      await Promise.all([getNextAppointment(), getMyAppointments()])
+      resolve(data?.results?.appointment)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const confirmAppointmentAction = (uid: string) => {
+  return new Promise<Appointment>(async (resolve, reject) => {
+    try {
+      const data = await AppointmentsAPI.confirmAppointment(uid)
+
       await Promise.all([
         getNextAppointment(),
-        getMyAppointments()
+        confirmAppointment(data.results.appointment),
       ])
+
+      resolve(data?.results?.appointment)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const completeAppointmentAction = (uid: string) => {
+  return new Promise<Appointment>(async (resolve, reject) => {
+    try {
+      const data = await AppointmentsAPI.completeAppointment(uid)
+
+      await Promise.all([
+        getNextAppointment(),
+        confirmAppointment(data.results.appointment),
+      ])
+
       resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)
