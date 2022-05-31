@@ -35,7 +35,6 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
 
-
   const navigator = useNavigation<authScreenProp>()
   const goToProfile = () => {
     if (isBusinessOwner) return
@@ -49,11 +48,10 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   const showFooter =
-    appointment.status === AppointmentStatus.PENDING_CONFIRM ||
-    appointment.status === AppointmentStatus.CONFIRMED
+    appointment.status !== AppointmentStatus.CANCELED &&
+    appointment.status !== AppointmentStatus.COMPLETED
 
   const isBusinessOwner = user.uid === appointment.business.user.uid
-
 
   return (
     <Animatable.View
@@ -67,7 +65,6 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           backgroundColor: isDark ? theme.colors.black : theme.colors.white,
         },
       ]}>
-
       <TouchableOpacity onPress={goToProfile}>
         <AppointmentCardHead
           isBusinessOwner={isBusinessOwner}

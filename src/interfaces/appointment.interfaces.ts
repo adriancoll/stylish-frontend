@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { ServiceType } from './service_type.interface'
-import { Business, User } from './user.interface'
+import { User } from './user.interface'
+import { Business } from './business.interface'
 
 export type AppointmentStatusTypes =
   | 'PENDING_CONFIRM'

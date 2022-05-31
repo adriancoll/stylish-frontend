@@ -56,6 +56,15 @@ export const AppointmentCardFooter: FC<Props> = ({
         toggleModal={toggleModal}
         confirmCallback={handleDelete}
       />
+      {/* 
+      <FeedBackModal
+        isVisible={openConfirmModal}
+        subtitle={'Una vez cancelada la cita no habrá vuelta atras.'}
+        title='¿Estás seguro/a?'
+        toggleModal={toggleModal}
+        confirmCallback={handleDelete}
+      /> */}
+
       <Button
         variant='text'
         loading={buttonsLoading}
@@ -72,9 +81,13 @@ export const AppointmentCardFooter: FC<Props> = ({
         appointment.status === AppointmentStatus.PENDING_CONFIRM && (
           <ConfirmAppointmentButton uid={appointment.uid} />
         )}
+
       {!isBusinessOwner &&
         appointment.status === AppointmentStatus.CONFIRMED && (
-          <CompleteAppointmentButton disabled={moment().diff(appointment.endDate) > 0} uid={appointment.uid} />
+          <CompleteAppointmentButton
+            disabled={moment(appointment.date).isAfter(moment())}
+            uid={appointment.uid}
+          />
         )}
     </View>
   )
