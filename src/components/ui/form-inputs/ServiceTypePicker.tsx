@@ -48,6 +48,7 @@ export const ServiceTypePicker: FC<Props> = ({
               mode={mode}
               selectedValue={value}
               onValueChange={(itemValue: string) => {
+                console.log(itemValue)
                 onChange(itemValue)
               }}
               style={[

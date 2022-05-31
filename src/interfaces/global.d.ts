@@ -43,6 +43,7 @@ type RootStackParamList = {
 
   Home: undefined
   BusinessStoreForm: undefined
+  BusinessUpdateForm: undefined
   Appointments: undefined
   Map: undefined
   Test: undefined

@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { FC } from 'react'
-import { Avatar, Chip, Pressable, ThemeContext } from '@react-native-material/core'
+import {
+  Avatar,
+  Chip,
+  Pressable,
+  ThemeContext,
+} from '@react-native-material/core'
 import theme from '../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
 import { SheetManager } from 'react-native-actions-sheet'
@@ -12,6 +17,8 @@ import { BusinessState } from '../../../store/features/business/businessSlice'
 import { Ionicons } from '@expo/vector-icons'
 import { DELAY } from '../../../constants/animations'
 import * as Animated from 'react-native-animatable'
+import FloatingNote from '../../ui/floating-note/FloatingNote'
+import { useFloatingNoteReminder } from '../../../hooks/useFloatingNoteReminder'
 
 interface Props {
   name: string
@@ -20,6 +27,7 @@ interface Props {
 }
 
 const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
+
   const { colors } = useTheme()
 
   const { myBusiness } = useSelector<RootState, BusinessState>(
@@ -46,7 +54,10 @@ const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
             easing='linear'
             animation='swing'
             delay={DELAY}
-            style={[styles.welcomeText, { color: colors.text, marginLeft: theme.spacing.md }]}>
+            style={[
+              styles.welcomeText,
+              { color: colors.text, marginLeft: theme.spacing.md },
+            ]}>
             👋
           </Animated.Text>
         </View>

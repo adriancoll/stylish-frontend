@@ -34,7 +34,6 @@ export const ConfirmModal: FC<Props> = ({
     <Modal
       {...otherProps}
       isVisible={isVisible}
-      statusBarTranslucent
       onBackdropPress={toggleModal}
       onSwipeComplete={toggleModal}
       swipeDirection={['down']}

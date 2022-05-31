@@ -18,12 +18,13 @@ type authScreenProp = NativeStackNavigationProp<
   'BusinessStoreForm'
 >
 
-export default function BusinessUpdateFormScreen() {
+export default function BusinessStoreFormScreen() {
   const { baseContainer, colors } = useBaseContainer()
 
+
   return (
-    <SafeAreaView style={[baseContainer]}>
-      <BusinessCrudForm isEditing />
+    <SafeAreaView style={[baseContainer, { paddingTop: 0 }]}>
+      <BusinessCrudForm  />
     </SafeAreaView>
   )
 }

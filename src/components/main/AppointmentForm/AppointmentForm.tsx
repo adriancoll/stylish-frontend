@@ -5,7 +5,7 @@ import { StyledInput } from '../../ui/form-inputs/StyledInput'
 import { StoreAppointment } from '../../../interfaces/appointment.interfaces'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CreateAppointmentSchema from '../../../schemas/CreateAppointmentSchema'
-import { Business } from '../../../interfaces/user.interface'
+import { Business } from '../../../interfaces/business.interface'
 import CustomDatePicker from '../../ui/form-inputs/CustomDatePicker'
 import { useTheme } from '@react-navigation/native'
 import CustomButtonAnimated from '../../ui/CustomButtonAnimated'
@@ -106,7 +106,7 @@ const AppointmentForm: FC<Props> = ({ business }) => {
         label='Tipo de servicio'
         mode='dialog'
         key='services'
-        businessServices={business.service_types}
+        services={business.service_types}
         control={control}
         name='service_type'
       />

@@ -1,9 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { useColorScheme } from 'react-native'
+import { NavigationContainer, useTheme } from '@react-navigation/native'
+import { StyleSheet, useColorScheme, View } from 'react-native'
 import LoginScreen from '../screens/auth/LoginScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
 import WelcomeScreen from '../screens/auth/WelcomeScreen'
-import { darkTheme, lightTheme } from '../theme/theme'
+import theme, { darkTheme, lightTheme } from '../theme/theme'
 import { MainNavigation } from './Main'
 import 'react-native-gesture-handler'
 import {
@@ -16,12 +16,16 @@ import BusinessDetailsScreen from '../screens/BusinessDetails/BusinessDetailsScr
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import AppointmentFormScreen from '../screens/main/AppointmentFormScreen'
-import BusinessStoreFormScreen from '../screens/main/BusinessUpdateFormScreen'
+import BusinessStoreFormScreen from '../screens/main/BusinessStoreFormScreen'
+import BusinessUpdateFormScreen from '../screens/main/BusinessUpdateFormScreen'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
 export const AuthNavigation = () => {
   const scheme = useColorScheme()
+  const { colors } = useTheme()
 
   const isOffline = useInternetConnection()
 
@@ -102,6 +106,20 @@ export const AuthNavigation = () => {
               headerShown: true,
               headerTitleAlign: 'center',
               title: 'Mi perfil',
+              animationEnabled: true,
+              headerRight: () => (
+                <View style={styles.iconContainer}>
+                  <MaterialIcons
+                    name='add-business'
+                    size={24}
+                    color={
+                      scheme === 'dark'
+                        ? theme.colors.white
+                        : theme.colors.input_dark
+                    }
+                  />
+                </View>
+              ),
             }}
             name='Profile'
             component={ProfileScreen}
@@ -110,13 +128,30 @@ export const AuthNavigation = () => {
             options={{
               headerShown: true,
               headerTitleAlign: 'center',
-              title: 'Mi empresa',
+              title: 'Crear empresa',
             }}
             name='BusinessStoreForm'
             component={BusinessStoreFormScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitleAlign: 'center',
+              title: 'Mi empresa',
+            }}
+            name='BusinessUpdateForm'
+            component={BusinessUpdateFormScreen}
           />
         </Stack.Navigator>
       </SafeAreaProvider>
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: 50,
+  },
+})

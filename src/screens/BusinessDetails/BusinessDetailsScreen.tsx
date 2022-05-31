@@ -4,7 +4,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import {
   Dimensions,
   ImageBackground,
-  StatusBar,
   StyleSheet,
   useColorScheme,
 } from 'react-native'
@@ -45,7 +44,6 @@ export default function BusinessDetailsScreen({}) {
         blurRadius={10}
         resizeMode='stretch'
         style={styles.img}>
-        <StatusBar translucent backgroundColor='#120D45' />
 
         <Pressable style={[styles.back]} onPress={() => navigator.goBack()}>
           <Entypo name='chevron-thin-left' size={24} color={colors.text} />

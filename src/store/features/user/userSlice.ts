@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { persistCombineReducers } from 'reduxjs-toolkit-persist'
 import {
   LoginResponse,
   User,
   USER_ROLES,
 } from '../../../interfaces/user.interface'
+import { clearAllData } from '../../../utils/asyncStorage'
 
 export interface UserState {
   user: User
@@ -27,8 +29,11 @@ const usertSlice = createSlice({
       console.log(action.payload)
       state.user = action.payload
     },
+    logout: (state) => {
+      clearAllData()
+    }
   },
 })
 
-export const { loginUser, setUser } = usertSlice.actions
+export const { loginUser, setUser, logout } = usertSlice.actions
 export default usertSlice.reducer

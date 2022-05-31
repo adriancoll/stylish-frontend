@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.full,
     position: 'absolute',
     right: width / 4,
-    bottom: 0,
+    bottom: 10,
   },
 })

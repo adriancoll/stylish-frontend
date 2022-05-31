@@ -44,7 +44,6 @@ export const AppointmentFormModal: FC<Props> = ({
       onBackdropPress={toggleModal}
       onSwipeComplete={toggleModal}
       swipeDirection={['down']}
-      statusBarTranslucent
       customBackdrop={
         <View
           style={{

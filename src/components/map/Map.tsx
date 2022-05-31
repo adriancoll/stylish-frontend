@@ -8,9 +8,6 @@ import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps'
 import {
-  Alert,
-  Animated,
-  Easing,
   StatusBar,
   StyleSheet,
   Text,
@@ -34,7 +31,7 @@ import lightMap from '../../../assets/maps/light.json'
 import darkMap from '../../../assets/maps/dark.json'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
 import { MapOverlay } from './Overlay/MapOverlay'
-import { Business } from '../../interfaces/user.interface'
+import { Business } from '../../interfaces/business.interface'
 import BusinessMarker from './Markers/BusinessMarker'
 import { useCurrentLocation } from '../../hooks/useCurrentLocation'
 

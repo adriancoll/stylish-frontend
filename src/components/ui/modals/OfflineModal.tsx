@@ -29,7 +29,6 @@ export const OfflineModal: FC<Props> = ({
     <Modal
       {...otherProps}
       isVisible={isVisible}
-      statusBarTranslucent
       deviceWidth={width}
       deviceHeight={height}
       style={{

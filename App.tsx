@@ -5,18 +5,17 @@ import { Provider } from 'react-redux'
 import { API_URL } from './src/utils/constants'
 import axios from 'axios'
 import { setupInterceptorsTo } from './src/utils/axiosConfig'
-import { StatusBar, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useFonts } from '@use-expo/font'
 import { FullScreenLoader } from './src/components/ui/FullScreenLoader'
-import theme, { darkTheme, lightTheme } from './src/theme/theme'
+import { darkTheme, lightTheme } from './src/theme/theme'
 import { AuthNavigation } from './src/navigation/Auth'
 
 // change moment locale globally in root
 import moment from 'moment'
 import 'moment/locale/es'
 import { useTheme } from '@react-navigation/native'
-import { clearAllData } from './src/utils/asyncStorage'
 moment.locale('es')
 
 // Setup Axios interceptors and stylish backend uri
@@ -44,14 +43,6 @@ export default function App() {
         loading={null}
         persistor={persistor}
         theme={isDark ? darkTheme : lightTheme}>
-        <StatusBar
-          animated
-          hidden={false}
-          backgroundColor={
-            isDark ? '#171717' : theme.colors.background
-          }
-          barStyle={isDark ? 'light-content' : 'dark-content'}
-        />
         <AuthNavigation />
       </PersistGate>
     </Provider>

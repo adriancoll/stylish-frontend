@@ -56,7 +56,7 @@ const UserActionSheet = () => {
   const goToBusinessProfile = async () => {
     await thisSheet.current.hide()
 
-    navigator.navigate('BusinessStoreForm')
+    navigator.navigate('BusinessUpdateForm')
   }
 
   return (

@@ -27,11 +27,25 @@ const getAllBusiness = async (popular = false) => {
 }
 
 /**
- * Returns all given business filtered by popularity or not
+ * Returns updated business
  * @param {StoreBusinessPayload} Sort total-feedback, stars
- * @returns Business[]
+ * @returns Business
  */
-const updateBusiness = async (uid: string, payload: FormData | StoreBusinessPayload) => {
+const updateBusiness = async (
+  uid: string,
+  payload: StoreBusinessPayload
+) => {
+  const res = await axios.post<BaseResponse<{ business: Business }>>(
+    `/business/${uid}`,
+    payload
+  )
+  return res.data
+}
+
+const updateBusinessImage = async (
+  uid: string,
+  payload: FormData
+) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
     `/business/${uid}`,
     payload,
@@ -41,11 +55,32 @@ const updateBusiness = async (uid: string, payload: FormData | StoreBusinessPayl
       },
     }
   )
-  console.log(payload)
+  return res.data
+}
+
+/**
+ * Returns new business
+ * @param {StoreBusinessPayload} Sort total-feedback, stars
+ * @returns Business
+ */
+const storeBusiness = async (
+  payload: FormData | StoreBusinessPayload
+) => {
+  const res = await axios.post<BaseResponse<{ business: Business }>>(
+    createRoute,
+    payload,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  )
   return res.data
 }
 
 export const BusinessAPI = {
   getAllBusiness,
   updateBusiness,
+  storeBusiness,
+  updateBusinessImage
 }

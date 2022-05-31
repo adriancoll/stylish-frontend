@@ -24,7 +24,9 @@ export interface StoreBusinessPayload {
   name                 : string
   employees            : string
   service_types        : string[]
-  user                 : User
+  user_id?             : string
   description          : string
   address              : { longitude: number; latitude: number }
+  longitude            ?: number
+  latitude             ?: number
 }

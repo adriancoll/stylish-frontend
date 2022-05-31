@@ -47,12 +47,14 @@ export const getPopularBusiness = () => {
 
 export const updateBusiness = (
   uid: string,
-  payload: FormData | StoreBusinessPayload
+  payload: FormData | StoreBusinessPayload,
+  isImage = false
 ) => {
   return new Promise<Business>(async (resolve, reject) => {
     try {
-      const data = await BusinessAPI.updateBusiness(uid, payload)
-      console.log('errro aqui', data)
+      const data = isImage
+        ? await BusinessAPI.updateBusinessImage(uid, payload as FormData)
+        : await BusinessAPI.updateBusiness(uid, payload as StoreBusinessPayload)
 
       if (data.error) {
         reject(data.error)
@@ -62,6 +64,25 @@ export const updateBusiness = (
       // Update both, myBusiness and general businesses
       store.dispatch(updateGeneralBusiness(data.results.business))
 
+      resolve(data.results.business)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const createBusiness = (payload: FormData | StoreBusinessPayload) => {
+  return new Promise<Business>(async (resolve, reject) => {
+    try {
+      const data = await BusinessAPI.storeBusiness(payload)
+
+      if (data.error) {
+        reject(data.error)
+        throw new Error(data.message)
+      }
+
+      // Update both, myBusiness and general businesses
+      // store.dispatch(storeBusiness(data.results.business))
 
       resolve(data.results.business)
     } catch (error) {
