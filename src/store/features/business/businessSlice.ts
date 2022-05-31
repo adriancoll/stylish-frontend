@@ -26,13 +26,24 @@ const businessSlice = createSlice({
     },
     setPopularBusiness: (state, action: PayloadAction<Business[]>) => {
       state.popularBusiness = action.payload
+    },
+    updateGeneralBusiness: (state, action: PayloadAction<Business>) => {
+      state.businesses = state.businesses.map((business) =>
+        business.uid === action.payload.uid ? action.payload : business
+      )
+      state.popularBusiness = state.popularBusiness.map((business) =>
+        business.uid === action.payload.uid ? action.payload : business
+      )
+      state.myBusiness = action.payload
     }
+
   },
 })
 
 export const {
   setAllBusiness,
   setPopularBusiness,
-  setMyBusiness
+  setMyBusiness,
+  updateGeneralBusiness,
 } = businessSlice.actions
 export default businessSlice.reducer

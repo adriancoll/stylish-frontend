@@ -19,6 +19,7 @@ import { ServiceTypesState } from '../../../store/features/service_types/service
 import { BusinessState } from '../../../store/features/business/businessSlice'
 import { ServiceType } from '../../../interfaces/service_type.interface'
 import AvatarInput from '../../ui/form-inputs/AvatarInput'
+import { updateBusiness } from '../../../store/features/business/businessActions'
 
 interface Props {
   isEditing: boolean
@@ -77,12 +78,12 @@ const BusinessCrudForm: FC<Props> = ({ isEditing }) => {
 
       if (image) {
         formData.append('file', image)
+        await updateBusiness(myBusiness.uid, formData)
       }
 
-      // fill form data with form inputs
-      Object.entries(data).forEach(([key, value]) =>
-        formData.append(key, value)
-      )
+      if (isDirty) {
+        await updateBusiness(myBusiness.uid, data)
+      }
 
       setIsLoading(false)
       setIsSuccess(true)
@@ -96,7 +97,7 @@ const BusinessCrudForm: FC<Props> = ({ isEditing }) => {
         })
       } else {
         ToastAndroid.show(
-          error?.response?.data?.message ??
+          error?.response?.data?.message ||
             'Error desconocido, contacta a un administrador.',
           ToastAndroid.LONG
         )
@@ -162,7 +163,7 @@ const BusinessCrudForm: FC<Props> = ({ isEditing }) => {
         ref={buttonRef}
       />
 
-      <Text style={{ color: colors.text }}>{JSON.stringify(watch())}</Text>
+      {/* <Text style={{ color: colors.text }}>{JSON.stringify(watch())}</Text> */}
     </ScrollView>
   )
 }
