@@ -22,7 +22,7 @@ const cancelAppointment = async (uid: string) => {
 
 
 const completeAppointment = async (uid: string) => {
-  const res = await axios.delete(`${completeAppointmentRoute}/${uid}`)
+  const res = await axios.post(`${completeAppointmentRoute}/${uid}`)
   return res.data
 }
 

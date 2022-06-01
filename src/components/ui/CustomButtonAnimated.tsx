@@ -42,7 +42,7 @@ const CustomButtonAnimated = React.forwardRef<Animatable.View & View, Props>(
               styles.button,
               {
                 flexDirection: 'row',
-                opacity: isLoading || !isValid ? 0.5 : 1,
+                opacity: isLoading || !isValid || disabled ? 0.5 : 1,
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: getBackgroundColor(),
