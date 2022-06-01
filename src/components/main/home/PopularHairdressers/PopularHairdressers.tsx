@@ -5,6 +5,7 @@ import {
   Dimensions,
   RefreshControl,
   View,
+  ToastAndroid,
 } from 'react-native'
 import React, { FC, useEffect, useState } from 'react'
 import theme from '../../../../theme/theme'
@@ -25,6 +26,7 @@ import { Pulse } from 'react-native-animated-spinkit'
 import { useTheme } from '@react-navigation/native'
 import { SharedElement } from 'react-navigation-shared-element'
 import BusinessDetailsBottomSheet from '../../../BusinessDetails/BusinessDetailsBottomSheet'
+import { AxiosError } from 'axios'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -56,13 +58,22 @@ export const PopularHairdressers: FC<Props> = () => {
   }, [])
 
   const handleRefresh = async () => {
-    await Promise.all([
-      getPopularBusiness(),
-      getNextAppointment(),
-    ])
-    setTimeout(() => {
-      setisLoading(false)
-    }, 1000)
+    try {
+      await Promise.all([getPopularBusiness(), getNextAppointment()])
+      setTimeout(() => {
+        setisLoading(false)
+      }, 1000)
+    } catch (ex) {
+      if (ex instanceof AxiosError) {
+        return ToastAndroid.show(ex.message, ToastAndroid.SHORT)
+      }
+      const message = ex as string
+      ToastAndroid.showWithGravity(
+        message || 'Error al obtener los datos',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      )
+    }
   }
 
   return (

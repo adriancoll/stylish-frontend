@@ -20,6 +20,7 @@ const AppointmentFormHead: FC<Props> = ({ business_uri, user_uri }) => {
   return (
     <Animatable.View
       animation={'fadeInDown'}
+      useNativeDriver
       delay={700}
       style={[styles.container]}>
       <LottieView

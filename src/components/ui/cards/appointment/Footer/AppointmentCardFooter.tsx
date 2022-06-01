@@ -38,13 +38,13 @@ export const AppointmentCardFooter: FC<Props> = ({
   const toggleModal = () => setOpenConfirmModal((last) => !last)
 
   const handleDelete = async () => {
-    setIsFetching(true)
+    try {
+      setIsFetching(true)
 
-    await cancelAppointment(appointment.uid)
-
-    toggleModal()
-
-    setIsFetching(false)
+      await cancelAppointment(appointment.uid)
+      setIsFetching(false)
+      toggleModal()
+    } catch (ex) {}
   }
 
   return (

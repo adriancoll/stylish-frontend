@@ -126,11 +126,7 @@ const AppointmentForm: FC<Props> = ({ business }) => {
         isLoading={isLoading}
         ref={buttonRef}
       />
-      <Text style={{ color: "#fff"}}>
-        {
-          JSON.stringify(watch())
-        }
-      </Text>
+      
     </View>
   )
 }

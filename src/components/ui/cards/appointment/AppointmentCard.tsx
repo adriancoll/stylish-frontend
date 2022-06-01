@@ -48,8 +48,8 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   const { user } = useSelector<RootState, UserState>((state) => state.user)
 
   const showFooter =
-    appointment.status !== AppointmentStatus.CANCELED &&
-    appointment.status !== AppointmentStatus.COMPLETED
+    appointment.status === AppointmentStatus.PENDING_CONFIRM ||
+    appointment.status === AppointmentStatus.CONFIRMED
 
   const isBusinessOwner = user.uid === appointment.business.user.uid
 

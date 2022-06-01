@@ -216,7 +216,6 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
           ref={buttonRef}
         />
 
-        <Text style={{ color: colors.text }}>{JSON.stringify(watch().service_types)}</Text>
       </ScrollView>
     </>
   )

@@ -32,9 +32,10 @@ const appointmentSlice = createSlice({
       state.appointments.PENDING_CONFIRM.push(action.payload)
     },
     confirmAppointment: (state, action: PayloadAction<Appointment>) => {
-      state.appointments.PENDING_CONFIRM.map((appointment) =>
-        appointment.uid === action.payload.uid ? action.payload : appointment
+      state.appointments.PENDING_CONFIRM.filter(
+        (appointment) => appointment.uid !== action.payload.uid
       )
+      state.appointments.CONFIRMED.push(action.payload)
     },
     completeAppointment: (state, action: PayloadAction<Appointment>) => {
       state.appointments.CONFIRMED = state.appointments.CONFIRMED.filter(
