@@ -107,7 +107,6 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
     })
 
     if (image) {
-      console.log('miauaaau', image, business.uid)
       const formData = new FormData()
       formData.append('file', image)
       await updateBusiness(business.uid, formData, true)

@@ -13,6 +13,8 @@ import LottieView from 'lottie-react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { capitalize } from 'lodash'
+import { REDIRECT_TIMEOUT } from '../../../utils/constants'
+import { clearAllData } from '../../../utils/asyncStorage'
 
 interface Props {
   isVisible: boolean
@@ -82,10 +84,11 @@ export const BusinessSuccessModal: FC<Props> = ({
           resizeMode='cover'
           loop={false}
           onAnimationFinish={() => {
-            setTimeout(() => {
+            setTimeout(async () => {
+              await clearAllData()
               toggleModal()
-              navigator.dispatch(StackActions.replace('Main'))
-            }, 3000)
+              navigator.dispatch(StackActions.replace('Welcome'))
+            }, REDIRECT_TIMEOUT)
           }}
           style={{
             height: height * 0.3,
@@ -97,7 +100,10 @@ export const BusinessSuccessModal: FC<Props> = ({
           ¡Negocio creado!
         </Text>
         <Text style={[styles.subtitle, { color: colors.text }]}>
-          Tu negocio, {capitalize(name)}, ha sido creado correctamente.
+          Tu negocio, <Text style={{ fontFamily: theme.fonts.bold }}>{capitalize(name)}</Text>, ha sido creado correctamente.
+        </Text>
+        <Text style={[styles.subtitle, { color: colors.text }]}>
+          En unos segundos serás rediriectado a la pantalla principal para <Text style={{ fontFamily: theme.fonts.bold }}>iniciar sesión</Text> de nuevo.
         </Text>
       </View>
     </Modal>

@@ -19,7 +19,7 @@ import {
   getMyAppointments,
   getNextAppointment,
 } from '../../../../store/features/appointments/appointmentActions'
-import { Business } from '../../../../interfaces/user.interface'
+import { Business } from '../../../../interfaces/business.interface'
 import SkeletonLoader from 'expo-skeleton-loader'
 import { FullScreenLoader } from '../../../ui/FullScreenLoader'
 import { Pulse } from 'react-native-animated-spinkit'
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   flatList: {
-    height: height * 0.4,
+    height: height * 0.45,
   },
   columnWrapper: {
     justifyContent: 'space-between',
