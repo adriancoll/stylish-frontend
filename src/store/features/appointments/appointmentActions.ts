@@ -8,6 +8,7 @@ import {
 } from '../../../interfaces/appointment.interfaces'
 import {
   addAppointment,
+  completeAppointment,
   confirmAppointment,
   setMyAppointments,
   setNextAppointment,
@@ -80,12 +81,7 @@ export const confirmAppointmentAction = (uid: string) => {
   return new Promise<Appointment>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.confirmAppointment(uid)
-
-      await Promise.all([
-        getNextAppointment(),
-        confirmAppointment(data.results.appointment),
-      ])
-
+      store.dispatch(confirmAppointment(data.results.appointment))
       resolve(data?.results?.appointment)
     } catch (error) {
       reject(error)
@@ -97,14 +93,11 @@ export const completeAppointmentAction = (uid: string) => {
   return new Promise<Appointment>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.completeAppointment(uid)
-
-      await Promise.all([
-        getNextAppointment(),
-        confirmAppointment(data.results.appointment),
-      ])
-
+      store.dispatch(completeAppointment(data.results.appointment))
+      console.log('ABOUT TO DISPTACH')
       resolve(data?.results?.appointment)
     } catch (error) {
+      console.log('error F')
       reject(error)
     }
   })

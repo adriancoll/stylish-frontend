@@ -1,31 +1,47 @@
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, ToastAndroid } from 'react-native'
 import React, { FC, useState } from 'react'
 import { ActivityIndicator, Button } from '@react-native-material/core'
 import theme from '../../../../../../theme/theme'
 import { useTheme } from '@react-navigation/native'
 import { Appointment } from '../../../../../../interfaces/appointment.interfaces'
-import { completeAppointmentAction } from '../../../../../../store/features/appointments/appointmentActions'
+import {
+  completeAppointmentAction,
+  getNextAppointment,
+} from '../../../../../../store/features/appointments/appointmentActions'
 import Tooltip from 'react-native-walkthrough-tooltip'
 import * as Animatable from 'react-native-animatable'
+import { FeedbackModal } from '../../../../modals/FeedbackModal'
+import { storeFeedbackAction } from '../../../../../../store/features/business/businessActions'
 
 interface Props {
-  uid: string
   disabled: boolean
+  appointment: Appointment
 }
 
-const CompleteAppointmentButton: FC<Props> = ({ uid, disabled }) => {
+const CompleteAppointmentButton: FC<Props> = ({ disabled, appointment }) => {
   const { colors } = useTheme()
 
   const [isLoading, setIsLoading] = useState(false)
   const [isTooltipVisible, setisTooltipVisible] = useState(false)
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+  const [stars, setStars] = useState<number>(0)
 
   const confirmAppointment = async () => {
-    setIsLoading(true)
-
-    await completeAppointmentAction(uid)
-
-    setIsLoading(false)
+    try {
+      setIsLoading(true)
+      console.log('store feedback')
+      await completeAppointmentAction(appointment.uid)
+      await storeFeedbackAction(appointment.business.uid, {
+        stars,
+      })
+      ToastAndroid.show('¡Se ha finalizado la reserva, gracias por tu opinión!', ToastAndroid.SHORT)
+    } catch (ex) {
+      console.log(ex)
+    }
   }
+
+  const openFeedback = () => setShowFeedbackModal(true)
+  const toggleModal = () => setShowFeedbackModal((last) => !last)
 
   const hideTooltip = () => setisTooltipVisible(false)
   const showTooltip = () => setisTooltipVisible(true)
@@ -42,7 +58,7 @@ const CompleteAppointmentButton: FC<Props> = ({ uid, disabled }) => {
         content={
           <Animatable.Text
             animation='fadeIn'
-            style={[styles.button, { color: colors.text}]}>
+            style={[styles.button, { color: colors.text }]}>
             ¡No puedes confirmar hasta que no haya llegado la hora de la cita!
           </Animatable.Text>
         }
@@ -65,19 +81,29 @@ const CompleteAppointmentButton: FC<Props> = ({ uid, disabled }) => {
   }
 
   return (
-    <Button
-      variant='outlined'
-      disabled={disabled}
-      loading={isLoading}
-      color={colors.text}
-      onPress={confirmAppointment}
-      loadingIndicator={<ActivityIndicator color={theme.colors.white} />}
-      title={() => (
-        <Text style={[styles.button, { color: theme.colors.white }]}>
-          Completar
-        </Text>
-      )}
-    />
+    <>
+      <FeedbackModal
+        confirmCallback={confirmAppointment}
+        setStars={setStars}
+        isVisible={showFeedbackModal}
+        name={appointment.business.name}
+        username={appointment.user.name}
+        toggleModal={toggleModal}
+      />
+      <Button
+        variant='outlined'
+        disabled={disabled || isLoading}
+        loading={isLoading}
+        color={colors.text}
+        onPress={openFeedback}
+        loadingIndicator={<ActivityIndicator color={theme.colors.white} />}
+        title={() => (
+          <Text style={[styles.button, { color: theme.colors.white }]}>
+            Completar
+          </Text>
+        )}
+      />
+    </>
   )
 }
 

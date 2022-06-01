@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {
   Business,
+  StoreBusinessFeedback,
   StoreBusinessPayload,
 } from '../interfaces/business.interface'
 
@@ -30,10 +31,7 @@ const getAllBusiness = async (popular = false) => {
  * @param {StoreBusinessPayload} Sort total-feedback, stars
  * @returns Business
  */
-const updateBusiness = async (
-  uid: string,
-  payload: StoreBusinessPayload
-) => {
+const updateBusiness = async (uid: string, payload: StoreBusinessPayload) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
     `/business/${uid}`,
     payload
@@ -41,10 +39,7 @@ const updateBusiness = async (
   return res.data
 }
 
-const updateBusinessImage = async (
-  uid: string,
-  payload: FormData
-) => {
+const updateBusinessImage = async (uid: string, payload: FormData) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
     `/business/${uid}/image`,
     payload,
@@ -62,11 +57,22 @@ const updateBusinessImage = async (
  * @param {StoreBusinessPayload} Sort total-feedback, stars
  * @returns Business
  */
-const storeBusiness = async (
-  payload: FormData | StoreBusinessPayload
-) => {
+const storeBusiness = async (payload: FormData | StoreBusinessPayload) => {
   const res = await axios.post<BaseResponse<{ business: Business }>>(
     createRoute,
+    payload
+  )
+  return res.data
+}
+
+/**
+ * @description Sets the feedback to a business on appointment complete
+ * @param {StoreBusinessPayload} Sort total-feedback, stars
+ * @returns Business
+ */
+const storeFeedback = async (uid: string, payload: StoreBusinessFeedback) => {
+  const res = await axios.post<BaseResponse<{ business: Business }>>(
+    setFeedbackRoute.replace('%s', uid),
     payload
   )
   return res.data
@@ -76,5 +82,6 @@ export const BusinessAPI = {
   getAllBusiness,
   updateBusiness,
   storeBusiness,
-  updateBusinessImage
+  updateBusinessImage,
+  storeFeedback
 }

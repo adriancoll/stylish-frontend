@@ -85,8 +85,8 @@ export const AppointmentCardFooter: FC<Props> = ({
       {!isBusinessOwner &&
         appointment.status === AppointmentStatus.CONFIRMED && (
           <CompleteAppointmentButton
+            appointment={appointment}
             disabled={moment(appointment.date).isAfter(moment())}
-            uid={appointment.uid}
           />
         )}
     </View>

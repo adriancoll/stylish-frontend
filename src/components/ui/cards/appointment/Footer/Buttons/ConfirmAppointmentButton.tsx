@@ -16,10 +16,7 @@ const ConfirmAppointmentButton: FC<Props> = ({ uid }) => {
 
   const confirmAppointment = async () => {
     setIsLoading(true)
-
     await confirmAppointmentAction(uid)
-
-    setIsLoading(false)
   }
 
   return (

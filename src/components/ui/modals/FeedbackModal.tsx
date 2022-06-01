@@ -5,20 +5,48 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native'
-import React, { FC, useRef } from 'react'
-import Modal, { ModalProps } from 'react-native-modal'
+import React, { FC, SetStateAction } from 'react'
+import Modal from 'react-native-modal'
 import theme from '../../../theme/theme'
 import { useBaseContainer } from '../../../hooks/useBaseContainer'
 import LottieView from 'lottie-react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { capitalize } from 'lodash'
+import { Rating, AirbnbRating } from 'react-native-ratings'
+import { Button, Stack } from '@react-native-material/core'
+
+const Backdrop = () => {
+  const { colors } = useBaseContainer()
+  return (
+    <View
+      style={[
+        StyleSheet.absoluteFillObject,
+        {
+          backgroundColor: colors.background,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      ]}>
+      <LottieView
+        autoPlay
+        speed={0.6}
+        resizeMode='cover'
+        source={require(`../../../../assets/lotties/confetti.json`)}
+      />
+    </View>
+  )
+}
 
 interface Props {
   isVisible: boolean
   animationInTiming?: number
   name: string
+  username: string
   toggleModal: () => void
+  confirmCallback: () => void
+  setStars: React.Dispatch<SetStateAction<number>>
 }
 
 type authScreenProp = NativeStackNavigationProp<
@@ -28,11 +56,13 @@ type authScreenProp = NativeStackNavigationProp<
 
 const { width, height } = Dimensions.get('screen')
 
-export const BusinessSuccessModal: FC<Props> = ({
+export const FeedbackModal: FC<Props> = ({
   isVisible,
   toggleModal,
   animationInTiming = 1500,
   name,
+  confirmCallback,
+  username,
   ...otherProps
 }) => {
   const { colors } = useBaseContainer()
@@ -45,26 +75,8 @@ export const BusinessSuccessModal: FC<Props> = ({
       deviceWidth={width}
       onBackdropPress={toggleModal}
       onSwipeComplete={toggleModal}
-      swipeDirection={['down']}
-      customBackdrop={
-        <View
-          style={[
-            StyleSheet.absoluteFillObject,
-            {
-              backgroundColor: colors.background,
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-          ]}>
-          <LottieView
-            autoPlay
-            speed={0.6}
-            resizeMode='cover'
-            source={require(`../../../../assets/lotties/confetti.json`)}
-          />
-        </View>
-      }
+      swipeDirection={['down', 'left', 'right', 'up']}
+      customBackdrop={<Backdrop />}
       deviceHeight={height}
       style={{
         justifyContent: 'center',
@@ -72,7 +84,7 @@ export const BusinessSuccessModal: FC<Props> = ({
         marginHorizontal: theme.spacing.lg,
       }}
       animationOut={'bounceOutUp'}
-      animationIn={'tada'}
+      animationIn={'pulse'}
       animationInTiming={animationInTiming}
       supportedOrientations={['portrait', 'landscape']}>
       <View style={[styles.modal, { backgroundColor: colors.background }]}>
@@ -80,25 +92,47 @@ export const BusinessSuccessModal: FC<Props> = ({
           autoPlay
           imageAssetsFolder='lotties'
           resizeMode='cover'
-          loop={false}
-          onAnimationFinish={() => {
-            setTimeout(() => {
-              toggleModal()
-              navigator.dispatch(StackActions.replace('Main'))
-            }, 3000)
-          }}
+          loop
           style={{
-            height: height * 0.3,
+            height: height * 0.2,
           }}
-          source={require(`../../../../assets/lotties/conffeti-success.json`)}
+          source={require(`../../../../assets/lotties/rating.json`)}
         />
 
         <Text style={[styles.title, { color: colors.text }]}>
-          ¡Negocio creado!
+          Déjanos tu opinión
         </Text>
+
         <Text style={[styles.subtitle, { color: colors.text }]}>
-          Tu negocio, {capitalize(name)}, ha sido creado correctamente.
+          ¿Qué tal ha ido en {capitalize(name)}?
         </Text>
+
+        <AirbnbRating
+          count={5}
+          reviewColor={colors.primary}
+          selectedColor={colors.primary}
+          reviews={['Horrible', 'Mal', 'Normal', 'Bien', 'Perfecto']}
+          defaultRating={3}
+          onFinishRating={(number) => {
+            console.log(number)
+          }}
+          size={20}
+        />
+
+        <Stack mt={30} spacing={theme.spacing.md} direction='row'>
+          <Button
+            title='Cerrar'
+            onPress={toggleModal}
+            variant='text'
+            titleStyle={{ color: theme.colors.primary }}
+          />
+          <Button
+            title='Completar'
+            onPress={confirmCallback}
+            variant='contained'
+            style={[{ backgroundColor: theme.colors.primary }]}
+          />
+        </Stack>
       </View>
     </Modal>
   )
@@ -114,13 +148,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: theme.fonts.bold,
-    fontSize: theme.fontSizes.heading,
+    fontSize: theme.fontSizes.lg,
     textAlign: 'center',
     marginBottom: theme.spacing.sm,
+    marginTop: theme.spacing.xl,
   },
   subtitle: {
     fontFamily: theme.fonts.regular,
     fontSize: theme.fontSizes.subHeading,
     textAlign: 'center',
+    marginBottom: theme.spacing.md,
   },
 })

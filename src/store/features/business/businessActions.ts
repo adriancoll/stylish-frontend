@@ -2,6 +2,7 @@ import { store } from '../..'
 import { BusinessAPI } from '../../../api/business'
 import {
   Business,
+  StoreBusinessFeedback,
   StoreBusinessPayload,
 } from '../../../interfaces/business.interface'
 import { setUser } from '../user/userSlice'
@@ -78,6 +79,29 @@ export const createBusiness = (payload: FormData | StoreBusinessPayload) => {
   return new Promise<Business>(async (resolve, reject) => {
     try {
       const data = await BusinessAPI.storeBusiness(payload)
+
+      if (data.error) {
+        reject(data.error)
+        throw new Error(data.message)
+      }
+
+      // Update both, myBusiness and general businesses
+      store.dispatch(updateGeneralBusiness(data.results.business))
+
+      resolve(data.results.business)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+export const storeFeedbackAction = (
+  uid: string,
+  payload: StoreBusinessFeedback
+) => {
+  return new Promise<Business>(async (resolve, reject) => {
+    try {
+      const data = await BusinessAPI.storeFeedback(uid, payload)
 
       if (data.error) {
         reject(data.error)

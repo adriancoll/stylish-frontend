@@ -12,7 +12,7 @@ import {
 import React, { FC } from 'react'
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { Avatar, Chip, Pressable, Surface } from '@react-native-material/core'
-import { Business } from '../../../../interfaces/user.interface'
+import { Business } from '../../../../interfaces/business.interface'
 import theme from '../../../../theme/theme'
 import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome5 } from '@expo/vector-icons'
@@ -101,7 +101,7 @@ export const PopularHairdressBox = ({
             color='black'
             style={{ color: 'rgba(255, 173, 27,0.9)', marginRight: 2 }}
           />
-          <Text style={{ color: colors.text }}>{business.rating}</Text>
+          <Text style={{ color: colors.text }}>{business.rating.toFixed(1)}</Text>
         </Chip>
       </>
     </TouchableScale>

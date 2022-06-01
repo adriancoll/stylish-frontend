@@ -23,7 +23,7 @@ import {
 } from '../../../store/features/business/businessActions'
 import { getAllServiceTypesBusiness } from '../../../store/features/service_types/serviceTypesActions'
 import { MultiServiceTypePicker } from '../../ui/form-inputs/MultiServiceTypePicker'
-import { BusinessSuccessModal } from '../../../components/ui/modals/BusinessSuccessModal'
+import { BusinessSuccessModal } from '../../ui/modals/BusinessSuccessModal'
 
 interface Props {
   isEditing?: boolean

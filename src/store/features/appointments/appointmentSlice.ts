@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import ActionSheet from 'react-native-actions-sheet'
-import { Appointment, AppointmentStatus, AppointmentStatusTypes, MyAppointments, StoreAppointment } from '../../../interfaces/appointment.interfaces'
+import {
+  Appointment,
+  AppointmentStatus,
+  AppointmentStatusTypes,
+  MyAppointments,
+  StoreAppointment,
+} from '../../../interfaces/appointment.interfaces'
 
 export interface AppointmentsState {
   appointments: MyAppointments
@@ -26,15 +32,16 @@ const appointmentSlice = createSlice({
       state.appointments.PENDING_CONFIRM.push(action.payload)
     },
     confirmAppointment: (state, action: PayloadAction<Appointment>) => {
-      state.appointments.PENDING_CONFIRM.map(
-        (appointment) => appointment.uid === action.payload.uid ? action.payload : appointment
+      state.appointments.PENDING_CONFIRM.map((appointment) =>
+        appointment.uid === action.payload.uid ? action.payload : appointment
       )
     },
     completeAppointment: (state, action: PayloadAction<Appointment>) => {
-      state.appointments.CONFIRMED.map(
-        (appointment) => appointment.uid === action.payload.uid ? action.payload : appointment
+      state.appointments.CONFIRMED = state.appointments.CONFIRMED.filter(
+        (appointment) => appointment.uid !== action.payload.uid
       )
-    }
+      state.appointments.COMPLETED.push(action.payload)
+    },
   },
 })
 
@@ -43,5 +50,6 @@ export const {
   setNextAppointment,
   addAppointment,
   confirmAppointment,
+  completeAppointment,
 } = appointmentSlice.actions
 export default appointmentSlice.reducer
