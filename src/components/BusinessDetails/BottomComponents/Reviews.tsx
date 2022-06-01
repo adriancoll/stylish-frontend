@@ -73,7 +73,7 @@ const Reviews: FC<Props> = ({ users, rating, stars, uid }) => {
               color='black'
               style={{ color: theme.colors.primary, marginRight: 5 }}
             />
-            <Text style={[styles.reviewItemText, { color: colors.text }]}>{rating}</Text>
+            <Text style={[styles.reviewItemText, { color: colors.text }]}>{rating?.toFixed(1)}</Text>
           </Chip>
         </ReviewItem>
 
