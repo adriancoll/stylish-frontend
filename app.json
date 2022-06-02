@@ -17,12 +17,18 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM" }
+      },
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fafafa"
+      },
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM" }
       },
       "userInterfaceStyle": "automatic",
       "package": "com.adriancoll.stylish"
