@@ -7,8 +7,33 @@ import { LoginAccountText } from '../../components/auth/register/LoginAccountTex
 import { RegisterForm } from '../../components/auth/register/RegisterForm'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
 import theme from '../../theme/theme'
+import * as Animatable from 'react-native-animatable'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
+
+const StyledTitle = () => {
+  const letters = 'Stylish'.split('')
+
+  return (
+    <Animatable.View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+      }}>
+      {letters.map((letter, index) => (
+        <Animatable.Text
+          key={index}
+          useNativeDriver
+          delay={200 * index}
+          animation={'fadeIn'}
+          duration={3000}
+          style={[styles.title, { color: theme.colors.primary, fontSize: 52 }]}>
+          {letter}
+        </Animatable.Text>
+      ))}
+    </Animatable.View>
+  )
+}
 
 export default function RegisterScreen() {
   const navigator = useNavigation<authScreenProp>()
@@ -26,10 +51,10 @@ export default function RegisterScreen() {
         },
       ]}>
       <View>
-        <Text style={{ ...styles.title, color: colors.text }}></Text>
-        <Text style={{ ...styles.subtitle, color: colors.text }}>
-          ¡Bienvenido/a, te hemos echado de menos!
+        <Text style={{ ...styles.title, color: colors.text }}>
+          Únete al club <StyledTitle />
         </Text>
+
         <RegisterForm />
       </View>
       <LoginAccountText />
@@ -40,7 +65,7 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create<any>({
   title: {
     textAlign: 'center',
-    fontSize: theme.fontSizes.heading + 5,
+    fontSize: 48,
     fontFamily: theme.fonts.bold,
     marginVertical: theme.spacing.lg,
   },

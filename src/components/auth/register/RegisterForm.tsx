@@ -135,6 +135,7 @@ export const RegisterForm: FC<Props> = () => {
           disabled={!isValid}
           onPress={handleSubmit(onSubmit)}
           title='¡Crear cuenta!'
+          successText='¡Cuenta creada!'
           isLoading={isLoading}
           isSuccess={isSuccess}
           isValid={isValid}

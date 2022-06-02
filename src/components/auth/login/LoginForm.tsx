@@ -107,6 +107,7 @@ export const LoginForm: FC = () => {
           disabled={!isValid}
           onPress={handleSubmit(onSubmit)}
           title='Iniciar sesión'
+          successText='Entrando...'
           isLoading={isLoading}
           isSuccess={isSuccess}
           isValid={isValid}

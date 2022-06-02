@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#736E7F"
+      "backgroundColor": "#fafafa"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#736E7F"
+        "backgroundColor": "#fafafa"
       },
       "userInterfaceStyle": "automatic",
       "package": "com.adriancoll.stylish"
