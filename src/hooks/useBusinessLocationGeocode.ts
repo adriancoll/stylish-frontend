@@ -8,7 +8,7 @@ type Location = {
   lng: number
 }
 
-export const GOOGLE_API_TOKEN = 'AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM'
+export const GOOGLE_API_TOKEN = 'AIzaSyAqqyvFETFg3P3T6bvW3Adt8yO_RlG5-N4'
 
 /**
  * Gets the data from the business latitude and longitude through the Geocoding Google API, and stores it on AsyncStorage just for the current session.
@@ -32,14 +32,16 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
     Geocoder.init(GOOGLE_API_TOKEN)
 
     console.log('[info] Buscando de google maps API!')
-    Geocoder.from({ lat, lng })
+    Geocoder.from({ lat: parseFloat(`${lat}`), lng: parseFloat(`${lng}`) })
       .then(async (json) => {
         console.log('[info] Dirección encontrada, guardando en async store!')
         await storeData('geocoding', json)
         setLocation(json)
         return json
       })
-      .catch((error) => Alert.alert('Error', error.message))
+      .catch((error) =>
+        Alert.alert('Error', `${JSON.stringify(lat)} = ${error.message}`)
+      )
   }
 
   useEffect(() => {

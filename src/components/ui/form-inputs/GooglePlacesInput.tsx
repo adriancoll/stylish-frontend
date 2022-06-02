@@ -32,6 +32,7 @@ const GooglePlacesInput: FC<Props> = ({ control, name, label }) => {
         render={({ field: { onChange, ...field }, fieldState: { error }, formState: {  } }) => (
           <GooglePlacesAutocomplete
             fetchDetails
+            enablePoweredByContainer={false}
             renderLeftButton={() => (
               <Entypo
                 style={{ justifyContent: 'center', alignSelf: 'center' }}
