@@ -12,13 +12,27 @@ interface Props {
   isSuccess: boolean
   isValid: boolean
   disabled: boolean
-  saveText: string
   onPress: () => void
+
+  title: string
+  successText?: string
+  loadingText?: string
+  disabledText?: string
 }
 
 const CustomButtonAnimated = React.forwardRef<Animatable.View & View, Props>(
   (
-    { isLoading, isSuccess, isValid, onPress, disabled, saveText }: Props,
+    {
+      isLoading,
+      isSuccess,
+      isValid,
+      onPress,
+      disabled,
+      title,
+      successText = '¡Guardado correctamente!',
+      loadingText = 'Guardando...',
+      disabledText = 'Completa los campos requeridos',
+    }: Props,
     ref: React.ForwardedRef<Animatable.View & View>
   ): JSX.Element => {
     const { colors } = useTheme()
@@ -64,12 +78,12 @@ const CustomButtonAnimated = React.forwardRef<Animatable.View & View, Props>(
 
             <Text style={[styles.text, { color: colors.text }]}>
               {isSuccess
-                ? 'Guardado correctamente'
+                ? successText
                 : isLoading
-                ? 'Guardando...'
+                ? loadingText
                 : isValid
-                ? saveText
-                : 'Completa los campos requeridos'}
+                ? title
+                : disabledText}
             </Text>
           </Animatable.View>
         </TouchableScale>

@@ -118,7 +118,7 @@ const AppointmentForm: FC<Props> = ({ business }) => {
         placeholder={`Informanos sobre cualquier alérgeno, detalle, etc. Para informar a ${business.name} (Opcional)`}
       />
       <CustomButtonAnimated
-        saveText='Crear reserva'
+        title='Crear reserva'
         onPress={handleSubmit(onSubmit)}
         disabled={!isValid}
         isValid={isValid}

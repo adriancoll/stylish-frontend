@@ -1,5 +1,13 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import { Alert, Button, Modal, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import {
+  Alert,
+  Button,
+  Modal,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from 'react-native'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CustomButton from '../../ui/CustomButton'
 
@@ -13,6 +21,7 @@ import theme from '../../../theme/theme'
 import LoginSchema from '../../../schemas/LoginSchema'
 import { Snackbar } from '@react-native-material/core'
 import * as Animatable from 'react-native-animatable'
+import CustomButtonAnimated from '../../ui/CustomButtonAnimated'
 
 interface FormData {
   email: string
@@ -24,13 +33,12 @@ type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>
 export const LoginForm: FC = () => {
   const navigator = useNavigation<authScreenProp>()
   const { params } = useRoute<any>()
-  const { colors } = useTheme()
-  const [showModal, setShowModal] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const [errors, setErrors] = useState(false)
-  const [message, setMessage] = useState('')
-  const buttonRef =
-    useRef<Animatable.View & View>() as React.RefObject<Animatable.View & View>
+  const buttonRef = useRef<Animatable.View & View>() as React.RefObject<
+    Animatable.View & View
+  >
 
   const {
     control,
@@ -44,23 +52,29 @@ export const LoginForm: FC = () => {
   })
 
   const onSubmit = ({ email, password }: FormData) => {
+    setIsLoading(true)
     login(email, password)
       .then(() => {
+        setIsSuccess(true)
         navigator.dispatch(StackActions.replace('Main'))
       })
       .catch((error) => {
-        setErrors(true)
-        ToastAndroid.show(error?.response?.data?.message || error?.response?.data?.errors[0].msg, ToastAndroid.LONG);
+        setIsSuccess(false)
+        ToastAndroid.show(
+          error?.response?.data?.message ||
+            error?.response?.data?.errors[0].msg,
+          ToastAndroid.LONG
+        )
 
         if (
           buttonRef.current &&
-          typeof buttonRef.current.shake === 'function' 
+          typeof buttonRef.current.shake === 'function'
         ) {
           buttonRef.current.shake(1000)
         }
       })
+      .finally(() => setIsLoading(false))
   }
-
 
   useEffect(() => {
     setValue('email', params?.email)
@@ -72,7 +86,7 @@ export const LoginForm: FC = () => {
         keyboardType='email-address'
         control={control}
         name='email'
-        autoCapitalize = 'none'
+        autoCapitalize='none'
         placeholder='john@stylish.com'
         label='Email'
       />
@@ -89,11 +103,14 @@ export const LoginForm: FC = () => {
         style={{
           marginVertical: theme.spacing.md,
         }}>
-        <CustomButton
-          bgColor={theme.colors.primary}
+        <CustomButtonAnimated
           disabled={!isValid}
           onPress={handleSubmit(onSubmit)}
           title='Iniciar sesión'
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+          isValid={isValid}
+          ref={buttonRef}
         />
         {/* <LoginGoogleButton /> */}
       </Animatable.View>

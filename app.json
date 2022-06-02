@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "stylish-frontend",
+    "name": "Stylish",
     "slug": "stylish-frontend",
     "version": "1.0.0",
     "userInterfaceStyle": "automatic",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#736E7F"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#736E7F"
       },
       "userInterfaceStyle": "automatic",
       "package": "com.adriancoll.stylish"

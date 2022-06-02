@@ -15,7 +15,8 @@ import { CustomPhoneInput } from '../../ui/form-inputs/CustomPhoneInput'
 import { StyledInput } from '../../ui/form-inputs/StyledInput'
 import { StyledModal } from '../../ui/modals/StyledModal'
 import * as Animatable from 'react-native-animatable'
-import Snackbar from 'react-native-snackbar'
+import CustomButtonAnimated from '../../ui/CustomButtonAnimated'
+import { isLoading } from 'expo-font'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Register'>
 
@@ -39,9 +40,7 @@ const RegisterSuccessfullModal = () => {
 export const RegisterForm: FC<Props> = () => {
   const [region, setRegion] = useState('ES')
   const [isSuccess, setIsSuccess] = useState(false)
-
-  const [isError, setIsError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(' ')
+  const [isLoading, setIsLoading] = useState(false)
 
   const [email, setEmail] = useState<string>('')
   const buttonRef = useRef<Animatable.View & View>() as React.RefObject<
@@ -62,14 +61,17 @@ export const RegisterForm: FC<Props> = () => {
 
   const onSubmit = async (data: RegisterUserPayload) => {
     try {
+      setIsLoading(true)
       const email = await registerUser(data)
       reset()
       setEmail(email)
       setIsSuccess(true)
+      setIsLoading(false)
     } catch (err) {
+      setIsLoading(false)
       const error = err as AxiosError<BaseErrorResponse>
       ToastAndroid.show(
-        error.response?.data.message || error?.response?.data?.errors[0].msg,
+        error.response?.data.message || 'Error al registrar usuario',
         ToastAndroid.LONG
       )
 
@@ -86,6 +88,7 @@ export const RegisterForm: FC<Props> = () => {
   return (
     <View style={styles.container}>
       <StyledModal
+        useNativeDriver
         title='Cuenta creada 🥳'
         animationIn={'tada'}
         confirmText='Iniciar sesión'
@@ -128,13 +131,14 @@ export const RegisterForm: FC<Props> = () => {
         style={{
           marginVertical: theme.spacing.md,
         }}>
-        <CustomButton
-          type={ButtonTypes.PRIMARY}
-          bgColor={theme.colors['primary-light']}
+        <CustomButtonAnimated
           disabled={!isValid}
-          disabledText={'¡Completa todos los campos!'}
           onPress={handleSubmit(onSubmit)}
           title='¡Crear cuenta!'
+          isLoading={isLoading}
+          isSuccess={isSuccess}
+          isValid={isValid}
+          ref={buttonRef}
         />
       </Animatable.View>
     </View>

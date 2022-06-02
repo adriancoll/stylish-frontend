@@ -206,7 +206,7 @@ const BusinessCrudForm: FC<Props> = ({ isEditing = false }) => {
         />
 
         <CustomButtonAnimated
-          saveText={`${isEditing ? 'Editar' : 'Crear'} empresa`}
+          title={`${isEditing ? 'Editar' : 'Crear'} empresa`}
           onPress={handleSubmit(onSubmit)}
           disabled={!isValid}
           isValid={isValid}
