@@ -28,7 +28,6 @@ setupInterceptorsTo(axios)
 
 export default function App() {
   const isDark = useColorScheme() === 'dark'
-  const { colors } = useTheme()
 
   const [isLoaded] = useFonts({
     'gilroy-light': require('./assets/fonts/Gilroy-Light.otf'),
@@ -40,8 +39,6 @@ export default function App() {
   if (!isLoaded) {
     return <FullScreenLoader />
   }
-
-
 
   return (
     <Provider store={store}>

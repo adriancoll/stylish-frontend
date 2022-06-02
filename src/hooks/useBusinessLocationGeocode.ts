@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getData, storeData } from '../utils/asyncStorage'
 import Geocoder from 'react-native-geocoding'
+import { Alert } from 'react-native'
 
 type Location = {
   lat: number
@@ -38,7 +39,7 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
         setLocation(json)
         return json
       })
-      .catch((error) => console.warn(error))
+      .catch((error) => Alert.alert('Error', error.message))
   }
 
   useEffect(() => {

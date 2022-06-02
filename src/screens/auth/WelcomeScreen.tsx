@@ -11,12 +11,14 @@ import { ImageChanging } from '../../components/auth/welcome/ImageChanging'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
 import { useExpoUpdate } from '../../hooks/useExpoUpdate'
+import useExpoUpdates from '../../hooks/useExpoUpdates'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 export default function WelcomeScreen() {
   const navigator = useNavigation<authScreenProp>()
 
-  useExpoUpdate()
+  // useExpoUpdate()
+  useExpoUpdates()
 
   const goToRegister = () => navigator.navigate('Register')
   const goToLogin = () => navigator.navigate('Login')
@@ -46,7 +48,7 @@ export default function WelcomeScreen() {
             marginBottom: theme.spacing.md,
             color: colors.text,
           }}>
-          Descubre la belleza en tu ciudada
+          Descubre la belleza en tu ciudad asd
         </Text>
         <Text
           style={{

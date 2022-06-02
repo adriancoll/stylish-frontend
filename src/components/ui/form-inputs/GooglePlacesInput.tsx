@@ -6,9 +6,7 @@ import { Control, Controller } from 'react-hook-form'
 import { StyleSheet, Text } from 'react-native'
 import theme from '../../../theme/theme'
 import { useCurrentLocation } from '../../../hooks/useCurrentLocation'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useTheme } from '@react-navigation/native'
-import { color } from 'react-native-reanimated'
 import { View } from 'react-native-animatable'
 
 const DEBOUNCE = 300

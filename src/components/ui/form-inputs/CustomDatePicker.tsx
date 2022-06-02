@@ -1,4 +1,11 @@
-import { Platform, StyleSheet, Text, useColorScheme, View } from 'react-native'
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  useColorScheme,
+  View,
+} from 'react-native'
 import React, { FC, SetStateAction, useState } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
@@ -52,6 +59,14 @@ const CustomDatePicker: FC<Props> = ({ name, control, setShowPicker }) => {
                       minute: date.getMinutes(),
                     })
                     .toDate()
+
+                  if (moment().isAfter(newDate)) {
+                    ToastAndroid.show(
+                      'La fecha debe ser posterior a la fecha actual',
+                      ToastAndroid.LONG
+                    )
+                    return setMode('date')
+                  }
 
                   setFinalDate(moment(newDate))
                   setShowPicker(false)
