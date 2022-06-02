@@ -41,20 +41,7 @@ export default function App() {
     return <FullScreenLoader />
   }
 
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-          await Updates.fetchUpdateAsync();
-          // ... notify user of update ...
-          await Updates.reloadAsync();
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    })()
-  }, [])
+
 
   return (
     <Provider store={store}>

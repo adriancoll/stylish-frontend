@@ -10,10 +10,13 @@ import { Image } from 'react-native'
 import { ImageChanging } from '../../components/auth/welcome/ImageChanging'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useBaseContainer } from '../../hooks/useBaseContainer'
+import { useExpoUpdate } from '../../hooks/useExpoUpdate'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 export default function WelcomeScreen() {
   const navigator = useNavigation<authScreenProp>()
+
+  useExpoUpdate()
 
   const goToRegister = () => navigator.navigate('Register')
   const goToLogin = () => navigator.navigate('Login')
