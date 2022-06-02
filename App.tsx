@@ -11,16 +11,20 @@ import { useFonts } from '@use-expo/font'
 import { FullScreenLoader } from './src/components/ui/FullScreenLoader'
 import { darkTheme, lightTheme } from './src/theme/theme'
 import { AuthNavigation } from './src/navigation/Auth'
+import * as Updates from 'expo-updates'
 
 // change moment locale globally in root
 import moment from 'moment'
 import 'moment/locale/es'
 import { useTheme } from '@react-navigation/native'
+import { useEffect } from 'react'
 moment.locale('es')
 
 // Setup Axios interceptors and stylish backend uri
 axios.defaults.baseURL = API_URL
 setupInterceptorsTo(axios)
+
+// auto updates
 
 export default function App() {
   const isDark = useColorScheme() === 'dark'
@@ -36,6 +40,21 @@ export default function App() {
   if (!isLoaded) {
     return <FullScreenLoader />
   }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          // ... notify user of update ...
+          await Updates.reloadAsync();
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
+  }, [])
 
   return (
     <Provider store={store}>

@@ -25,13 +25,13 @@ export const useCurrentLocation = () => {
       } = await requestForegroundPermissionsAsync()
 
       if (!granted) {
-        if (!canAskAgain) {
-          Alert.alert(
-            'Error',
-            'Debes permitir la localización para ver el mapa'
-          )
-          return
-        }
+        // if (!canAskAgain) {
+        //   Alert.alert(
+        //     'Error',
+        //     'Debes permitir la localización para ver el mapa'
+        //   )
+        //   return
+        // }
         await requestForegroundPermissionsAsync()
       }
 

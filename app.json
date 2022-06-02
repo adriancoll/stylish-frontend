@@ -12,15 +12,13 @@
       "backgroundColor": "#fafafa"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_ERROR_RECOVERY"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "automatic",
-      "config": {
-        "googleMaps": { "apiKey": "AIzaSyBwprPGiEeqwP86aoBiSZtHmSGcROJwutM" }
-      },
+      "userInterfaceStyle": "automatic"
     },
     "android": {
       "adaptiveIcon": {
