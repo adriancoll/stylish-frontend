@@ -29,7 +29,7 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
       return
     }
 
-    Geocoder.init(GOOGLE_API_TOKEN)
+    Geocoder.init('AIzaSyCUkqP7_EhGiT5A7XN1dPeXilkHg_5ktMU')
 
     console.log('[info] Buscando de google maps API!')
     Geocoder.from({ lat, lng })
@@ -40,7 +40,7 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
         return json
       })
       .catch((error) =>
-        Alert.alert('Error', `${JSON.stringify(lat)} = ${error.message}`)
+        Alert.alert('Error', `${JSON.stringify(lat)} = ${JSON.stringify(error)}`)
       )
   }
 
