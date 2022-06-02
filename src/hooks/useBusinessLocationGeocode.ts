@@ -32,7 +32,7 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
     Geocoder.init(GOOGLE_API_TOKEN)
 
     console.log('[info] Buscando de google maps API!')
-    Geocoder.from({ lat: parseFloat(`${lat}`), lng: parseFloat(`${lng}`) })
+    Geocoder.from({ lat, lng })
       .then(async (json) => {
         console.log('[info] Dirección encontrada, guardando en async store!')
         await storeData('geocoding', json)
