@@ -34,6 +34,10 @@ import { MapOverlay } from './Overlay/MapOverlay'
 import { Business } from '../../interfaces/business.interface'
 import BusinessMarker from './Markers/BusinessMarker'
 import { useCurrentLocation } from '../../hooks/useCurrentLocation'
+import {
+  getBusiness,
+  getPopularBusiness,
+} from '../../store/features/business/businessActions'
 
 interface Props extends MapViewProps {
   businesses: Business[]
@@ -41,15 +45,26 @@ interface Props extends MapViewProps {
 
 export const Maps: FC<Props> = ({ businesses, ...props }) => {
   const location = useCurrentLocation()
+  const [isLoading, setIsLoading] = useState(false)
 
   const { height, width } = useWindowDimensions()
   const scheme = useColorScheme()
 
   const { baseContainer, colors } = useBaseContainer()
 
-  
+  useEffect(() => {
+    ;(async () => {
+      try{
+        setIsLoading(true)
+        await getBusiness()
+        setIsLoading(false)
+      } catch (ex) {
+        setIsLoading(false)
+      }
+    })()
+  }, [])
 
-  if (isEmpty(location)) {
+  if (isEmpty(location) || isLoading) {
     return (
       <View
         style={{

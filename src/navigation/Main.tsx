@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import ProfileScreen from '../screens/main/ProfileScreen'
 import theme from '../theme/theme'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { CustomTabBarIcon } from '../components/ui/navigation/CustomTabBarIcon'
 import { AntDesign, FontAwesome } from '@expo/vector-icons'
-import { useNavigation, useTheme } from '@react-navigation/native'
 import AppointmentsScreen from '../screens/main/AppointmentsScreen'
 import HomeScreen from '../screens/main/HomeScreen'
 import MapScreen from '../screens/main/MapScreen'
@@ -16,11 +14,7 @@ import TouchableScale from 'react-native-touchable-scale'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { AppointmentsState } from '../store/features/appointments/appointmentSlice'
-import { first, isEmpty } from 'lodash'
-import {
-  getMyAppointments,
-  getNextAppointment,
-} from '../store/features/appointments/appointmentActions'
+import { isEmpty } from 'lodash'
 import { FullScreenLoader } from '../components/ui/FullScreenLoader'
 
 const { Screen, Navigator, Group } =

@@ -24,10 +24,12 @@ export default function WelcomeScreen() {
   if (isLoading) {
     return <FullScreenLoader />
   }
-  
+
+  const goToPublicMap = () => navigator.navigate('PublicMap')
+
   return (
     <SafeAreaView
-      style={[baseContainer, {backgroundColor: colors.background }]}>
+      style={[baseContainer, { backgroundColor: colors.background }]}>
       <ImageChanging />
 
       <View
@@ -41,7 +43,7 @@ export default function WelcomeScreen() {
             marginBottom: theme.spacing.md,
             color: colors.text,
           }}>
-          Descubre la belleza en tu ciudad
+          Descubre la belleza en tu ciudada
         </Text>
         <Text
           style={{
@@ -58,6 +60,9 @@ export default function WelcomeScreen() {
           ¿A qué esperas?
         </Text>
       </View>
+      <Text onPress={goToPublicMap} style={[styles.watchMapText]}>
+        Ver mapa
+      </Text>
       <View>
         <CustomButton
           type={ButtonTypes.WHITE}
@@ -77,11 +82,20 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   textContainer: {
     marginHorizontal: 30,
-    marginVertical: 40,
+    marginTop: 40,
   },
   smallText: {
     fontSize: theme.fontSizes.subHeading,
     fontFamily: theme.fonts.thin,
     textAlign: 'center',
+  },
+  watchMapText: {
+    fontSize: theme.fontSizes.subHeading,
+    fontFamily: theme.fonts.regular,
+    textAlign: 'center',
+    color: theme.colors.primary,
+    marginVertical: theme.spacing.md,
+    textDecorationLine: 'underline',
+    textDecorationColor: theme.colors.primary
   },
 })

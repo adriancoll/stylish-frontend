@@ -2,14 +2,14 @@ import { StyleSheet, Dimensions, useColorScheme, View } from 'react-native'
 import React, { FC } from 'react'
 import * as Animatable from 'react-native-animatable'
 import theme from '../../theme/theme'
-import { Business } from '../../interfaces/user.interface'
+import { Business } from '../../interfaces/business.interface'
 import { useTheme } from '@react-navigation/native'
 import { DELAY } from '../../constants/animations'
 import Description from './BottomComponents/Description'
 import Reviews from './BottomComponents/Reviews'
 import Location from './BottomComponents/Location'
 import BookAppointmentButton from './BottomComponents/BookAppointmentButton'
-import { transform } from 'lodash'
+import { isEmpty, transform } from 'lodash'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Services } from './BottomComponents/Services'
 import { useSelector } from 'react-redux'
@@ -27,7 +27,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
 
-  const { isBusiness } = useSelector<RootState, UserState>(
+  const { isBusiness, user } = useSelector<RootState, UserState>(
     (state) => state.user
   )
 
@@ -71,7 +71,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
             />
             <Location lat={business.latitude} lng={business.longitude} />
           </ScrollView>
-          {!isBusiness && <BookAppointmentButton business={business} />}
+          {!isBusiness && <BookAppointmentButton disabled={isEmpty(user)} business={business} />}
         </Animatable.View>
       )}
     </Animatable.View>

@@ -1,7 +1,7 @@
 import { Image, StyleSheet } from 'react-native'
 import React, { FC } from 'react'
 import { Marker } from 'react-native-maps'
-import { Business } from '../../../interfaces/user.interface'
+import { Business } from '../../../interfaces/business.interface'
 import theme from '../../../theme/theme'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation, useTheme } from '@react-navigation/native'

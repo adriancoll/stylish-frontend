@@ -22,7 +22,7 @@ import ProfileScreen from '../screens/main/ProfileScreen'
 import AppointmentFormScreen from '../screens/main/AppointmentFormScreen'
 import BusinessStoreFormScreen from '../screens/main/BusinessStoreFormScreen'
 import BusinessUpdateFormScreen from '../screens/main/BusinessUpdateFormScreen'
-import { MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import TouchableScale from 'react-native-touchable-scale'
 import { useSelector } from 'react-redux'
@@ -30,6 +30,7 @@ import { RootState } from '../store'
 import { UserState } from '../store/features/user/userSlice'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { USER_ROLES } from '../interfaces/user.interface'
+import MapScreen from '../screens/main/MapScreen'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -110,6 +111,15 @@ export const AuthNavigation = () => {
               return items
             }}
             component={AppointmentFormScreen}
+          />
+          <Stack.Screen
+            name='PublicMap'
+            component={MapScreen}
+            options={{
+              headerShown: false,
+              headerTitleAlign: 'center',
+              title: 'Mapa',
+            }}
           />
           <Stack.Screen
             options={{

@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable'
 import { DELAY } from '../../../constants/animations'
 import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
-import { Business } from '../../../interfaces/user.interface'
+import { Business } from '../../../interfaces/business.interface'
 import { Chip } from '@react-native-material/core'
 
 interface Props {

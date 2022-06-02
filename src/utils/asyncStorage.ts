@@ -5,7 +5,7 @@ const storeData = async (key: string, value: any) => {
     await AsyncStorage.setItem(key, JSON.stringify(value))
   } catch (error) {
     console.log(error)
-    return false 
+    return false
   }
 }
 
@@ -17,7 +17,7 @@ const getData = async (key: string) => {
     }
   } catch (error) {
     console.log(error)
-    return false 
+    return false
   }
 }
 
@@ -28,6 +28,9 @@ const deleteData = async (key: string) => await AsyncStorage.removeItem(key)
  */
 const clearAllData = async () => {
   try {
+    let keys = await AsyncStorage.getAllKeys()
+    console.log(`Keys: ${keys}`)
+    await AsyncStorage.multiRemove(keys)
     await AsyncStorage.clear()
   } catch (error) {
     console.log(error)

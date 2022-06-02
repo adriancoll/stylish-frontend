@@ -35,6 +35,7 @@ type RootStackParamList = {
   Welcome: undefined
   Login: { email: string } | undefined
   Register: undefined
+  PublicMap: undefined
 
   // Main
   Main: undefined
