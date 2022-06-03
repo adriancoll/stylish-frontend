@@ -25,12 +25,15 @@ const useExpoUpdates = () => {
 
   const showUpdatesModalAction = () => setShowModal(true)
   const hideUpdatesModalAction = () => setShowModal(false)
-  const toggleUpdatesModalAction = () => setShowModal(last => !last)
+  const toggleUpdatesModalAction = () => setShowModal((last) => !last)
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
       // Every time appstate changes call checkForUpdates in DEFAULT_TIMEOUT
-      AppState.addEventListener('change', handleAppStateChange)
+      const subscription = AppState.addEventListener(
+        'change',
+        handleAppStateChange
+      )
       setTimeout(() => checkForUpdates(setShowModal), DEFAULT_TIMEOUT)
     }
   }, [])

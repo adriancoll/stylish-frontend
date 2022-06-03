@@ -51,7 +51,7 @@ export const UpdateAvailableModal: FC<Props> = ({
           style={{
             height: height * 0.3,
           }}
-          source={require(`../../../../assets/lotties/warning.json`)}
+          source={require(`../../../../assets/lotties/update-available.json`)}
         />
         <Text style={[styles.title, { color: colors.text }]}>¡Actualización disponible!</Text>
         <Text style={[styles.subtitle, { color: colors.text }]}>
