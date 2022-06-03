@@ -75,7 +75,6 @@ Para subir una nueva versión para que se pueda ver en el Expo Client en el disp
   - `services` Archivos que comunican la información del backend junto al estado de Redux
   - `theme` Archivo con la configuración del tema, en modo oscuro y claro
 ## 🔗 Links
-[![portfolio](https://img.shields.io/badge/m?style=for-the-badge&logo=ko-fi&logoColor=white)]()
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adri%C3%A1n-coll-su%C3%A1rez-703960227/)
 
 
