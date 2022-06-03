@@ -31,6 +31,8 @@ import { UserState } from '../store/features/user/userSlice'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { USER_ROLES } from '../interfaces/user.interface'
 import MapScreen from '../screens/main/MapScreen'
+import useExpoUpdates from '../hooks/useExpoUpdates'
+import { UpdateAvailableModal } from '../components/ui/modals/UpdateAvailableModal'
 
 const Stack = createSharedElementStackNavigator<RootStackParamList>()
 
@@ -40,9 +42,17 @@ export const AuthNavigation = () => {
 
   const isOffline = useInternetConnection()
 
+  const {
+    isShowUpdatesModal,
+    toggleUpdatesModalAction,
+    showUpdatesModalAction,
+    hideUpdatesModalAction,
+  } = useExpoUpdates()
+
   return (
     <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
       <OfflineModal isVisible={isOffline} />
+      <UpdateAvailableModal isVisible={isShowUpdatesModal} toggleModal={toggleUpdatesModalAction} />
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <Stack.Navigator
           screenOptions={{

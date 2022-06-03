@@ -1,24 +1,18 @@
-import { Alert, AppState } from 'react-native'
+import { AppState } from 'react-native'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import * as Updates from 'expo-updates'
-import { useEffect } from 'react'
 
-/** @var Number delay */
-const DEFAULT_TIMEOUT = 4000
+/** @var Number - Delay for timeout to check for updates */
+const DEFAULT_TIMEOUT = 2000
 
-const checkForUpdates = async () => {
+const checkForUpdates = async (
+  setShowModal: Dispatch<SetStateAction<boolean>>
+) => {
   try {
     const update = await Updates.checkForUpdateAsync()
     if (update.isAvailable) {
       await Updates.fetchUpdateAsync()
-      await new Promise((resolve) =>
-        Alert.alert(
-          '✨ Hay una actualización pendiente.',
-          '🔃 Tu aplicacion va a reiniciarse en unos segundos...',
-          [{ text: 'Actualizar', onPress: () => resolve(true) }],
-          { cancelable: false }
-        )
-      )
-      await Updates.reloadAsync()
+      setShowModal(true)
     }
   } catch (e) {
     alert('Ha habido un error al comprobar las actualizaciones')
@@ -27,17 +21,31 @@ const checkForUpdates = async () => {
 }
 
 const useExpoUpdates = () => {
+  const [isShowUpdatesModal, setShowModal] = useState(false)
+
+  const showUpdatesModalAction = () => setShowModal(true)
+  const hideUpdatesModalAction = () => setShowModal(false)
+  const toggleUpdatesModalAction = () => setShowModal(last => !last)
+
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
+      // Every time appstate changes call checkForUpdates in DEFAULT_TIMEOUT
       AppState.addEventListener('change', handleAppStateChange)
-      setTimeout(checkForUpdates, DEFAULT_TIMEOUT)
+      setTimeout(() => checkForUpdates(setShowModal), DEFAULT_TIMEOUT)
     }
   }, [])
 
   const handleAppStateChange = (nextAppState: any) => {
     if (nextAppState === 'active') {
-      setTimeout(checkForUpdates, DEFAULT_TIMEOUT)
+      setTimeout(() => checkForUpdates(setShowModal), DEFAULT_TIMEOUT)
     }
+  }
+
+  return {
+    isShowUpdatesModal,
+    toggleUpdatesModalAction,
+    showUpdatesModalAction,
+    hideUpdatesModalAction,
   }
 }
 
