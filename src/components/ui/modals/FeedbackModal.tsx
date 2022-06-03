@@ -46,6 +46,7 @@ interface Props {
   username: string
   toggleModal: () => void
   confirmCallback: () => void
+  closeCallback: () => void
   setStars: React.Dispatch<SetStateAction<number>>
 }
 
@@ -62,7 +63,9 @@ export const FeedbackModal: FC<Props> = ({
   animationInTiming = 1500,
   name,
   confirmCallback,
+  closeCallback,
   username,
+  setStars,
   ...otherProps
 }) => {
   const { colors } = useBaseContainer()
@@ -111,10 +114,10 @@ export const FeedbackModal: FC<Props> = ({
           count={5}
           reviewColor={colors.primary}
           selectedColor={colors.primary}
-          reviews={['Horrible', 'Mal', 'Normal', 'Bien', 'Perfecto']}
+          reviews={['Horrible', 'Mejorable', 'Normal', 'Bien', 'Perfecto']}
           defaultRating={3}
           onFinishRating={(number) => {
-            console.log(number)
+            setStars(number)
           }}
           size={20}
         />
@@ -122,7 +125,7 @@ export const FeedbackModal: FC<Props> = ({
         <Stack mt={30} spacing={theme.spacing.md} direction='row'>
           <Button
             title='Cerrar'
-            onPress={toggleModal}
+            onPress={closeCallback}
             variant='text'
             titleStyle={{ color: theme.colors.primary }}
           />

@@ -44,7 +44,9 @@ export const AppointmentCardFooter: FC<Props> = ({
       await cancelAppointment(appointment.uid)
       setIsFetching(false)
       toggleModal()
-    } catch (ex) {}
+    } catch (ex) {
+      console.log(ex)
+    }
   }
 
   return (

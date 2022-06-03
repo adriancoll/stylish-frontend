@@ -29,12 +29,27 @@ const CompleteAppointmentButton: FC<Props> = ({ disabled, appointment }) => {
   const confirmAppointment = async () => {
     try {
       setIsLoading(true)
-      console.log('store feedback')
       await completeAppointmentAction(appointment.uid)
       await storeFeedbackAction(appointment.business.uid, {
         stars,
       })
-      ToastAndroid.show('¡Se ha finalizado la reserva, gracias por tu opinión!', ToastAndroid.SHORT)
+      ToastAndroid.show(
+        '¡Se ha completado la reserva, gracias por tu opinión!',
+        ToastAndroid.SHORT
+      )
+    } catch (ex) {
+      console.log(ex)
+    }
+  }
+
+  const forceCloseModal = async () => {
+    try {
+      setIsLoading(true)
+      await completeAppointmentAction(appointment.uid)
+      ToastAndroid.show(
+        '¡Se ha completado la reserva, gracias!',
+        ToastAndroid.SHORT
+      )
     } catch (ex) {
       console.log(ex)
     }
@@ -84,6 +99,7 @@ const CompleteAppointmentButton: FC<Props> = ({ disabled, appointment }) => {
     <>
       <FeedbackModal
         confirmCallback={confirmAppointment}
+        closeCallback={confirmAppointment}
         setStars={setStars}
         isVisible={showFeedbackModal}
         name={appointment.business.name}
