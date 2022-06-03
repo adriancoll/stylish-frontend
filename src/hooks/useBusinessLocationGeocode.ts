@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { getData, storeData } from '../utils/asyncStorage'
 import Geocoder from 'react-native-geocoding'
 import { Alert } from 'react-native'
+import { GOOGLE_API_TOKEN } from '../utils/constants'
 
 type Location = {
   lat: number
   lng: number
 }
 
-export const GOOGLE_API_TOKEN = 'AIzaSyAqqyvFETFg3P3T6bvW3Adt8yO_RlG5-N4'
 
 /**
  * Gets the data from the business latitude and longitude through the Geocoding Google API, and stores it on AsyncStorage just for the current session.
@@ -29,7 +29,7 @@ export const useBusinessLocationGeocode = ({ lat, lng }: Location) => {
       return
     }
 
-    Geocoder.init('AIzaSyCUkqP7_EhGiT5A7XN1dPeXilkHg_5ktMU')
+    Geocoder.init(GOOGLE_API_TOKEN)
 
     console.log('[info] Buscando de google maps API!')
     Geocoder.from({ lat, lng })

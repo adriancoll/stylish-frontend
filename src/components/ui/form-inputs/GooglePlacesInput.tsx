@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
-import { GOOGLE_API_TOKEN } from '../../../hooks/useBusinessLocationGeocode'
 import { Entypo } from '@expo/vector-icons'
 import { Control, Controller } from 'react-hook-form'
 import { StyleSheet, Text } from 'react-native'
@@ -8,6 +7,7 @@ import theme from '../../../theme/theme'
 import { useCurrentLocation } from '../../../hooks/useCurrentLocation'
 import { useTheme } from '@react-navigation/native'
 import { View } from 'react-native-animatable'
+import { GOOGLE_API_TOKEN } from '../../../utils/constants'
 
 const DEBOUNCE = 300
 
