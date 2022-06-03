@@ -44,6 +44,7 @@ const AppointmentList: FC<Props> = ({ appointments }) => {
         <AppointmentCard
           appointment={appointment}
           index={index}
+          showAllObservations
           key={appointment.uid}
         />
       ))}

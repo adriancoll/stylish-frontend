@@ -1,4 +1,10 @@
-import { Dimensions, StyleSheet, useColorScheme, View } from 'react-native'
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native'
 import React, { FC, useEffect, useState } from 'react'
 import { useNavigation, useTheme } from '@react-navigation/native'
 import theme from '../../../../theme/theme'
@@ -17,13 +23,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store'
 import { UserState } from '../../../../store/features/user/userSlice'
-import { ConfirmModal } from '../../modals/ConfirmModal'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import AppointmentObservations from './Body/AppointmentObservations'
+import AppointmentEndTime from './Body/AppointmentEndTime'
 
 const { width } = Dimensions.get('screen')
 
 interface AppointmentCardProps {
   appointment: Appointment
   index?: number
+  showAllObservations?: boolean
 }
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Main'>
@@ -31,6 +40,7 @@ type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Main'>
 export const AppointmentCard: FC<AppointmentCardProps> = ({
   appointment,
   index = 0,
+  showAllObservations = false,
 }) => {
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
@@ -79,6 +89,10 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           colors={colors}
           subtitle={appointment.service_type.name}
         />
+        <AppointmentObservations
+          observations={appointment.observations}
+          showAll={showAllObservations}
+        />
         <Divider style={[styles.divider]} color={colors.border} />
         <AppointmentCardBody
           status={appointment.status}
@@ -86,6 +100,10 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           time={startTime}
         />
       </TouchableOpacity>
+
+      {showAllObservations && (
+        <AppointmentEndTime endDate={appointment.endDate} />
+      )}
       {showFooter && (
         <AppointmentCardFooter
           isBusinessOwner={isBusinessOwner}
