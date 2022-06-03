@@ -124,7 +124,7 @@ export const FeedbackModal: FC<Props> = ({
 
         <Stack mt={30} spacing={theme.spacing.md} direction='row'>
           <Button
-            title='Cerrar'
+            title='No quiero opinar'
             onPress={closeCallback}
             variant='text'
             titleStyle={{ color: theme.colors.primary }}
