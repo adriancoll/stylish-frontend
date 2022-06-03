@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import { BusinessState } from '../../store/features/business/businessSlice'
 import { UserState } from '../../store/features/user/userSlice'
+import { useTokenValidation } from '../../hooks/useTokenValidation'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -30,6 +31,9 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
   const { isBusiness, user } = useSelector<RootState, UserState>(
     (state) => state.user
   )
+
+  const { isLoading, isValid } = useTokenValidation()
+
 
   return (
     <Animatable.View
@@ -71,7 +75,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
             />
             <Location lat={business.latitude} lng={business.longitude} />
           </ScrollView>
-          {!isBusiness && <BookAppointmentButton disabled={isEmpty(user)} business={business} />}
+          {!isBusiness && <BookAppointmentButton disabled={isEmpty(user) || isLoading || !isValid} business={business} />}
         </Animatable.View>
       )}
     </Animatable.View>

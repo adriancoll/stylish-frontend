@@ -29,7 +29,6 @@ const deleteData = async (key: string) => await AsyncStorage.removeItem(key)
 const clearAllData = async () => {
   try {
     let keys = await AsyncStorage.getAllKeys()
-    console.log(`Keys: ${keys}`)
     await AsyncStorage.multiRemove(keys)
     await AsyncStorage.clear()
   } catch (error) {
