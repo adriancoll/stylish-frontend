@@ -44,7 +44,7 @@ export default function WelcomeScreen() {
             marginBottom: theme.spacing.md,
             color: colors.text,
           }}>
-          Descubre la belleza en tu ciudad asd
+          Descubre la belleza en tu ciudad
         </Text>
         <Text
           style={{
