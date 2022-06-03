@@ -6,7 +6,7 @@ import { clearAllData, getData } from '../utils/asyncStorage'
 
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Welcome'>
 
-export const useTokenValidation = () => {
+export const useTokenValidation = (redirect = true) => {
   const [token, setToken] = useState(null)
   const [isValid, setIsValid] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +35,9 @@ export const useTokenValidation = () => {
           return
         }
 
-        navigator.dispatch(StackActions.replace('Main'))
+        if (redirect) {
+          navigator.dispatch(StackActions.replace('Main'))
+        }
         
         setToken(token)
         setIsValid(true)

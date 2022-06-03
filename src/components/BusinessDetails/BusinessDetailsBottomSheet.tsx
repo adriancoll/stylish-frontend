@@ -4,17 +4,15 @@ import * as Animatable from 'react-native-animatable'
 import theme from '../../theme/theme'
 import { Business } from '../../interfaces/business.interface'
 import { useTheme } from '@react-navigation/native'
-import { DELAY } from '../../constants/animations'
 import Description from './BottomComponents/Description'
 import Reviews from './BottomComponents/Reviews'
 import Location from './BottomComponents/Location'
 import BookAppointmentButton from './BottomComponents/BookAppointmentButton'
-import { isEmpty, transform } from 'lodash'
+import { isEmpty } from 'lodash'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Services } from './BottomComponents/Services'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
-import { BusinessState } from '../../store/features/business/businessSlice'
 import { UserState } from '../../store/features/user/userSlice'
 import { useTokenValidation } from '../../hooks/useTokenValidation'
 
@@ -32,7 +30,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
     (state) => state.user
   )
 
-  const { isLoading, isValid } = useTokenValidation()
+  const { isLoading, isValid } = useTokenValidation(false)
 
 
   return (
