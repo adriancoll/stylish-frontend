@@ -99,7 +99,7 @@ const CompleteAppointmentButton: FC<Props> = ({ disabled, appointment }) => {
     <>
       <FeedbackModal
         confirmCallback={confirmAppointment}
-        closeCallback={confirmAppointment}
+        closeCallback={forceCloseModal}
         setStars={setStars}
         isVisible={showFeedbackModal}
         name={appointment.business.name}

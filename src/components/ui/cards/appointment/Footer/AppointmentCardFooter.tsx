@@ -58,14 +58,6 @@ export const AppointmentCardFooter: FC<Props> = ({
         toggleModal={toggleModal}
         confirmCallback={handleDelete}
       />
-      {/* 
-      <FeedBackModal
-        isVisible={openConfirmModal}
-        subtitle={'Una vez cancelada la cita no habrá vuelta atras.'}
-        title='¿Estás seguro/a?'
-        toggleModal={toggleModal}
-        confirmCallback={handleDelete}
-      /> */}
 
       <Button
         variant='text'
