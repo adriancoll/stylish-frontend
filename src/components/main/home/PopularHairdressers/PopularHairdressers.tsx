@@ -33,16 +33,6 @@ const { width, height } = Dimensions.get('screen')
 interface Props {}
 
 export const PopularHairdressers: FC<Props> = () => {
-  const data = [
-    {
-      key: 1,
-      title: 'Peluqueria 1',
-      image: 'https://picsum.photos/200',
-      rating: 4.5,
-      subtitle: 'Ciudad de México',
-    },
-  ]
-
   const { popularBusiness } = useSelector<RootState, BusinessState>(
     (state) => state.business
   )
