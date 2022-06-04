@@ -95,7 +95,6 @@ export const completeAppointmentAction = (uid: string) => {
     try {
       const data = await AppointmentsAPI.completeAppointment(uid)
       store.dispatch(completeAppointment(data.results.appointment))
-      console.log('ABOUT TO DISPTACH')
       resolve(data?.results?.appointment)
     } catch (error) {
       console.log('error F')

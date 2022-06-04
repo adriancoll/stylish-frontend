@@ -11,7 +11,7 @@ import {
 import Tooltip from 'react-native-walkthrough-tooltip'
 import * as Animatable from 'react-native-animatable'
 import { FeedbackModal } from '../../../../modals/FeedbackModal'
-import { storeFeedbackAction } from '../../../../../../store/features/business/businessActions'
+import { getPopularBusiness, storeFeedbackAction } from '../../../../../../store/features/business/businessActions'
 
 interface Props {
   disabled: boolean

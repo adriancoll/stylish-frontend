@@ -9,7 +9,6 @@ import { AppointmentsState } from '../../../../store/features/appointments/appoi
 import { isEmpty } from 'lodash'
 import { EmptyView } from './EmptyView'
 
-
 export default function NextAppointmentBox() {
   const [loading, setLoading] = useState(false)
 
@@ -25,11 +24,11 @@ export default function NextAppointmentBox() {
       .finally(() => setLoading(false))
   }, [])
 
-
   return (
     <BaseInfoContainer title='Próxima cita'>
       {nextAppointment && !isEmpty(nextAppointment) ? (
         <AppointmentCard
+          showAllObservations={false}
           appointment={nextAppointment}
         />
       ) : (

@@ -102,6 +102,7 @@ export const storeFeedbackAction = (
   return new Promise<Business>(async (resolve, reject) => {
     try {
       const data = await BusinessAPI.storeFeedback(uid, payload)
+      await getPopularBusiness()
 
       if (data.error) {
         reject(data.error)
