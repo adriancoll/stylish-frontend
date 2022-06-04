@@ -37,7 +37,6 @@ export const PopularHairdressBox = ({
 }: Props) => {
   const { colors } = useTheme()
   const isDark = useColorScheme() === 'dark'
-  const { width, height } = useWindowDimensions()
   const navigator = useNavigation<homeScreenType>()
 
   return (

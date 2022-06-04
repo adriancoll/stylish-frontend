@@ -6,7 +6,7 @@ import moment, { Moment } from 'moment'
 import * as Animatable from 'react-native-animatable'
 
 interface Props {
-    endDate: string | Date | Moment
+  endDate: string | Date | Moment
 }
 
 const AppointmentEndTime: FC<Props> = ({ endDate }) => {
@@ -27,11 +27,10 @@ const AppointmentEndTime: FC<Props> = ({ endDate }) => {
           color: theme.colors.text_muted,
           fontFamily: theme.fonts.regular,
         }}>
-        Hora de salida{' '}
+        Hora de finalización{' '}
         <Text style={{ fontFamily: theme.fonts.bold }}>
-          {moment(endDate).format('HH:MM')}
+          {moment(endDate).format('HH:MM')} 
         </Text>{' '}
-        aproximadamente
       </Text>
     </Animatable.View>
   )

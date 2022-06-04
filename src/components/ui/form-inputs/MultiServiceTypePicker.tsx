@@ -91,10 +91,12 @@ export const MultiServiceTypePicker: FC<Props> = ({
               onSelectedItemsChange={(selectedItems) => {
                 setSelected(selectedItems)
                 onChange(selectedItems)
-                console.log(selectedItems)
               }}
               selectedItems={selected}
               selectText='Selecciona los servicios'
+              styleListContainer={{
+                marginHorizontal: theme.spacing.md,
+              }}
               searchInputPlaceholderText='Buscar...'
               onChangeInput={(text) => console.log(text)}
               altFontFamily={theme.fonts.regular}
@@ -104,38 +106,39 @@ export const MultiServiceTypePicker: FC<Props> = ({
               styleDropdownMenuSubsection={{
                 backgroundColor: colors.background,
                 width: '100%',
-
                 borderColor: '#e8e8e8',
                 borderWidth: 1,
                 borderRadius: theme.borderRadius.md,
                 height: 50,
-
                 padding: theme.spacing.lg,
-                marginVertical: theme.spacing.sm,
               }}
               styleInputGroup={[
                 {
                   backgroundColor: colors.background,
                   width: '100%',
-
                   borderColor: '#e8e8e8',
                   borderWidth: 1,
                   borderRadius: theme.borderRadius.md,
                   height: 50,
-
                   paddingHorizontal: theme.spacing.lg,
                   borderBottomEndRadius: 0,
                   borderBottomLeftRadius: 0,
                 },
               ]}
-              
-              searchIcon={<EvilIcons name='search' size={24} color='black' />}
+              textInputProps={{
+                style: {
+                  fontSize: theme.fontSizes.body,
+                  color: colors.text,
+                  flex: 1,
+                  fontFamily: theme.fonts.regular,
+                },
+              }}
+              searchIcon={<EvilIcons name='search' size={24} color={colors.text} />}
               tagTextColor={colors.text}
               selectedItemTextColor='#CCC'
-              selectedItemIconColor={theme.colors.success}
+              selectedItemIconColor={theme.colors.primary}
               itemTextColor={theme.colors.black}
               displayKey='name'
-              searchInputStyle={{ color: '#CCC' }}
               submitButtonColor={colors.primary}
               submitButtonText='Guardar'
             />

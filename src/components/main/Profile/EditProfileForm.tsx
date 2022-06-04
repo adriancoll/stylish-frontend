@@ -83,6 +83,7 @@ export const EditProfileForm: FC<Props> = ({ user }) => {
       }, 2000)
     } catch (err) {
       const error = err as AxiosError<BaseErrorResponse>
+      console.log(error)
       setIsLoading(false)
 
       if (!isEmpty(error?.response?.data?.errors)) {

@@ -26,6 +26,7 @@ import { UserState } from '../../../../store/features/user/userSlice'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import AppointmentObservations from './Body/AppointmentObservations'
 import AppointmentEndTime from './Body/AppointmentEndTime'
+import { isEmpty } from 'lodash'
 
 const { width } = Dimensions.get('screen')
 
@@ -52,7 +53,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   }
 
   const startDate = moment(appointment.date).format('L')
-  const startTime = moment(appointment.date).format('hh:mm a')
+  const startTime = moment(appointment.date).format('HH:MM a')
   const fromNow = moment(appointment.date).fromNow()
 
   const { user } = useSelector<RootState, UserState>((state) => state.user)
@@ -89,10 +90,15 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           colors={colors}
           subtitle={appointment.service_type.name}
         />
-        <AppointmentObservations
-          observations={appointment.observations}
-          showAll={showAllObservations}
-        />
+        
+        {!isEmpty(appointment.observations) &&
+          appointment.observations.length > 0 && (
+            <AppointmentObservations
+              observations={appointment.observations}
+              showAll={showAllObservations}
+            />
+          )}
+
         <Divider style={[styles.divider]} color={colors.border} />
         <AppointmentCardBody
           status={appointment.status}

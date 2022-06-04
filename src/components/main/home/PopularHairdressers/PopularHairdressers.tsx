@@ -33,7 +33,7 @@ const { width, height } = Dimensions.get('screen')
 interface Props {}
 
 export const PopularHairdressers: FC<Props> = () => {
-  const { popularBusiness } = useSelector<RootState, BusinessState>(
+   const { popularBusiness } = useSelector<RootState, BusinessState>(
     (state) => state.business
   )
 
@@ -87,6 +87,7 @@ export const PopularHairdressers: FC<Props> = () => {
                 onRefresh={handleRefresh}
               />
             }
+            
             data={popularBusiness}
             numColumns={2}
             keyExtractor={(business: Business) => business.uid}

@@ -17,26 +17,29 @@ interface Props {
   appointments: Appointment[]
 }
 
+export const handleRefreshTabs = async () => {
+  try {
+    await getMyAppointments()
+  } catch (err) {
+    const error = err as AxiosError<BaseErrorResponse>
+    if (error.response && error.response.data.error) {
+      ToastAndroid.show(error.response?.data.message, ToastAndroid.LONG)
+    }
+  }
+}
+
+
 const AppointmentList: FC<Props> = ({ appointments }) => {
   const [isLoading, setisLoading] = useState(false)
 
-  const handleRefresh = async () => {
-    try {
-      await getMyAppointments()
-    } catch (err) {
-      const error = err as AxiosError<BaseErrorResponse>
-      if (error.response && error.response.data.error) {
-        ToastAndroid.show(error.response?.data.message, ToastAndroid.LONG)
-      }
-    }
-  }
+
   return (
     <ScrollView
       refreshControl={
         <RefreshControl
           colors={[theme.colors.primary, theme.colors.grey]}
           refreshing={isLoading}
-          onRefresh={handleRefresh}
+          onRefresh={handleRefreshTabs}
         />
       }
       showsVerticalScrollIndicator={false}>
