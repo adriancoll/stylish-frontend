@@ -17,17 +17,15 @@ import { BusinessState } from '../../../store/features/business/businessSlice'
 import { Ionicons } from '@expo/vector-icons'
 import { DELAY } from '../../../constants/animations'
 import * as Animated from 'react-native-animatable'
-import FloatingNote from '../../ui/floating-note/FloatingNote'
-import { useFloatingNoteReminder } from '../../../hooks/useFloatingNoteReminder'
 
 interface Props {
   name: string
   uri: string
   isBusiness: boolean
+  isAdmin: boolean
 }
 
-const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
-
+const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false, isAdmin = false }) => {
   const { colors } = useTheme()
 
   const { myBusiness } = useSelector<RootState, BusinessState>(
@@ -74,6 +72,20 @@ const HomeHeader: FC<Props> = ({ name, uri, isBusiness = false }) => {
               color={colors.primary}
             />
             <Text style={[styles.subtitle]}>Cuenta de empresa</Text>
+          </Animated.View>
+        )}
+        {isAdmin && (
+          <Animated.View
+            animation={'bounceIn'}
+            delay={DELAY}
+            style={{ flexDirection: 'row', opacity: 0.2 }}>
+            <Ionicons
+              style={{ marginRight: theme.spacing.sm }}
+              name='ios-cut'
+              size={theme.iconSize.xs}
+              color={colors.primary}
+            />
+            <Text style={[styles.subtitle]}>Cuenta de administrador</Text>
           </Animated.View>
         )}
       </View>

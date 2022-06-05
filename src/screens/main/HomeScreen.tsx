@@ -16,6 +16,7 @@ import theme from '../../theme/theme'
 import { SharedElement } from 'react-navigation-shared-element'
 import { useFloatingNoteReminder } from '../../hooks/useFloatingNoteReminder'
 import FloatingNote from '../../components/ui/floating-note/FloatingNote'
+import { USER_ROLES } from '../../interfaces/user.interface'
 
 const { height } = Dimensions.get('window')
 type authScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
@@ -29,6 +30,8 @@ export default function HomeScreen() {
   const { user, isBusiness } = useSelector<RootState, UserState>(
     (state) => state.user
   )
+
+  const isAdmin = user.role === USER_ROLES.ADMIN_ROLE
 
   const handleRefresh = async () => {
     await Promise.all([getPopularBusiness(), getNextAppointment()])
@@ -46,7 +49,12 @@ export default function HomeScreen() {
           { paddingTop: show ? height * 0.08 : theme.spacing.lg },
         ]}>
         {show && <FloatingNote hide={hide} />}
-        <HomeHeader isBusiness={isBusiness} uri={user.image} name={user.name} />
+        <HomeHeader
+          isBusiness={isBusiness}
+          isAdmin={isAdmin}
+          uri={user.image}
+          name={user.name}
+        />
         <NextAppointmentBox />
         <PopularHairdressers />
       </SafeAreaView>
