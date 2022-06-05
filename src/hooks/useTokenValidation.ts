@@ -1,6 +1,7 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useEffect, useState } from 'react'
+import { ToastAndroid } from 'react-native'
 import { refreshToken } from '../api/auth'
 import { clearAllData, getData } from '../utils/asyncStorage'
 
@@ -32,13 +33,15 @@ export const useTokenValidation = (redirect = true) => {
         if (!validToken) {
           setIsLoading(false)
           setIsValid(false)
+          ToastAndroid.show('Tu sesión ha caducado.', ToastAndroid.SHORT)
+          navigator.dispatch(StackActions.replace('Welcome'))
           return
         }
 
         if (redirect) {
           navigator.dispatch(StackActions.replace('Main'))
         }
-        
+
         setToken(token)
         setIsValid(true)
       } catch (error) {
