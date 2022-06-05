@@ -78,7 +78,3 @@ Para subir una nueva versión para que se pueda ver en el Expo Client en el disp
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adri%C3%A1n-coll-su%C3%A1rez-703960227/)
 
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
