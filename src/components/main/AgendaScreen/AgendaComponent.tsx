@@ -1,5 +1,5 @@
 import { useNavigation, useTheme } from "@react-navigation/native";
-import * as Animatable from 'react-native-animatable'
+import * as Animatable from "react-native-animatable";
 import { isEmpty } from "lodash";
 import moment from "moment";
 import React, { FC, useEffect, useState } from "react";
@@ -33,6 +33,7 @@ import { UserState } from "../../../store/features/user/userSlice";
 import AnimatedLottieView from "lottie-react-native";
 import TouchableScale from "react-native-touchable-scale";
 import { DELAY } from "../../../constants/animations";
+import { AppointmentStatusPill } from "../../ui/cards/appointment/Body/AppointmentStatusPill";
 
 LocaleConfig.locales["es"] = {
   monthNames: [
@@ -125,7 +126,7 @@ const AgendaComponent: FC<Props> = ({}) => {
           data[day] = [];
         }
 
-        console.log(appointmentItem.business );
+        console.log(appointmentItem.business);
 
         data[day].push({
           name: `${moment(appointmentItem.date).format("HH:MM")} - ${
@@ -134,7 +135,9 @@ const AgendaComponent: FC<Props> = ({}) => {
             isBusiness
               ? appointmentItem.user.name
               : appointmentItem.business.name
-          }|${JSON.stringify(appointmentItem.business)}`,
+          }|${JSON.stringify(appointmentItem.business)}|${
+            appointmentItem.status
+          }`,
           height: 50,
           day,
         });
@@ -148,7 +151,8 @@ const AgendaComponent: FC<Props> = ({}) => {
     const fontSize = isFirst ? 16 : 14;
     const color = isFirst ? colors.primary : theme.colors["primary-light"];
 
-    const [title, subtitle, business] = reservation.name.split(SEPARATOR);
+    const [title, subtitle, business, status] =
+      reservation.name.split(SEPARATOR);
 
     const handleClick = () => {
       if (isBusiness) return;
@@ -164,7 +168,10 @@ const AgendaComponent: FC<Props> = ({}) => {
         onPress={handleClick}
       >
         <Text style={[styles.itemTitle, { fontSize, color }]}>{title}</Text>
-        <Text style={[styles.itemSubtitle]}>{subtitle}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <AppointmentStatusPill status={status as AppointmentStatusTypes} textColor={theme.colors.text_muted} />
+          <Text style={[styles.itemSubtitle]}>- {subtitle}</Text>
+        </View>
       </TouchableScale>
     );
   };
@@ -179,7 +186,12 @@ const AgendaComponent: FC<Props> = ({}) => {
 
   const renderEmptyData = () => {
     return (
-      <Animatable.View useNativeDriver animation={'fadeInUp'} delay={DELAY} style={styles.emptyDate}>
+      <Animatable.View
+        useNativeDriver
+        animation={"fadeInUp"}
+        delay={DELAY}
+        style={styles.emptyDate}
+      >
         <AnimatedLottieView
           source={require("../../../../assets/lotties/empty-appointments-2.json")}
           autoPlay
@@ -234,7 +246,8 @@ const AgendaComponent: FC<Props> = ({}) => {
       }}
       // enable scroll
       scrollEnabled
-      displayLoadingIndicator
+      displayLoadingIndicator={true}
+      enableSwipeMonths
       //handle row change
       rowHasChanged={rowHasChanged}
       // Initially selected day
@@ -316,5 +329,6 @@ const styles = StyleSheet.create({
   itemSubtitle: {
     fontFamily: theme.fonts.thin,
     color: theme.colors.text_muted,
+    marginLeft: theme.spacing.sm
   },
 });
