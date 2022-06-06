@@ -46,7 +46,7 @@ const Tab: FC<Props> = ({ label, active, setTab, index }) => {
           style={[
             styles.text,
             {
-              color: active ? colors.text : theme.colors.text_muted,
+              color: active ? theme.colors.white : theme.colors.text_muted,
             },
           ]}>
           {label}
