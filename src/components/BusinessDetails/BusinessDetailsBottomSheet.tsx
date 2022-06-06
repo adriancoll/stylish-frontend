@@ -40,7 +40,7 @@ const BusinessDetailsBottomSheet: FC<Props> = ({ business }) => {
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? theme.colors.black : theme.colors.white,
+          backgroundColor: isDark ? theme.colors.black : colors.background,
           height: isBusiness ? height : height * 0.75,
         },
       ]}>
