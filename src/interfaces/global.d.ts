@@ -47,7 +47,7 @@ type RootStackParamList = {
   BusinessUpdateForm: undefined
   Appointments: undefined
   Map: undefined
-  Test: undefined
+  Agenda: undefined
   Profile: undefined
 }
 

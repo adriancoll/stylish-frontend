@@ -1,62 +1,70 @@
 import {
   Dimensions,
-  Image,
   StyleSheet,
   Text,
   useColorScheme,
   View,
-} from 'react-native'
-import React, { MutableRefObject, useRef, useState } from 'react'
-import ActionSheet, { SheetManager } from 'react-native-actions-sheet'
-import { USER_ACTIONSHEET } from '../../../constants/actionsheets'
-import theme from '../../../theme/theme'
-import { AntDesign, MaterialIcons } from '@expo/vector-icons'
-import { StackActions, useNavigation, useTheme } from '@react-navigation/native'
-import { Avatar, Pressable } from '@react-native-material/core'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../store'
-import { UserState } from '../../../store/features/user/userSlice'
-import { clearAllData, deleteData } from '../../../utils/asyncStorage'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { SharedElement } from 'react-navigation-shared-element'
-import { BusinessState } from '../../../store/features/business/businessSlice'
+} from "react-native";
+import React, { useRef } from "react";
+import ActionSheet from "react-native-actions-sheet";
+import { USER_ACTIONSHEET } from "../../../constants/actionsheets";
+import theme from "../../../theme/theme";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
+import {
+  StackActions,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
+import { Avatar, Pressable } from "@react-native-material/core";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { UserState } from "../../../store/features/user/userSlice";
+import { clearAllData } from "../../../utils/asyncStorage";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { BusinessState } from "../../../store/features/business/businessSlice";
 
-const { width } = Dimensions.get('screen')
+const { width } = Dimensions.get("screen");
 
-type homeScreenProp = NativeStackNavigationProp<RootStackParamList, 'Home'>
+type homeScreenProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 const UserActionSheet = () => {
-  const navigator = useNavigation<homeScreenProp>()
-  const { colors } = useTheme()
-  const isDark = useColorScheme() === 'dark'
-  const thisSheet = useRef<any>()
+  const navigator = useNavigation<homeScreenProp>();
+  const { colors } = useTheme();
+  const isDark = useColorScheme() === "dark";
+  const thisSheet = useRef<any>();
 
   const { user, isBusiness } = useSelector<RootState, UserState>(
     (state) => state.user
-  )
+  );
 
   const { myBusiness } = useSelector<RootState, BusinessState>(
     (state) => state.business
-  )
+  );
 
   const handleLogout = async () => {
-    thisSheet.current.hide()
+    thisSheet.current.hide();
 
-    await clearAllData()
+    await clearAllData();
 
-    navigator.dispatch(StackActions.replace('Welcome'))
-  }
+    navigator.dispatch(StackActions.replace("Welcome"));
+  };
 
   const goToProfile = async () => {
-    await thisSheet.current.hide()
+    await thisSheet.current.hide();
 
-    navigator.navigate('Profile')
-  }
+    navigator.navigate("Profile");
+  };
 
   const goToBusinessProfile = async () => {
-    await thisSheet.current.hide()
+    await thisSheet.current.hide();
 
-    navigator.navigate('BusinessUpdateForm')
+    navigator.navigate("BusinessUpdateForm");
+  };
+
+  const handleAgenda = async () => {
+    await thisSheet.current.hide();
+
+    navigator.navigate('Agenda')
   }
 
   return (
@@ -71,7 +79,8 @@ const UserActionSheet = () => {
       containerStyle={{
         ...styles.container,
         backgroundColor: isDark ? theme.colors.black : theme.colors.white,
-      }}>
+      }}
+    >
       <Pressable onPress={goToProfile}>
         <View style={[styles.item]}>
           <View style={[styles.iconContainer]}>
@@ -104,36 +113,53 @@ const UserActionSheet = () => {
         </Pressable>
       )}
 
+      <Pressable onPress={handleAgenda}>
+        <View style={[styles.item, styles.logout]}>
+          <View style={[styles.iconContainer]}>
+            <Feather
+              name="calendar"
+              size={theme.iconSize.md}
+              color={colors.primary}
+              style={[styles.icon]}
+            />
+          </View>
+          <Text style={[styles.title, { color: colors.text }]}>
+            Mi Agenda
+          </Text>
+        </View>
+      </Pressable>
+
       <Pressable onPress={handleLogout}>
         <View style={[styles.item, styles.logout]}>
           <View style={[styles.iconContainer]}>
             <MaterialIcons
-              name='logout'
+              name="logout"
               size={theme.iconSize.md}
               color={theme.colors.error}
               style={[styles.icon]}
             />
+            
           </View>
-          <Text style={[styles.title, { color: 'lightcoral' }]}>
+          <Text style={[styles.title, { color: "lightcoral" }]}>
             Cerrar sesión
           </Text>
         </View>
       </Pressable>
     </ActionSheet>
-  )
-}
+  );
+};
 
-export default UserActionSheet
+export default UserActionSheet;
 
 const styles = StyleSheet.create({
   container: {},
   indicator: {},
   item: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: theme.spacing.lg,
     paddingVertical: theme.spacing.sm,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: theme.fontSizes.subHeading,
@@ -146,8 +172,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: width * 0.2,
     height: width * 0.15,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: theme.spacing.sm,
   },
   logout: {
@@ -159,4 +185,5 @@ const styles = StyleSheet.create({
     height: theme.iconSize.xl * 1.3,
     borderRadius: 100,
   },
-})
+});
+  

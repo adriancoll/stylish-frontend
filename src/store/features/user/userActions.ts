@@ -6,7 +6,6 @@ import {
   MyAppointments,
 } from '../../../interfaces/appointment.interfaces'
 import {
-  Business,
   RegisterUserPayload,
   User,
 } from '../../../interfaces/user.interface'
