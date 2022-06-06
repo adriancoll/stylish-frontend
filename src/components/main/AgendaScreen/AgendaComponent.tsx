@@ -126,7 +126,6 @@ const AgendaComponent: FC<Props> = ({}) => {
           data[day] = [];
         }
 
-        console.log(appointmentItem.business);
 
         data[day].push({
           name: `${moment(appointmentItem.date).format("HH:MM")} - ${
