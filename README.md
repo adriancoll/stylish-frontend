@@ -59,10 +59,10 @@ Para subir una nueva versión para que se pueda ver en el Expo Client en el disp
 ## Estructura del proyecto
 
 - `assets` Imágenes, tipografías y archivos estáticos que utiliza la aplicación.
-- `app.js` Archivo de configuración para Expo
+- `app.json` Archivo de configuración para Expo
 - `.env` Archivo de variables de entorno
 - `App.tsx` Componente de entrada a la APP
-- `src` Archivos de React
+- `src` Archivos de React Native
   - `components` Componentes principales y genéricos de la aplicación.
   - `helpers y utils` Utilidades adicionales para dar formato o validar información.
   - `screens` Pantallas utilizadas a lo largo de la aplicación.

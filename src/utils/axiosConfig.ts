@@ -4,6 +4,7 @@ import {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios'
+import { Alert } from 'react-native'
 import { getData } from './asyncStorage'
 
 const onRequest = async (config: AxiosRequestConfig) => {

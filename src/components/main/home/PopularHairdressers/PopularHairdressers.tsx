@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   flatList: {
-    height: height * 0.45,
+    height: height * 0.4,
   },
   columnWrapper: {
     justifyContent: 'space-between',

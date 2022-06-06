@@ -91,7 +91,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           subtitle={appointment.service_type.name}
         />
         
-        {!isEmpty(appointment.observations) &&
+        {!isEmpty(appointment.observations) && showAllObservations &&
           appointment.observations.length > 0 && (
             <AppointmentObservations
               observations={appointment.observations}
