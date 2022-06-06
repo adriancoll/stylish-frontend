@@ -81,6 +81,8 @@ export const confirmAppointmentAction = (uid: string) => {
   return new Promise<Appointment>(async (resolve, reject) => {
     try {
       const data = await AppointmentsAPI.confirmAppointment(uid)
+      await getNextAppointment()
+      await getMyAppointments()
       console.log(data)
       store.dispatch(confirmAppointment(data.results.appointment))
       resolve(data?.results?.appointment)

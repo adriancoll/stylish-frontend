@@ -19,7 +19,6 @@ const ConfirmAppointmentButton: FC<Props> = ({ uid }) => {
     try {
       setIsLoading(true)
       await confirmAppointmentAction(uid)
-      await getNextAppointment()
       setIsLoading(false)
     } catch (ex) {
       const error = ex as AxiosError<BaseErrorResponse>

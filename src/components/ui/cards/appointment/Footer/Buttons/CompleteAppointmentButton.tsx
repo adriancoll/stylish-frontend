@@ -74,7 +74,7 @@ const CompleteAppointmentButton: FC<Props> = ({ disabled, appointment }) => {
           <Animatable.Text
             animation='fadeIn'
             style={[styles.button, { color: colors.text }]}>
-            ¡No puedes confirmar hasta que no haya llegado la hora de la cita!
+            ¡No puedes completar hasta que no haya llegado la hora de la cita!
           </Animatable.Text>
         }
         placement='top'
