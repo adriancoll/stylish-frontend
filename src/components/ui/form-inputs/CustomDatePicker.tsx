@@ -40,7 +40,9 @@ const CustomDatePicker: FC<Props> = ({ name, control, setShowPicker }) => {
           <RNDateTimePicker
             themeVariant={isDark ? 'dark' : 'light'}
             locale='es-ES'
+            timeZoneOffsetInMinutes={+2}
             onChange={(event, date) => {
+              console.log(date)
               if (mode === 'date') {
                 if (event.type === 'dismissed') {
                   return setShowPicker(false)
@@ -53,10 +55,12 @@ const CustomDatePicker: FC<Props> = ({ name, control, setShowPicker }) => {
                 }
 
                 if (date !== undefined) {
-                  const newDate = moment(finalDate)
+                  console.log(date);
+                  const newDate = finalDate
                     .set({
-                      hour: date.getHours(),
-                      minute: date.getMinutes(),
+                      hours: date.getHours(),
+                      minutes: date.getMinutes(),
+                      seconds: date.getSeconds(),
                     })
                     .toDate()
 

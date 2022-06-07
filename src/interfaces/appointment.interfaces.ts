@@ -33,7 +33,7 @@ export interface Appointment {
   service_type: ServiceType
   observations: string
   date: Date
-  endDate: Date
+  end_date: Date
   status: AppointmentStatusTypes | AppointmentStatus
   createdAt: Date
   updatedAt: Date

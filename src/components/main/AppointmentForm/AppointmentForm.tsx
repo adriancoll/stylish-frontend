@@ -49,6 +49,7 @@ const AppointmentForm: FC<Props> = ({ business }) => {
     try {
       setIsLoading(true)
 
+
       const payload = {
         ...data,
         business: business.uid,

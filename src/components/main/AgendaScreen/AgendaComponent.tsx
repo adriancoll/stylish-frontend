@@ -4,11 +4,9 @@ import { isEmpty } from "lodash";
 import moment from "moment";
 import React, { FC, useEffect, useState } from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   RefreshControl,
   useColorScheme,
   ToastAndroid,
@@ -244,10 +242,6 @@ const AgendaComponent: FC<Props> = ({}) => {
       enableSwipeMonths
       showOnlySelectedDayItems={false}
       hideExtraDays={false}
-      loadItemsForMonth={(month) => {
-        console.log(month);
-      }}
-      markingType="multi-dot"
       // Max amount of months allowed to scroll to the past. Default = 50
       pastScrollRange={24}
       // Max amount of months allowed to scroll to the future. Default = 50

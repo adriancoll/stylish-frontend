@@ -10,6 +10,7 @@ interface Props {
 }
 
 const AppointmentEndTime: FC<Props> = ({ endDate }) => {
+console.log(endDate)
   return (
     <Animatable.View
       style={{

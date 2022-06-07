@@ -64,6 +64,8 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
 
   const isBusinessOwner = user.uid === appointment.business.user.uid
 
+  console.log(moment(appointment.date).get('hour'))
+
   return (
     <Animatable.View
       animation={'fadeInLeft'}
@@ -90,8 +92,9 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
           colors={colors}
           subtitle={appointment.service_type.name}
         />
-        
-        {!isEmpty(appointment.observations) && showAllObservations &&
+
+        {!isEmpty(appointment.observations) &&
+          showAllObservations &&
           appointment.observations.length > 0 && (
             <AppointmentObservations
               observations={appointment.observations}
@@ -108,7 +111,7 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
       </TouchableOpacity>
 
       {showAllObservations && (
-        <AppointmentEndTime endDate={appointment.endDate} />
+        <AppointmentEndTime endDate={moment(appointment.end_date).toDate()} />
       )}
       {showFooter && (
         <AppointmentCardFooter
