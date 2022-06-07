@@ -10,7 +10,6 @@ interface Props {
 }
 
 const AppointmentEndTime: FC<Props> = ({ endDate }) => {
-console.log(endDate)
   return (
     <Animatable.View
       style={{
@@ -30,7 +29,7 @@ console.log(endDate)
         }}>
         Hora de finalización{' '}
         <Text style={{ fontFamily: theme.fonts.bold }}>
-          {moment(endDate).format('HH:MM')} 
+          {moment(endDate).format('HH:mm')} 
         </Text>{' '}
       </Text>
     </Animatable.View>

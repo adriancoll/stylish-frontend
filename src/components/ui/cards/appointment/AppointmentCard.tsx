@@ -53,8 +53,10 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
   }
 
   const startDate = moment(appointment.date).format('L')
-  const startTime = moment(appointment.date).format('HH:MM a')
+  const startTime = moment(appointment.date).format('HH:mm a')
   const fromNow = moment(appointment.date).fromNow()
+
+  console.log(startTime, appointment.date)
 
   const { user } = useSelector<RootState, UserState>((state) => state.user)
 
@@ -63,8 +65,6 @@ export const AppointmentCard: FC<AppointmentCardProps> = ({
     appointment.status === AppointmentStatus.CONFIRMED
 
   const isBusinessOwner = user.uid === appointment.business.user.uid
-
-  console.log(moment(appointment.date).get('hour'))
 
   return (
     <Animatable.View
