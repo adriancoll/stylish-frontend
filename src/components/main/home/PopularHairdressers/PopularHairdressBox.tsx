@@ -148,5 +148,7 @@ const styles = StyleSheet.create({
     width: theme.iconSize.xl * 2,
     height: theme.iconSize.xl * 2,
     borderRadius: 100,
+    resizeMode: 'cover',
+    aspectRatio: 1,
   },
 })

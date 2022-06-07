@@ -29,6 +29,7 @@ export const Services: FC<Props> = ({ business }) => {
           <FlatList
             horizontal
             key={'services'}
+            showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.uid}
             data={business.service_types}
             renderItem={({ item }) => (

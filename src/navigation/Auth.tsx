@@ -102,7 +102,8 @@ export const AuthNavigation = () => {
             name="BusinessDetails"
             sharedElements={(route, otherRoute, showing) => {
               const { business } = route.params;
-              const items = ["image", "name", "employees"].map(
+              console.log(business)
+              const items = ["image"].map(
                 (item) => `business.${business.uid}.${item}`
               );
 

@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import React, { FC, useEffect } from 'react'
 import { SharedElement } from 'react-navigation-shared-element'
-import { Business } from '../../interfaces/user.interface'
+import { Business } from '../../interfaces/business.interface'
 import theme from '../../theme/theme'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useTheme } from '@react-navigation/native'
@@ -176,6 +176,8 @@ const styles = StyleSheet.create({
     height: theme.iconSize.xl * 2.2,
     borderRadius: 100,
     marginBottom: theme.spacing.md,
+    resizeMode: 'cover',
+    aspectRatio: 1,
   },
   text: {
     fontSize: theme.fontSizes.heading,

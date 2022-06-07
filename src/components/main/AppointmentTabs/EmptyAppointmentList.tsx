@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Dimensions, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, RefreshControl, ToastAndroid } from 'react-native'
 import React, { FC, useState } from 'react'
 import AnimatedLottieView from 'lottie-react-native'
 import { useTheme } from '@react-navigation/native'
 import theme from '../../../theme/theme'
 import * as Animated from 'react-native-animatable'
 import { ScrollView } from 'react-native-gesture-handler'
-import { handleRefreshTabs } from './AppointmentList'
+import { AxiosError } from 'axios'
+import { getMyAppointments } from '../../../store/features/appointments/appointmentActions'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -16,6 +17,19 @@ interface Props {
 const EmptyAppointmentList: FC<Props> = ({ label }) => {
   const { colors } = useTheme()
   const [isLoading, setisLoading] = useState<boolean>(false)
+
+  const handleRefreshTabs = async () => {
+    try {
+      setisLoading(true)
+      await getMyAppointments();
+      setisLoading(false)
+    } catch (err) {
+      const error = err as AxiosError<BaseErrorResponse>;
+      if (error.response && error.response.data.error) {
+        ToastAndroid.show(error.response?.data.message, ToastAndroid.LONG);
+      }
+    }
+  };
 
   return (
     <ScrollView

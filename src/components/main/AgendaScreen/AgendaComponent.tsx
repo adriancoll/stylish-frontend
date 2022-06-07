@@ -126,7 +126,6 @@ const AgendaComponent: FC<Props> = ({}) => {
           data[day] = [];
         }
 
-
         data[day].push({
           name: `${moment(appointmentItem.date).format("HH:MM")} - ${
             appointmentItem.service_type.name
@@ -163,12 +162,15 @@ const AgendaComponent: FC<Props> = ({}) => {
 
     return (
       <TouchableScale
-        style={[styles.item, { height: reservation.height }]}
+        style={[styles.item, { height: reservation.height || 50 }]}
         onPress={handleClick}
       >
         <Text style={[styles.itemTitle, { fontSize, color }]}>{title}</Text>
         <View style={{ flexDirection: "row" }}>
-          <AppointmentStatusPill status={status as AppointmentStatusTypes} textColor={theme.colors.text_muted} />
+          <AppointmentStatusPill
+            status={status as AppointmentStatusTypes}
+            textColor={theme.colors.text_muted}
+          />
           <Text style={[styles.itemSubtitle]}>- {subtitle}</Text>
         </View>
       </TouchableScale>
@@ -232,30 +234,30 @@ const AgendaComponent: FC<Props> = ({}) => {
       // the value of date key has to be an empty array []. If there exists no value for date key it is
       // considered that the date in question is not yet loaded
       items={parsedAppointments}
-      // arrows
-      hideArrows={false}
-      renderArrow={(direction) => {
-        return (
-          <EvilIcons
-            name={`chevron-${direction}`}
-            size={30}
-            color={colors.text}
-          />
-        );
-      }}
-      // enable scroll
-      scrollEnabled
+      scrollEnabled={true}
+      initialNumToRender={10}
+      maxToRenderPerBatch={5}
+      updateCellsBatchingPeriod={30}
+      removeClippedSubviews={false}
+      onEndReachedThreshold={0.1}
       displayLoadingIndicator={true}
       enableSwipeMonths
+      showOnlySelectedDayItems={false}
+      hideExtraDays={false}
+      loadItemsForMonth={(month) => {
+        console.log(month);
+      }}
+      markingType="multi-dot"
+      // Max amount of months allowed to scroll to the past. Default = 50
+      pastScrollRange={24}
+      // Max amount of months allowed to scroll to the future. Default = 50
+      futureScrollRange={50}
       //handle row change
       rowHasChanged={rowHasChanged}
       // Initially selected day
       selected={today}
       showClosingKnob={true}
       // Max amount of months allowed to scroll to the past. Default = 50
-      pastScrollRange={50}
-      // Max amount of months allowed to scroll to the future. Default = 50
-      futureScrollRange={50}
       // Specify how each item should be rendered in agenda
       renderItem={renderItem}
       // Specify how empty date content with no items should be rendered
@@ -276,6 +278,7 @@ const AgendaComponent: FC<Props> = ({}) => {
           onRefresh={onRefresh}
         />
       }
+      
       // Agenda theme
       theme={{
         agendaDayTextColor: colors.text,
@@ -291,9 +294,12 @@ const AgendaComponent: FC<Props> = ({}) => {
         monthTextColor: theme.colors.white,
         dotColor: theme.colors.primary,
         selectedDayBackgroundColor: theme.colors["primary-light"],
+        textInactiveColor: theme.colors.text_muted,
+        textMonthFontSize: 16,
+        textMonthFontWeight: "bold",
       }}
       // Agenda container style
-      style={[styles.constianer]}
+      style={[styles.container]}
     />
   );
 };
@@ -301,8 +307,9 @@ const AgendaComponent: FC<Props> = ({}) => {
 export default AgendaComponent;
 
 const styles = StyleSheet.create({
-  constianer: {
+  container: {
     backgroundColor: "red",
+    height,
   },
   item: {
     backgroundColor: "white",
@@ -324,10 +331,11 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     fontFamily: theme.fonts.bold,
+    marginBottom: 2,
   },
   itemSubtitle: {
     fontFamily: theme.fonts.thin,
     color: theme.colors.text_muted,
-    marginLeft: theme.spacing.sm
+    marginLeft: theme.spacing.sm,
   },
 });
