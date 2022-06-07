@@ -279,7 +279,7 @@ const AgendaComponent: FC<Props> = ({}) => {
         agendaDayNumColor: theme.colors.text_muted,
         agendaTodayColor: theme.colors["primary-light"],
         agendaKnobColor: theme.colors.primary,
-        backgroundColor: isDark ? theme.colors.black : theme.colors.white,
+        backgroundColor: isDark ? theme.colors.black : theme.colors.background,
         textDayFontFamily: theme.fonts.regular,
         textMonthFontFamily: theme.fonts.regular,
         todayButtonFontFamily: theme.fonts.regular,
